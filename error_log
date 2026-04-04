@@ -1,0 +1,2297 @@
+[13-Mar-2026 23:23:35 Asia/Jakarta] Failed to load homepage data: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'konp3895_nora.cms_page_sections' doesn't exist
+[14-Mar-2026 17:27:36 Asia/Jakarta] === REGISTRASI PAGINATION (SERVER-SIDE) ===
+[14-Mar-2026 17:27:36 Asia/Jakarta] Page: 1, PerPage: 20
+[14-Mar-2026 17:27:36 Asia/Jakarta] Search: '', Status: '', Layanan: '', Flag: ''
+[14-Mar-2026 17:27:36 Asia/Jakarta] Total count: 42, Total pages: 3
+[14-Mar-2026 17:27:36 Asia/Jakarta] Offset: 0
+[14-Mar-2026 17:27:36 Asia/Jakarta] Retrieved 20 items
+[14-Mar-2026 17:27:36 Asia/Jakarta] Final registrasiWithFlags count: 20
+[14-Mar-2026 17:27:37 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:27:37 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:27:37 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:27:38 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:27:38 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:27:38 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:27:38 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:27:38 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:27:38 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:27:38 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1773484040
+    [ip_address] => 2404:c0:ab01:d9e4:a4ec:960d:6e07:4152
+    [user_agent] => Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+    [session_hash] => 93e0adef46ccfad32af15a92dec24074353dfde390c351482188c59472794d18
+    [last_activity] => 1773484058
+)
+
+[14-Mar-2026 17:27:38 Asia/Jakarta] CMS Editor: auth object=AuthController
+[14-Mar-2026 17:27:38 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[14-Mar-2026 17:27:40 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:27:40 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:27:40 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:27:40 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:27:40 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:27:40 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:28:05 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:28:05 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:28:05 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:28:06 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:28:06 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:28:06 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:28:07 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:28:07 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:28:07 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:28:07 Asia/Jakarta] requireAuth called
+[14-Mar-2026 17:28:07 Asia/Jakarta] isLoggedIn: YES
+[14-Mar-2026 17:28:07 Asia/Jakarta] requireAuth: OK
+[14-Mar-2026 17:28:07 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1773484040
+    [ip_address] => 2404:c0:ab01:d9e4:a4ec:960d:6e07:4152
+    [user_agent] => Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+    [session_hash] => 93e0adef46ccfad32af15a92dec24074353dfde390c351482188c59472794d18
+    [last_activity] => 1773484087
+)
+
+[14-Mar-2026 17:28:07 Asia/Jakarta] CMS Editor: auth object=AuthController
+[14-Mar-2026 17:28:07 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[15-Mar-2026 09:52:36 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:52:36 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:52:36 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:52:36 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:52:36 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:52:36 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:52:36 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1773543150
+    [ip_address] => 2404:c0:ab01:d9e4:3021:f600:d4d8:68cd
+    [user_agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0
+    [session_hash] => 9511a177406f9a533a027852d8a4ace169a771064f97b557847f4538fbd10db6
+    [last_activity] => 1773543156
+)
+
+[15-Mar-2026 09:52:36 Asia/Jakarta] CMS Editor: auth object=AuthController
+[15-Mar-2026 09:52:36 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[15-Mar-2026 09:52:40 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:52:40 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:52:40 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:52:41 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:52:41 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:52:41 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:52:41 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:52:41 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:52:41 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:52:41 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:52:41 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:52:41 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:52:41 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1773543150
+    [ip_address] => 2404:c0:ab01:d9e4:3021:f600:d4d8:68cd
+    [user_agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0
+    [session_hash] => 9511a177406f9a533a027852d8a4ace169a771064f97b557847f4538fbd10db6
+    [last_activity] => 1773543161
+)
+
+[15-Mar-2026 09:52:41 Asia/Jakarta] CMS Editor: auth object=AuthController
+[15-Mar-2026 09:52:41 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[15-Mar-2026 09:52:43 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:52:43 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:52:43 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:52:43 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:52:43 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:52:43 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:53:55 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:53:55 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:53:55 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:53:55 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:53:55 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:53:55 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:53:55 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1773543150
+    [ip_address] => 2404:c0:ab01:d9e4:3021:f600:d4d8:68cd
+    [user_agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0
+    [session_hash] => 9511a177406f9a533a027852d8a4ace169a771064f97b557847f4538fbd10db6
+    [last_activity] => 1773543235
+)
+
+[15-Mar-2026 09:53:55 Asia/Jakarta] CMS Editor: auth object=AuthController
+[15-Mar-2026 09:53:55 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[15-Mar-2026 09:53:56 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:53:56 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:53:56 Asia/Jakarta] requireAuth: OK
+[15-Mar-2026 09:53:56 Asia/Jakarta] requireAuth called
+[15-Mar-2026 09:53:56 Asia/Jakarta] isLoggedIn: YES
+[15-Mar-2026 09:53:56 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 14:39:11 Asia/Jakarta] requireAuth called
+[24-Mar-2026 14:39:11 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 14:39:11 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 14:39:11 Asia/Jakarta] requireAuth called
+[24-Mar-2026 14:39:11 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 14:39:11 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 14:39:11 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1774337945
+    [ip_address] => 2404:c0:ab01:7780:54c3:5007:37da:9e59
+    [user_agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+    [session_hash] => 75b832568b5a4975279b338002e350478a227c8e69277c7a3bceaea92dfac499
+    [last_activity] => 1774337951
+)
+
+[24-Mar-2026 14:39:11 Asia/Jakarta] CMS Editor: auth object=AuthController
+[24-Mar-2026 14:39:11 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[24-Mar-2026 14:39:14 Asia/Jakarta] requireAuth called
+[24-Mar-2026 14:39:14 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 14:39:14 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 14:39:14 Asia/Jakarta] requireAuth called
+[24-Mar-2026 14:39:14 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 14:39:14 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 14:56:37 Asia/Jakarta] requireAuth called
+[24-Mar-2026 14:56:37 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 14:56:37 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 14:56:37 Asia/Jakarta] requireAuth called
+[24-Mar-2026 14:56:37 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 14:56:37 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 14:56:37 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1774337945
+    [ip_address] => 2404:c0:ab01:7780:54c3:5007:37da:9e59
+    [user_agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+    [session_hash] => 75b832568b5a4975279b338002e350478a227c8e69277c7a3bceaea92dfac499
+    [last_activity] => 1774338997
+)
+
+[24-Mar-2026 14:56:37 Asia/Jakarta] CMS Editor: auth object=AuthController
+[24-Mar-2026 14:56:37 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[24-Mar-2026 14:56:39 Asia/Jakarta] requireAuth called
+[24-Mar-2026 14:56:39 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 14:56:39 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 14:56:39 Asia/Jakarta] requireAuth called
+[24-Mar-2026 14:56:39 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 14:56:39 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:05:11 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:05:11 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:05:11 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:05:11 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:05:11 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:05:11 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:06:40 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:06:40 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:06:40 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:06:40 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:06:40 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:06:40 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:06:40 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1774337945
+    [ip_address] => 2404:c0:ab01:7780:54c3:5007:37da:9e59
+    [user_agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+    [session_hash] => 75b832568b5a4975279b338002e350478a227c8e69277c7a3bceaea92dfac499
+    [last_activity] => 1774339600
+)
+
+[24-Mar-2026 15:06:40 Asia/Jakarta] CMS Editor: auth object=AuthController
+[24-Mar-2026 15:06:40 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[24-Mar-2026 15:06:43 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:06:43 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:06:43 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:06:43 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:06:43 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:06:43 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:08:26 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:08:26 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:08:26 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:08:26 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:08:26 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:08:26 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:08:44 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:08:44 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:08:44 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:08:44 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:08:44 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:08:44 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:08:44 Asia/Jakarta] CMS Editor: Loading grid view. currentUser=Array
+(
+    [user_id] => 2
+    [username] => notaris
+    [role] => notaris
+    [logged_in] => 1
+    [login_time] => 1774337945
+    [ip_address] => 2404:c0:ab01:7780:54c3:5007:37da:9e59
+    [user_agent] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+    [session_hash] => 74238847bb480617edcbe1b598753e06c6e4c3905a6857782cf7909f2dd135ed
+    [last_activity] => 1774339724
+)
+
+[24-Mar-2026 15:08:44 Asia/Jakarta] CMS Editor: auth object=AuthController
+[24-Mar-2026 15:08:44 Asia/Jakarta] CMS Editor: cmsStats=Array
+(
+    [layanan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [nama_layanan] => Lainnya
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [nama_layanan] => Hibah
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [nama_layanan] => Waris
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [nama_layanan] => Pembagian Hak Bersama
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [nama_layanan] => Roya
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [nama_layanan] => Jual Beli
+                )
+
+        )
+
+    [templates] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [template_key] => wa_update
+                    [template_name] => WA - Pembaruan Status
+                    [template_body] => konichiwa Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan status perkara Anda saat ini.
+
+Detail Perkara:
+??? Nomor Registrasi: {nomor_registrasi}
+??? Status Saat Ini: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat mengirim pembaruan status perkara dari halaman detail
+                    [updated_at] => 2026-03-12 12:39:42
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [template_key] => wa_create
+                    [template_name] => WA - Perkara Baru Dibuat
+                    [template_body] => ohayo Bapak/Ibu {nama_klien},
+
+Kami dari Kantor Notaris {nama_pengirim} menginformasikan bahwa perkara Anda telah terdaftar.
+
+Detail Perkara:
+Nomor Registrasi: {nomor_registrasi}
+??? Status: {status}
+
+Anda dapat memantau status dan progres perkara secara mandiri melalui tautan tracking yang telah kami berikan.
+
+Apabila terdapat pertanyaan lebih lanjut, silakan menghubungi kami di:
+???? {phone}
+???? {alamat}
+
+Terima kasih atas kepercayaan Anda.
+
+Hormat kami,
+Kantor Notaris {nama_pengirim}
+                    [description] => Template WA saat perkara baru berhasil dibuat
+                    [updated_at] => 2026-03-12 00:56:12
+                )
+
+        )
+
+    [catatan] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [status_key] => draft
+                    [template_body] => Perkara Anda {user_name} telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong
+                    [updated_at] => 2026-03-13 00:40:43
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [status_key] => pembayaran_admin
+                    [template_body] => Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [status_key] => validasi_sertifikat
+                    [template_body] => Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [status_key] => pencecekan_sertifikat
+                    [template_body] => Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [status_key] => pembayaran_pajak
+                    [template_body] => Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [status_key] => validasi_pajak
+                    [template_body] => Pembayaran pajak sedang dalam tahap pemeriksaan dan validasi oleh pihak terkait.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [status_key] => penomoran_akta
+                    [template_body] => Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [status_key] => pendaftaran
+                    [template_body] => Perkara sedang dalam proses pendaftaran resmi ke instansi yang berwenang.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [status_key] => pembayaran_pnbp
+                    [template_body] => Pembayaran PNBP sedang diproses sebagai bagian dari tahapan lanjutan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [status_key] => pemeriksaan_bpn
+                    [template_body] => Berkas perkara sedang dalam tahap pemeriksaan oleh instansi pertanahan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [status_key] => perbaikan
+                    [template_body] => Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [status_key] => selesai
+                    [template_body] => Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [status_key] => diserahkan
+                    [template_body] => Dokumen telah diserahkan kepada klien. Terima kasih atas kepercayaan Anda.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [status_key] => ditutup
+                    [template_body] => Perkara telah selesai dan resmi ditutup. Terima kasih atas kepercayaan Anda kepada kantor kami.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [status_key] => batal
+                    [template_body] => Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.
+                    [updated_at] => 2026-03-12 00:01:59
+                )
+
+        )
+
+)
+
+[24-Mar-2026 15:08:46 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:08:46 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:08:46 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:08:46 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:08:46 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:08:46 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:20:53 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:20:53 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:20:53 Asia/Jakarta] requireAuth: OK
+[24-Mar-2026 15:20:53 Asia/Jakarta] requireAuth called
+[24-Mar-2026 15:20:53 Asia/Jakarta] isLoggedIn: YES
+[24-Mar-2026 15:20:53 Asia/Jakarta] requireAuth: OK

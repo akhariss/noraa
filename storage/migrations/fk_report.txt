@@ -1,0 +1,21 @@
+=== FK CONSTRAINTS ON registrasi_history ===
+fk_hist_status_new => status_new_id -> workflow_steps(id)
+fk_hist_status_old => status_old_id -> workflow_steps(id)
+registrasi_history_ibfk_1 => registrasi_id -> registrasi(id)
+registrasi_history_ibfk_2 => user_id -> users(id)
+
+=== REGISTRASI_HISTORY COLUMNS ===
+id | int(10) unsigned
+registrasi_id | int(10) unsigned
+status_old_id | int(11)
+status_new_id | int(11)
+action | varchar(100)
+target_completion_at_new | datetime
+target_completion_at_old | datetime
+keterangan | text
+catatan | text
+flag_kendala_active | tinyint(1)
+flag_kendala_tahap | varchar(100)
+user_id | int(10) unsigned
+ip_address | varchar(45)
+created_at | timestamp

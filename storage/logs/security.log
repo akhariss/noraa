@@ -1,0 +1,3 @@
+[2026-03-26 04:27:02] [IP: ::1] [User: guest/guest] [Session: 7nccntrraptc7sptosqpvt7eaq] [LOGIN_FAILED] {"username":"notarisnotaris","ip":"::1"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+[2026-03-29 12:32:51] [IP: ::1] [User: guest/guest] [Session: l11ku0lv7uam185b5pa9iug2qf] [LOGIN_FAILED] {"username":"staff","ip":"::1"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0
+[2026-03-29 13:31:00] [SECURITY] [::1] UNAUTHORIZED_ACCESS_ATTEMPT {"gate":"users","user_id":1,"role":"staff","required":"administrator"}

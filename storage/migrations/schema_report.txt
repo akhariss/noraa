@@ -1,0 +1,40 @@
+=== REGISTRASI_HISTORY COLUMNS ===
+id | int(10) unsigned | Null:NO | Key:PRI
+registrasi_id | int(10) unsigned | Null:NO | Key:MUL
+status_old_id | int(10) unsigned | Null:YES | Key:
+status_new_id | int(10) unsigned | Null:YES | Key:
+action | varchar(100) | Null:YES | Key:
+target_completion_at_new | datetime | Null:YES | Key:
+target_completion_at_old | datetime | Null:YES | Key:
+keterangan | text | Null:YES | Key:
+catatan | text | Null:YES | Key:
+flag_kendala_active | tinyint(1) | Null:YES | Key:
+flag_kendala_tahap | varchar(100) | Null:YES | Key:
+user_id | int(10) unsigned | Null:NO | Key:MUL
+ip_address | varchar(45) | Null:YES | Key:
+created_at | timestamp | Null:NO | Key:MUL
+
+=== AUDIT_LOG COLUMNS ===
+id | int(10) unsigned | Null:NO | Key:PRI
+user_id | int(10) unsigned | Null:YES | Key:MUL
+role | enum('notaris','admin') | Null:NO | Key:
+action | varchar(50) | Null:NO | Key:MUL
+new_value | text | Null:YES | Key:
+timestamp | timestamp | Null:NO | Key:MUL
+
+=== WORKFLOW_STEPS ===
+1 | draft | behavior:1
+2 | pembayaran_admin | behavior:0
+3 | validasi_sertifikat | behavior:0
+4 | pencecekan_sertifikat | behavior:0
+5 | pembayaran_pajak | behavior:0
+6 | validasi_pajak | behavior:0
+7 | penomoran_akta | behavior:0
+8 | pendaftaran | behavior:0
+9 | pembayaran_pnbp | behavior:0
+10 | pemeriksaan_bpn | behavior:0
+11 | perbaikan | behavior:2
+12 | selesai | behavior:3
+13 | diserahkan | behavior:5
+14 | ditutup | behavior:6
+15 | batal | behavior:4

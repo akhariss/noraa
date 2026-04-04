@@ -1,0 +1,817 @@
+/**
+ * Button System - Modular & Responsive
+ * Notaris & PPAT Tracking System
+ * 
+ *遵循 guidesop.md Pillar 0.3 (File ≤ 300 baris)
+ * All buttons in one place - DRY principle
+ */
+
+/* ==========================================================================
+   BASE BUTTON STYLES - All buttons inherit from these
+   ========================================================================== */
+
+/* Base button reset */
+button,
+.btn,
+[class^="btn-"] {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Icon sizing */
+button svg,
+.btn svg,
+[class^="btn-"] svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   SIZE VARIANTS - Modular sizes
+   ========================================================================== */
+
+/* Small - Table actions, quick actions */
+.btn-sm,
+button.btn-sm,
+a.btn-sm {
+    padding: 6px 12px;
+    height: 32px;
+    font-size: 12px;
+}
+
+/* Medium - Default size */
+.btn,
+button.btn,
+a.btn,
+.btn-primary,
+.btn-secondary,
+button.btn-primary,
+button.btn-secondary {
+    padding: 8px 16px;
+    height: 38px;
+    font-size: 13px;
+}
+
+/* Large - Hero sections, CTAs */
+.btn-lg,
+button.btn-lg,
+a.btn-lg {
+    padding: 12px 24px;
+    height: 46px;
+    font-size: 14px;
+}
+
+.btn-lg svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ==========================================================================
+   COLOR VARIANTS - Modular colors
+   ========================================================================== */
+
+/* Primary - Main actions */
+.btn-primary,
+button.btn-primary,
+a.btn-primary {
+    background: var(--primary);
+    color: var(--gold);
+    border: 1px solid var(--primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--primary-light);
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 58, 75, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(27, 58, 75, 0.15);
+}
+
+/* Secondary - Cancel/back actions */
+.btn-secondary,
+button.btn-secondary,
+a.btn-secondary {
+    background: var(--white);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background: var(--cream);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* Danger - Delete/destructive actions */
+.btn-danger,
+button.btn-danger,
+a.btn-danger {
+    background: var(--danger);
+    color: var(--white);
+    border: 1px solid var(--danger);
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    background: #c82333;
+    border-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.btn-danger:active {
+    transform: translateY(0);
+}
+
+/* Success - Success actions */
+.btn-success,
+button.btn-success,
+a.btn-success {
+    background: var(--success);
+    color: var(--white);
+    border: 1px solid var(--success);
+}
+
+.btn-success:hover,
+.btn-success:focus {
+    background: #218838;
+    border-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Warning - Warning actions */
+.btn-warning,
+button.btn-warning,
+a.btn-warning {
+    background: var(--warning);
+    color: var(--text);
+    border: 1px solid var(--warning);
+}
+
+.btn-warning:hover,
+.btn-warning:focus {
+    background: #e0a800;
+    border-color: #e0a800;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+/* Info - Info actions */
+.btn-info,
+button.btn-info,
+a.btn-info {
+    background: var(--info);
+    color: var(--white);
+    border: 1px solid var(--info);
+}
+
+.btn-info:hover,
+.btn-info:focus {
+    background: #138496;
+    border-color: #138496;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+/* Link - Text buttons */
+.btn-link,
+button.btn-link,
+a.btn-link {
+    background: transparent;
+    color: var(--primary);
+    border: none;
+    padding: 6px 12px;
+}
+
+.btn-link:hover,
+.btn-link:focus {
+    color: var(--primary-light);
+    text-decoration: underline;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   SPECIAL BUTTONS - Feature-specific
+   ========================================================================== */
+
+/* WhatsApp button */
+.btn-wa,
+button.btn-wa,
+a.btn-wa {
+    background: #25D366;
+    color: var(--white);
+    border: 1px solid #25D366;
+}
+
+.btn-wa:hover,
+.btn-wa:focus {
+    background: #128C7E;
+    border-color: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+/* Filter button (active state) */
+.btn-filter,
+button.btn-filter {
+    background: var(--white);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    height: 32px;
+}
+
+.btn-filter:hover,
+.btn-filter:focus {
+    border-color: var(--primary);
+}
+
+.btn-filter.active {
+    background: var(--primary);
+    color: var(--gold);
+    border-color: var(--primary);
+}
+
+/* Track button (public tracking) */
+.btn-track,
+button.btn-track {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--gold);
+    border: none;
+    padding: 10px 20px;
+    height: 40px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.btn-track:hover,
+.btn-track:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(27, 58, 75, 0.3);
+}
+
+/* Verify button */
+.btn-verify,
+button.btn-verify {
+    background: var(--primary);
+    color: var(--gold);
+    border: none;
+    padding: 8px 16px;
+    height: 36px;
+}
+
+.btn-verify:hover,
+.btn-verify:focus {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 58, 75, 0.2);
+}
+
+/* CTA button (hero sections) */
+.btn-cta,
+button.btn-cta,
+a.btn-cta {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    height: 46px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.btn-cta:hover,
+.btn-cta:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* Layanan button */
+.btn-layanan,
+button.btn-layanan,
+a.btn-layanan {
+    background: var(--white);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 10px 20px;
+    height: 44px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-layanan:hover,
+.btn-layanan:focus {
+    background: var(--primary);
+    color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 58, 75, 0.2);
+}
+
+/* ==========================================================================
+   ICON BUTTONS - Square buttons with icons only
+   ========================================================================== */
+
+/* Icon button base */
+.btn-icon,
+button.btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Icon button small */
+.btn-icon-sm,
+button.btn-icon-sm {
+    width: 28px;
+    height: 28px;
+}
+
+.btn-icon-sm svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Icon button large */
+.btn-icon-lg,
+button.btn-icon-lg {
+    width: 40px;
+    height: 40px;
+}
+
+.btn-icon-lg svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ==========================================================================
+   BLOCK BUTTONS - Full width
+   ========================================================================== */
+
+.btn-block,
+button.btn-block,
+a.btn-block {
+    display: flex;
+    width: 100%;
+}
+
+/* ==========================================================================
+   DISABLED STATE - All buttons
+   ========================================================================== */
+
+button:disabled,
+.btn:disabled,
+[class^="btn-"]:disabled,
+.btn.disabled,
+button.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================================================
+   LOADING STATE - Spinner
+   ========================================================================== */
+
+.btn-loading,
+button.btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.btn-loading::after,
+button.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE - Mobile first approach
+   ========================================================================== */
+
+/* Mobile (< 768px) */
+@media (max-width: 768px) {
+    
+    /* All buttons full width on mobile */
+    .btn-mobile-full,
+    button.btn-mobile-full,
+    a.btn-mobile-full {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    /* Smaller padding on mobile */
+    .btn-sm,
+    button.btn-sm,
+    a.btn-sm {
+        padding: 5px 10px;
+        height: 30px;
+        font-size: 11px;
+    }
+    
+    .btn,
+    button.btn,
+    a.btn,
+    .btn-primary,
+    .btn-secondary {
+        padding: 7px 14px;
+        height: 36px;
+        font-size: 12px;
+    }
+    
+    .btn-lg,
+    button.btn-lg,
+    a.btn-lg {
+        padding: 10px 20px;
+        height: 42px;
+        font-size: 13px;
+    }
+    
+    /* Icon buttons smaller on mobile */
+    .btn-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .btn-icon svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    /* Stack buttons vertically on mobile */
+    .btn-group,
+    .btn-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-group .btn,
+    .btn-stack .btn {
+        width: 100%;
+    }
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    
+    .btn-sm,
+    button.btn-sm,
+    a.btn-sm {
+        padding: 6px 12px;
+        height: 32px;
+    }
+    
+    .btn,
+    button.btn,
+    a.btn,
+    .btn-primary,
+    .btn-secondary {
+        padding: 8px 16px;
+        height: 38px;
+    }
+    
+    /* Horizontal button group on tablet */
+    .btn-group,
+    .btn-stack {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+/* Desktop (> 1024px) */
+@media (min-width: 1025px) {
+    
+    /* Default sizes apply */
+    
+    /* Horizontal button group on desktop */
+    .btn-group,
+    .btn-stack {
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 12px;
+    }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY - Keyboard navigation & focus
+   ========================================================================== */
+
+/* Focus visible for keyboard navigation */
+button:focus-visible,
+.btn:focus-visible,
+[class^="btn-"]:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger,
+    .btn-success,
+    .btn-warning,
+    .btn-info {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    button,
+    .btn,
+    [class^="btn-"] {
+        transition: none;
+    }
+    
+    button:hover,
+    .btn:hover,
+    [class^="btn-"]:hover {
+        transform: none;
+    }
+    
+    .btn-loading::after {
+        animation: none;
+        border: 2px solid currentColor;
+        border-top-color: transparent;
+        border-right-color: transparent;
+    }
+}
+
+/* ==========================================================================
+   UTILITY CLASSES
+   ========================================================================== */
+
+/* Button group */
+.btn-group {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Button stack (vertical) */
+.btn-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Button with badge */
+.btn-badge {
+    position: relative;
+}
+
+.btn-badge::after {
+    content: attr(data-badge);
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--danger);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* Button with tooltip */
+.btn-tooltip {
+    position: relative;
+}
+
+.btn-tooltip[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text);
+    color: var(--white);
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* ==========================================================================
+   FORM INPUTS - Modular input fields & dropdowns
+   ========================================================================== */
+
+/* Text input (search, text fields) */
+.form-input,
+input[type="text"].form-input,
+input[type="search"].form-input {
+    padding: 6px 12px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-input:focus,
+input[type="text"].form-input:focus,
+input[type="search"].form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(27, 58, 75, 0.1);
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Small input */
+.form-input-sm,
+input[type="text"].form-input-sm {
+    padding: 5px 10px;
+    height: 30px;
+    font-size: 11px;
+}
+
+/* Large input */
+.form-input-lg,
+input[type="text"].form-input-lg {
+    padding: 10px 16px;
+    height: 42px;
+    font-size: 14px;
+}
+
+/* Select dropdown */
+.form-select,
+select.form-select {
+    padding: 6px 12px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(27, 58, 75, 0.1);
+}
+
+/* Small select */
+.form-select-sm,
+select.form-select-sm {
+    padding: 5px 10px;
+    height: 30px;
+    font-size: 11px;
+}
+
+/* Large select */
+.form-select-lg,
+select.form-select-lg {
+    padding: 10px 16px;
+    height: 42px;
+    font-size: 14px;
+}
+
+/* Form group (input + buttons) */
+.form-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Form group block (full width) */
+.form-group-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .form-input,
+    input[type="text"].form-input,
+    input[type="search"].form-input {
+        padding: 5px 10px;
+        height: 30px;
+        font-size: 11px;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .form-select,
+    select.form-select {
+        padding: 5px 10px;
+        height: 30px;
+        font-size: 11px;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .form-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* Responsive - Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .form-input,
+    input[type="text"].form-input {
+        padding: 6px 12px;
+        height: 32px;
+    }
+    
+    .form-select,
+    select.form-select {
+        padding: 6px 12px;
+        height: 32px;
+    }
+}
+
+/* Responsive - Desktop */
+@media (min-width: 1025px) {
+    .form-input,
+    input[type="text"].form-input {
+        padding: 6px 12px;
+        height: 32px;
+    }
+    
+    .form-select,
+    select.form-select {
+        padding: 6px 12px;
+        height: 32px;
+    }
+}
