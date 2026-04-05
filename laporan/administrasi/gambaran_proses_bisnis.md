@@ -4,7 +4,7 @@
 
 ### 1.1 Konteks Bisnis Notaris
 
-Kantor Notaris Sri Anah, S.H., M.Kn. merupakan lembaga hukum yang menyediakan layanan pembuatan akta, pengurusan sertifikat tanah, dan layanan notaris lainnya. Dalam operasional sehari-hari, kantor notaris menangani berbagai jenis dokumen hukum yang memerlukan proses bertahap dengan melibatkan multiple pihak.
+Kantor Notaris Sri Anah, S.H., M.Kn. merupakan lembaga hukum yang menyediakan layanan pembuatan akta, pengurusan sertifikat tanah, dan layanan notaris lainnya. Dalam operasional sehari-hari, kantor notaris menangani berbagai jenis dokumen hukum yang memerlukan proses bertahap dengan melibatkan multiple pihlaak.
 
 ### 1.2 Alur Kerja Manual Sebelum Implementasi Sistem
 

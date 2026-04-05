@@ -4,21 +4,19 @@
 
 ### 1.1 Definisi Aktor
 
-| Aktor | Deskripsi | Role dalam Sistem |
-|-------|-----------|-------------------|
-| **Klien** | Pengguna layanan notaris yang ingin tracking status dokumen | Publik (tidak perlu login) |
-| **Staff/Admin** | Staff administrasi kantor notaris | Admin (login required) |
-| **Notaris** | Notaris/pemimpin kantor notaris | Notaris (full access) |
-| **Sistem** | Entitas sistem yang melakukan aksi otomatis | Internal automation |
-
----
+|  |  |  |
+| - | - | - |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+|  |  |  |
 
 ## 2. Use Case Diagram
 
 ```mermaid
 flowchart TD
     subgraph "Sistem Tracking Status Dokumen Notaris"
-        
+      
         subgraph "Public Access (Tanpa Login)"
             UC1["UC1: Tracking Dokumen"]
             UC2["UC2: Verifikasi 4 Digit HP"]
@@ -26,7 +24,7 @@ flowchart TD
             UC4["UC4: Lihat Riwayat Perubahan"]
             UC5["UC5: Lihat Homepage"]
         end
-        
+      
         subgraph "Staff/Admin Access"
             UC6["UC6: Input Registrasi Baru"]
             UC7["UC7: Update Status Dokumen"]
@@ -34,7 +32,7 @@ flowchart TD
             UC9["UC9: Update Data Klien"]
             UC10["UC10: Toggle Flag Kendala"]
         end
-        
+      
         subgraph "Notaris Access"
             UC11["UC11: Approval Dokumen"]
             UC12["UC12: User Management"]
@@ -43,7 +41,7 @@ flowchart TD
             UC15["UC15: View Audit Log"]
             UC16["UC16: Backup Database"]
         end
-        
+      
         subgraph "System Automation"
             UC17["UC17: Generate Nomor Registrasi"]
             UC18["UC18: Logging History"]
@@ -51,21 +49,21 @@ flowchart TD
             UC20["UC20: Generate Tracking Token"]
         end
     end
-    
+  
     %% Klien Use Cases
     Klien --> UC1
     UC1 --> UC2
     UC2 --> UC3
     UC3 --> UC4
     Klien --> UC5
-    
+  
     %% Staff Use Cases
     Staff --> UC6
     Staff --> UC7
     Staff --> UC8
     Staff --> UC9
     Staff --> UC10
-    
+  
     %% Notaris Use Cases
     Notaris --> UC6
     Notaris --> UC7
@@ -75,7 +73,7 @@ flowchart TD
     Notaris --> UC14
     Notaris --> UC15
     Notaris --> UC16
-    
+  
     %% System Automation Dependencies
     UC6 --> UC17
     UC6 --> UC18
@@ -92,14 +90,15 @@ flowchart TD
 
 #### UC1: Tracking Dokumen
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Klien |
-| **Deskripsi** | Klien mencari status dokumen berdasarkan nomor registrasi |
-| **Precondition** | Klien memiliki nomor registrasi yang valid |
+| Atribut                 | Deskripsi                                                  |
+| ----------------------- | ---------------------------------------------------------- |
+| **Aktor**         | Klien                                                      |
+| **Deskripsi**     | Klien mencari status dokumen berdasarkan nomor registrasi  |
+| **Precondition**  | Klien memiliki nomor registrasi yang valid                 |
 | **Postcondition** | Sistem memvalidasi nomor registrasi dan meminta verifikasi |
 
 **Flow of Events:**
+
 ```
 1. Klien mengakses halaman tracking
 2. Klien input nomor registrasi
@@ -110,6 +109,7 @@ flowchart TD
 ```
 
 **Exception:**
+
 - Nomor registrasi tidak ditemukan → Error message
 - Format tidak valid → Validation error
 
@@ -117,14 +117,15 @@ flowchart TD
 
 #### UC2: Verifikasi 4 Digit HP
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Klien |
-| **Deskripsi** | Verifikasi identitas klien menggunakan 4 digit terakhir nomor HP |
-| **Precondition** | Nomor registrasi ditemukan di sistem |
-| **Postcondition** | Klien mendapat akses tracking jika verifikasi berhasil |
+| Atribut                 | Deskripsi                                                        |
+| ----------------------- | ---------------------------------------------------------------- |
+| **Aktor**         | Klien                                                            |
+| **Deskripsi**     | Verifikasi identitas klien menggunakan 4 digit terakhir nomor HP |
+| **Precondition**  | Nomor registrasi ditemukan di sistem                             |
+| **Postcondition** | Klien mendapat akses tracking jika verifikasi berhasil           |
 
 **Flow of Events:**
+
 ```
 1. Klien input 4 digit terakhir nomor HP
 2. Sistem ambil data klien dari registrasi
@@ -136,6 +137,7 @@ flowchart TD
 ```
 
 **Security Notes:**
+
 - Rate limiting: 5 percobaan per menit
 - Logging failed attempts untuk security monitoring
 - Token expired setelah 24 jam
@@ -144,14 +146,15 @@ flowchart TD
 
 #### UC3: Lihat Progress Status
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Klien |
-| **Deskripsi** | Klien melihat progress tracking dokumen dalam visualisasi progress bar |
-| **Precondition** | Verifikasi berhasil, token valid |
-| **Postcondition** | Klien memahami progress dokumen saat ini |
+| Atribut                 | Deskripsi                                                              |
+| ----------------------- | ---------------------------------------------------------------------- |
+| **Aktor**         | Klien                                                                  |
+| **Deskripsi**     | Klien melihat progress tracking dokumen dalam visualisasi progress bar |
+| **Precondition**  | Verifikasi berhasil, token valid                                       |
+| **Postcondition** | Klien memahami progress dokumen saat ini                               |
 
 **Flow of Events:**
+
 ```
 1. Sistem validasi tracking token
 2. Sistem ambil data registrasi + status saat ini
@@ -164,6 +167,7 @@ flowchart TD
 ```
 
 **Visual Elements:**
+
 - Progress bar horizontal dengan 14 node
 - Label status dalam bahasa Indonesia
 - Estimasi waktu per tahap (contoh: "7 hari")
@@ -173,14 +177,15 @@ flowchart TD
 
 #### UC4: Lihat Riwayat Perubahan
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Klien |
-| **Deskripsi** | Klien melihat business history (riwayat perubahan status) |
-| **Precondition** | Token valid, registrasi memiliki history |
-| **Postcondition** | Klien mengetahui riwayat progress dokumen |
+| Atribut                 | Deskripsi                                                 |
+| ----------------------- | --------------------------------------------------------- |
+| **Aktor**         | Klien                                                     |
+| **Deskripsi**     | Klien melihat business history (riwayat perubahan status) |
+| **Precondition**  | Token valid, registrasi memiliki history                  |
+| **Postcondition** | Klien mengetahui riwayat progress dokumen                 |
 
 **Flow of Events:**
+
 ```
 1. Sistem query registrasi_history untuk registrasi_id
 2. Sistem urutkan berdasarkan created_at DESC
@@ -192,6 +197,7 @@ flowchart TD
 ```
 
 **Data Displayed:**
+
 - `created_at` - Timestamp perubahan
 - `status_old` → `status_new` - Transisi status
 - `catatan` - Catatan internal (yang diizinkan untuk klien)
@@ -201,14 +207,15 @@ flowchart TD
 
 #### UC5: Lihat Homepage
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Klien, Publik |
-| **Deskripsi** | Mengakses homepage company profile Kantor Notaris |
-| **Precondition** | None (public access) |
-| **Postcondition** | Publik mendapat informasi layanan notaris |
+| Atribut                 | Deskripsi                                         |
+| ----------------------- | ------------------------------------------------- |
+| **Aktor**         | Klien, Publik                                     |
+| **Deskripsi**     | Mengakses homepage company profile Kantor Notaris |
+| **Precondition**  | None (public access)                              |
+| **Postcondition** | Publik mendapat informasi layanan notaris         |
 
 **Flow of Events:**
+
 ```
 1. User akses homepage
 2. Sistem load konten dari CMS (cms_pages, cms_page_sections)
@@ -222,6 +229,7 @@ flowchart TD
 ```
 
 **CMS Content:**
+
 - Dynamic content dari database
 - Editable via CMS Editor (Notaris only)
 - Image upload via Media Controller
@@ -232,14 +240,15 @@ flowchart TD
 
 #### UC6: Input Registrasi Baru
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Staff, Notaris |
-| **Deskripsi** | Mendaftarkan dokumen klien baru ke dalam sistem |
-| **Precondition** | User login dengan role staff atau notaris |
+| Atribut                 | Deskripsi                                              |
+| ----------------------- | ------------------------------------------------------ |
+| **Aktor**         | Staff, Notaris                                         |
+| **Deskripsi**     | Mendaftarkan dokumen klien baru ke dalam sistem        |
+| **Precondition**  | User login dengan role staff atau notaris              |
 | **Postcondition** | Registrasi baru tersimpan dengan nomor registrasi unik |
 
 **Flow of Events:**
+
 ```
 1. Staff akses form "Tambah Registrasi Baru"
 2. Staff input data klien:
@@ -258,6 +267,7 @@ flowchart TD
 ```
 
 **Business Rules:**
+
 - Status awal hanya boleh: `draft`, `pembayaran_admin`, `validasi_sertifikat`, `pencecekan_sertifikat`
 - Nomor registrasi auto-generate dengan format: `NP-YYYYMMDD-RANDOM4`
 - Verification code untuk tracking token
@@ -267,14 +277,15 @@ flowchart TD
 
 #### UC7: Update Status Dokumen
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Staff, Notaris |
-| **Deskripsi** | Update status progress dokumen |
-| **Precondition** | User login, registrasi tidak locked |
-| **Postcondition** | Status berubah, history tercatat |
+| Atribut                 | Deskripsi                           |
+| ----------------------- | ----------------------------------- |
+| **Aktor**         | Staff, Notaris                      |
+| **Deskripsi**     | Update status progress dokumen      |
+| **Precondition**  | User login, registrasi tidak locked |
+| **Postcondition** | Status berubah, history tercatat    |
 
 **Flow of Events:**
+
 ```
 1. Staff akses detail registrasi
 2. Staff klik "Update Status"
@@ -289,6 +300,7 @@ flowchart TD
 ```
 
 **Validation Rules (WorkflowService):**
+
 - Tidak bisa mundur (kecuali dari `perbaikan`)
 - Tidak bisa batal setelah `pembayaran_pajak`
 - Tidak bisa update jika registrasi locked
@@ -298,14 +310,15 @@ flowchart TD
 
 #### UC8: Upload Dokumen
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Staff, Notaris |
-| **Deskripsi** | Upload dokumen pendukung (scan sertifikat, KTP, dll) |
-| **Precondition** | User login, registrasi exists |
-| **Postcondition** | Dokumen tersimpan dengan secure filename |
+| Atribut                 | Deskripsi                                            |
+| ----------------------- | ---------------------------------------------------- |
+| **Aktor**         | Staff, Notaris                                       |
+| **Deskripsi**     | Upload dokumen pendukung (scan sertifikat, KTP, dll) |
+| **Precondition**  | User login, registrasi exists                        |
+| **Postcondition** | Dokumen tersimpan dengan secure filename             |
 
 **Flow of Events:**
+
 ```
 1. Staff akses upload section di detail registrasi
 2. Staff pilih file (max 5MB, jpg/jpeg/png/pdf)
@@ -318,6 +331,7 @@ flowchart TD
 ```
 
 **Security:**
+
 - Max upload: 5MB
 - Allowed extensions: jpg, jpeg, png, pdf
 - Filename dienkripsi untuk mencegah direct access
@@ -327,14 +341,15 @@ flowchart TD
 
 #### UC9: Update Data Klien
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Staff, Notaris |
-| **Deskripsi** | Update informasi klien (nama, HP, email) |
-| **Precondition** | User login, klien exists |
+| Atribut                 | Deskripsi                                  |
+| ----------------------- | ------------------------------------------ |
+| **Aktor**         | Staff, Notaris                             |
+| **Deskripsi**     | Update informasi klien (nama, HP, email)   |
+| **Precondition**  | User login, klien exists                   |
 | **Postcondition** | Data klien terupdate, audit trail tercatat |
 
 **Flow of Events:**
+
 ```
 1. Staff akses detail registrasi
 2. Staff klik "Edit Data Klien"
@@ -348,14 +363,15 @@ flowchart TD
 
 #### UC10: Toggle Flag Kendala
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Staff, Notaris |
-| **Deskripsi** | Menandai registrasi sedang mengalami kendala/hambatan |
-| **Precondition** | User login, registrasi tidak dalam status final |
-| **Postcondition** | Flag kendala aktif/nonaktif, history tercatat |
+| Atribut                 | Deskripsi                                             |
+| ----------------------- | ----------------------------------------------------- |
+| **Aktor**         | Staff, Notaris                                        |
+| **Deskripsi**     | Menandai registrasi sedang mengalami kendala/hambatan |
+| **Precondition**  | User login, registrasi tidak dalam status final       |
+| **Postcondition** | Flag kendala aktif/nonaktif, history tercatat         |
 
 **Flow of Events:**
+
 ```
 1. Staff akses detail registrasi
 2. Staff toggle checkbox "Flag Kendala"
@@ -367,6 +383,7 @@ flowchart TD
 ```
 
 **Business Rules:**
+
 - Flag kendala auto-deactivate saat status → `selesai`, `ditutup`, `batal`
 - Hanya bisa toggle jika status bukan final
 - Setiap toggle tercatat dalam history
@@ -377,14 +394,15 @@ flowchart TD
 
 #### UC11: Approval Dokumen
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Notaris |
-| **Deskripsi** | Notaris melakukan review dan approval dokumen hukum |
-| **Precondition** | User login sebagai notaris, registrasi dalam status menunggu approval |
-| **Postcondition** | Dokumen approved, status lanjut ke tahap berikutnya |
+| Atribut                 | Deskripsi                                                             |
+| ----------------------- | --------------------------------------------------------------------- |
+| **Aktor**         | Notaris                                                               |
+| **Deskripsi**     | Notaris melakukan review dan approval dokumen hukum                   |
+| **Precondition**  | User login sebagai notaris, registrasi dalam status menunggu approval |
+| **Postcondition** | Dokumen approved, status lanjut ke tahap berikutnya                   |
 
 **Flow of Events:**
+
 ```
 1. Notaris akses dashboard
 2. Notaris lihat registrasi yang menunggu approval
@@ -402,14 +420,15 @@ flowchart TD
 
 #### UC12: User Management
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Notaris |
-| **Deskripsi** | Manajemen user sistem (create, update, delete) |
-| **Precondition** | User login sebagai notaris |
-| **Postcondition** | User database terupdate |
+| Atribut                 | Deskripsi                                      |
+| ----------------------- | ---------------------------------------------- |
+| **Aktor**         | Notaris                                        |
+| **Deskripsi**     | Manajemen user sistem (create, update, delete) |
+| **Precondition**  | User login sebagai notaris                     |
+| **Postcondition** | User database terupdate                        |
 
 **Flow of Events:**
+
 ```
 1. Notaris akses menu "Users"
 2. Notaris lihat list user existing
@@ -435,6 +454,7 @@ flowchart TD
 ```
 
 **Security:**
+
 - Hanya notaris yang bisa akses user management
 - Password di-hash dengan bcrypt (cost 12)
 - Role change di-audit untuk security
@@ -443,14 +463,15 @@ flowchart TD
 
 #### UC13: CMS Management
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Notaris |
-| **Deskripsi** | Manajemen konten homepage dan template pesan |
-| **Precondition** | User login sebagai notaris |
-| **Postcondition** | Konten CMS terupdate |
+| Atribut                 | Deskripsi                                    |
+| ----------------------- | -------------------------------------------- |
+| **Aktor**         | Notaris                                      |
+| **Deskripsi**     | Manajemen konten homepage dan template pesan |
+| **Precondition**  | User login sebagai notaris                   |
+| **Postcondition** | Konten CMS terupdate                         |
 
 **Sub Use Cases:**
+
 - UC13.1: Edit Homepage Content
 - UC13.2: Edit Layanan Section
 - UC13.3: Manage Message Templates (WhatsApp)
@@ -459,6 +480,7 @@ flowchart TD
 - UC13.6: App Settings
 
 **Flow of Events (General):**
+
 ```
 1. Notaris akses CMS Editor
 2. Notaris pilih section untuk diedit
@@ -472,14 +494,15 @@ flowchart TD
 
 #### UC14: Finalisasi Kasus
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Notaris |
-| **Deskripsi** | Menutup kasus yang sudah selesai (status → ditutup) |
-| **Precondition** | User login sebagai notaris, registrasi dalam status `selesai` |
-| **Postcondition** | Registrasi status → `ditutup` (read-only) |
+| Atribut                 | Deskripsi                                                       |
+| ----------------------- | --------------------------------------------------------------- |
+| **Aktor**         | Notaris                                                         |
+| **Deskripsi**     | Menutup kasus yang sudah selesai (status → ditutup)            |
+| **Precondition**  | User login sebagai notaris, registrasi dalam status `selesai` |
+| **Postcondition** | Registrasi status →`ditutup` (read-only)                     |
 
 **Flow of Events:**
+
 ```
 1. Notaris akses menu "Finalisasi"
 2. Notaris lihat list registrasi status `selesai`
@@ -493,6 +516,7 @@ flowchart TD
 ```
 
 **Reopen Case:**
+
 - Notaris dapat reopen kasus yang sudah ditutup
 - Status kembali ke `selesai`
 - Audit trail tercatat
@@ -501,14 +525,15 @@ flowchart TD
 
 #### UC15: View Audit Log
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Notaris |
-| **Deskripsi** | Melihat audit log semua aktivitas sistem |
-| **Precondition** | User login sebagai notaris |
+| Atribut                 | Deskripsi                                 |
+| ----------------------- | ----------------------------------------- |
+| **Aktor**         | Notaris                                   |
+| **Deskripsi**     | Melihat audit log semua aktivitas sistem  |
+| **Precondition**  | User login sebagai notaris                |
 | **Postcondition** | Notaris dapat monitoring aktivitas sistem |
 
 **Flow of Events:**
+
 ```
 1. Notaris akses menu "Audit Log"
 2. Sistem query audit_log table
@@ -517,6 +542,7 @@ flowchart TD
 ```
 
 **Audit Log Data:**
+
 - `user_id`, `role` - Pelaku aksi
 - `action` - Jenis aksi (create, update, delete, login, logout)
 - `old_value`, `new_value` - Perubahan data (JSON)
@@ -526,14 +552,15 @@ flowchart TD
 
 #### UC16: Backup Database
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Notaris |
-| **Deskripsi** | Backup database dan manage backup files |
-| **Precondition** | User login sebagai notaris |
-| **Postcondition** | Backup file tersimpan |
+| Atribut                 | Deskripsi                               |
+| ----------------------- | --------------------------------------- |
+| **Aktor**         | Notaris                                 |
+| **Deskripsi**     | Backup database dan manage backup files |
+| **Precondition**  | User login sebagai notaris              |
+| **Postcondition** | Backup file tersimpan                   |
 
 **Flow of Events:**
+
 ```
 1. Notaris akses menu "Backups"
 2. Notaris klik "Create Backup"
@@ -544,6 +571,7 @@ flowchart TD
 ```
 
 **Security:**
+
 - Hanya notaris yang bisa backup/restore
 - Backup file di-block dari direct access (.htaccess)
 - Delete backup dicatat di audit_log
@@ -554,18 +582,20 @@ flowchart TD
 
 #### UC17: Generate Nomor Registrasi
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Sistem |
+| Atribut             | Deskripsi                                       |
+| ------------------- | ----------------------------------------------- |
+| **Aktor**     | Sistem                                          |
 | **Deskripsi** | Auto-generate nomor registrasi unik saat create |
-| **Trigger** | UC6: Input Registrasi Baru |
+| **Trigger**   | UC6: Input Registrasi Baru                      |
 
 **Algorithm:**
+
 ```php
 $nomorRegistrasi = 'NP-' . date('Ymd') . '-' . str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
 ```
 
 **Format:** `NP-YYYYMMDD-XXXX`
+
 - NP = Notaris & PPAT
 - YYYYMMDD = Tanggal registrasi
 - XXXX = Random 4 digit
@@ -574,13 +604,14 @@ $nomorRegistrasi = 'NP-' . date('Ymd') . '-' . str_pad(random_int(0, 9999), 4, '
 
 #### UC18: Logging History
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Sistem |
+| Atribut             | Deskripsi                                            |
+| ------------------- | ---------------------------------------------------- |
+| **Aktor**     | Sistem                                               |
 | **Deskripsi** | Auto-logging semua perubahan status dan aksi penting |
-| **Trigger** | UC6, UC7, UC10, UC14 |
+| **Trigger**   | UC6, UC7, UC10, UC14                                 |
 
 **Logging Points:**
+
 1. Create registrasi → registrasi_history + audit_log
 2. Update status → registrasi_history + audit_log
 3. Toggle kendala → registrasi_history
@@ -589,6 +620,7 @@ $nomorRegistrasi = 'NP-' . date('Ymd') . '-' . str_pad(random_int(0, 9999), 4, '
 6. Backup delete → audit_log
 
 **History Record:**
+
 ```php
 [
     'registrasi_id' => ...,
@@ -607,13 +639,14 @@ $nomorRegistrasi = 'NP-' . date('Ymd') . '-' . str_pad(random_int(0, 9999), 4, '
 
 #### UC19: Validasi Transisi Status
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Sistem |
+| Atribut             | Deskripsi                                           |
+| ------------------- | --------------------------------------------------- |
+| **Aktor**     | Sistem                                              |
 | **Deskripsi** | Validasi transisi status berdasarkan business rules |
-| **Trigger** | UC7: Update Status |
+| **Trigger**   | UC7: Update Status                                  |
 
 **Validation Logic (WorkflowService):**
+
 ```php
 // 1. Check backward transition
 if ($newOrder < $currentOrder && $newStatus !== STATUS_BATAL) {
@@ -645,13 +678,14 @@ if (in_array($oldStatus, ['selesai', 'ditutup', 'batal'])) {
 
 #### UC20: Generate Tracking Token
 
-| Atribut | Deskripsi |
-|---------|-----------|
-| **Aktor** | Sistem |
+| Atribut             | Deskripsi                                         |
+| ------------------- | ------------------------------------------------- |
+| **Aktor**     | Sistem                                            |
 | **Deskripsi** | Generate secure token untuk akses tracking publik |
-| **Trigger** | UC2: Verifikasi 4 Digit HP |
+| **Trigger**   | UC2: Verifikasi 4 Digit HP                        |
 
 **Token Generation:**
+
 ```php
 function generateTrackingToken($registrasiId, $verificationCode) {
     $data = [
@@ -666,6 +700,7 @@ function generateTrackingToken($registrasiId, $verificationCode) {
 ```
 
 **Token Validation:**
+
 - Check signature dengan HMAC
 - Check expiration (24 jam)
 - Check matching dengan tracking_token di database
@@ -674,32 +709,33 @@ function generateTrackingToken($registrasiId, $verificationCode) {
 
 ## 4. Matriks Hak Akses
 
-| Use Case | Klien | Staff | Notaris | Sistem |
-|----------|-------|-------|---------|--------|
-| UC1: Tracking Dokumen | ✅ | - | - | - |
-| UC2: Verifikasi 4 Digit HP | ✅ | - | - | - |
-| UC3: Lihat Progress Status | ✅ | ✅ | ✅ | - |
-| UC4: Lihat Riwayat Perubahan | ✅ | ✅ | ✅ | - |
-| UC5: Lihat Homepage | ✅ | ✅ | ✅ | - |
-| UC6: Input Registrasi Baru | - | ✅ | ✅ | UC17, UC18 |
-| UC7: Update Status Dokumen | - | ✅ | ✅ | UC18, UC19 |
-| UC8: Upload Dokumen | - | ✅ | ✅ | - |
-| UC9: Update Data Klien | - | ✅ | ✅ | - |
-| UC10: Toggle Flag Kendala | - | ✅ | ✅ | UC18 |
-| UC11: Approval Dokumen | - | - | ✅ | - |
-| UC12: User Management | - | - | ✅ | UC18 |
-| UC13: CMS Management | - | - | ✅ | - |
-| UC14: Finalisasi Kasus | - | - | ✅ | UC18 |
-| UC15: View Audit Log | - | - | ✅ | - |
-| UC16: Backup Database | - | - | ✅ | - |
+| Use Case                     | Klien | Staff | Notaris | Sistem     |
+| ---------------------------- | ----- | ----- | ------- | ---------- |
+| UC1: Tracking Dokumen        | ✅    | -     | -       | -          |
+| UC2: Verifikasi 4 Digit HP   | ✅    | -     | -       | -          |
+| UC3: Lihat Progress Status   | ✅    | ✅    | ✅      | -          |
+| UC4: Lihat Riwayat Perubahan | ✅    | ✅    | ✅      | -          |
+| UC5: Lihat Homepage          | ✅    | ✅    | ✅      | -          |
+| UC6: Input Registrasi Baru   | -     | ✅    | ✅      | UC17, UC18 |
+| UC7: Update Status Dokumen   | -     | ✅    | ✅      | UC18, UC19 |
+| UC8: Upload Dokumen          | -     | ✅    | ✅      | -          |
+| UC9: Update Data Klien       | -     | ✅    | ✅      | -          |
+| UC10: Toggle Flag Kendala    | -     | ✅    | ✅      | UC18       |
+| UC11: Approval Dokumen       | -     | -     | ✅      | -          |
+| UC12: User Management        | -     | -     | ✅      | UC18       |
+| UC13: CMS Management         | -     | -     | ✅      | -          |
+| UC14: Finalisasi Kasus       | -     | -     | ✅      | UC18       |
+| UC15: View Audit Log         | -     | -     | ✅      | -          |
+| UC16: Backup Database        | -     | -     | ✅      | -          |
 
 ---
 
 ## 5. Kesimpulan
 
-Use Case Diagram ini mendefinisikan 20 use case yang mencakup seluruh fungsionalitas Sistem Tracking Status Dokumen Notaris. 
+Use Case Diagram ini mendefinisikan 20 use case yang mencakup seluruh fungsionalitas Sistem Tracking Status Dokumen Notaris.
 
 **Poin Penting:**
+
 1. **Pemisahan akses jelas** - Klien (public tracking), Staff (operasional), Notaris (full access)
 2. **Automation sistem** - 4 use case otomatis untuk logging, validasi, dan generation
 3. **Security by design** - Verifikasi token, RBAC, audit trail di semua aksi penting

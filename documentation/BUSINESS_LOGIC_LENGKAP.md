@@ -22,15 +22,16 @@ Sistem ini mengelola lifecycle registrasi dari awal (create) sampai selesai (dit
 | 3 | `validasi_sertifikat` | Validasi Sertifikat | 3 | 7 hari | ✅ YA | Cek keaslian sertifikat |
 | 4 | `pencecekan_sertifikat` | Pengecekan Sertifikat | 4 | 7 hari | ✅ YA | Verifikasi fisik sertifikat |
 | 5 | `pembayaran_pajak` | Pembayaran Pajak | 5 | 1 hari | ❌ TIDAK | **BATAS PEMBATALAN** |
-| 6 | `validasi_pajak` | Validasi Pajak | 6 | 5 hari | ❌ TIDAK | Cek bukti bayar pajak |
-| 7 | `penomoran_akta` | Penomoran Akta | 7 | 1 hari | ❌ TIDAK | Assign nomor akta |
-| 8 | `pendaftaran` | Pendaftaran | 8 | 5-7 hari | ❌ TIDAK | Daftar ke BPN |
-| 9 | `pembayaran_pnbp` | Pembayaran PNBP | 9 | 1-2 hari | ❌ TIDAK | Biaya negara |
-| 10 | `pemeriksaan_bpn` | Pemeriksaan BPN | 10 | 7-10 hari | ❌ TIDAK | BPN periksa berkas |
-| 11 | `perbaikan` | Perbaikan | 11 | 3-7 hari | ✅ YA* | Koreksi dari BPN |
-| 12 | `selesai` | Selesai | 12 | 1 hari | ❌ TIDAK | Akta selesai |
-| 13 | `ditutup` | Ditutup | 13 | 1 hari | ❌ TIDAK | Final, read-only |
-| 14 | `batal` | Batal | 14 | - | ❌ TIDAK | Registrasi dibatalkan |
+| 6 | `batal` | Batal | 14 | - | ❌ TIDAK | Registrasi dibatalkan |
+| 7 | `validasi_pajak` | Validasi Pajak | 6 | 5 hari | ❌ TIDAK | Cek bukti bayar pajak |
+| 8 | `penomoran_akta` | Penomoran Akta | 7 | 1 hari | ❌ TIDAK | Assign nomor akta |
+| 9 | `pendaftaran` | Pendaftaran | 8 | 5-7 hari | ❌ TIDAK | Daftar ke BPN |
+| 10 | `pembayaran_pnbp` | Pembayaran PNBP | 9 | 1-2 hari | ❌ TIDAK | Biaya negara |
+| 11 | `pemeriksaan_bpn` | Pemeriksaan BPN | 10 | 7-10 hari | ❌ TIDAK | BPN periksa berkas |
+| 12 | `perbaikan` | Perbaikan | 11 | 3-7 hari | ✅ YA* | Koreksi dari BPN |
+| 13 | `selesai` | Selesai | 12 | 1 hari | ❌ TIDAK | Akta selesai |
+| 14 | `diserahkan` | Diserahkan | 14 | 1 hari | ❌ TIDAK | Final, read-only |
+| 15 | `ditutup` | Ditutup | 15 | 1 hari | ❌ TIDAK | Final, read-only |
 
 **\*CATATAN:** Perbaikan bisa batal karena merupakan koreksi dari BPN, belum ada biaya baru yang keluar.
 
