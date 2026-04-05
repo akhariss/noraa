@@ -37,6 +37,7 @@ class WorkflowService
 
     /**
      * Update status with role-based behavior + Transactions (SK-06/SK-14)
+     * G-10: Added lock validation before allowing updates
      */
     public function updateStatus(
         int $registrasiId,
@@ -54,6 +55,12 @@ class WorkflowService
 
             $registrasi = $this->registrasiModel->findById($registrasiId);
             if (!$registrasi) throw new \Exception('Registrasi tidak ditemukan');
+
+            // G-10: Check if registrasi is locked before allowing updates
+            if (!empty($registrasi['locked']) && (int)$registrasi['locked'] === 1) {
+                $db->rollBack();
+                return ['success' => false, 'message' => 'Registrasi sedang dikunci. Tidak dapat melakukan perubahan status saat ini.'];
+            }
 
             $oldStatus = $registrasi['status'];
             $oldCatatan = $registrasi['catatan_internal'];

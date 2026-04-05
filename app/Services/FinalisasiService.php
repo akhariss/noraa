@@ -183,13 +183,13 @@ class FinalisasiService
 
             if (!$targetStep) throw new \Exception('Stage Perbaikan tidak ditemukan di database.');
 
-            // SK-06: Hard Reset closure milestone during re-open (v6.37)
+            // G-08: Extract milestone reset to Registrasi method to avoid duplication
+            $this->registrasiModel->resetMilestones($registrasiId);
+            
+            // SK-06: Update step and notes
             $success = $this->registrasiModel->update($registrasiId, [
                 'current_step_id'  => (int)$targetStep['id'],
                 'step_started_at'  => date('Y-m-d H:i:s'),
-                'ditutup_at'       => null, // Reset the seal!
-                'diserahkan_at'    => null,
-                'selesai_batal_at' => null,
                 'catatan_internal' => $notes ?? 'Membuka kembali registrasi.'
             ]);
 

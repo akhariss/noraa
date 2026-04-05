@@ -174,49 +174,18 @@ class Controller {
 
     /**
      * Check if user is authenticated
+     * G-06: Consolidated to use helper function to avoid duplication
      */
     public function isAuthenticated(): bool {
-        // Start session if not started
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // Check if session exists and user is logged in
-        if (!isset($_SESSION[SESSION_NAME])) {
-            return false;
-        }
-        
-        if (!isset($_SESSION[SESSION_NAME]['logged_in']) || $_SESSION[SESSION_NAME]['logged_in'] !== true) {
-            return false;
-        }
-
-        // Check session lifetime
-        if (!isset($_SESSION[SESSION_NAME]['login_time'])) {
-            return false;
-        }
-        
-        if (time() - $_SESSION[SESSION_NAME]['login_time'] > SESSION_LIFETIME) {
-            // Session expired
-            $this->logout();
-            return false;
-        }
-
-        return true;
+        return isLoggedIn();
     }
 
     /**
      * Get current user
+     * G-06: Consolidated to use helper function
      */
     public function getCurrentUser(): ?array {
-        if (!$this->isAuthenticated()) {
-            return null;
-        }
-
-        // Don't start session if already started (prevents double session_start error)
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        return $this->userModel->findById($_SESSION[SESSION_NAME]['user_id']);
+        return getCurrentUser();
     }
 
     /**
@@ -243,32 +212,22 @@ class Controller {
 
     /**
      * Require authentication
+     * G-06: Consolidated to use helper function to avoid duplication
      */
     public function requireAuth(): void {
-        if (!$this->isAuthenticated()) {
-            if ($this->isAjaxRequest()) {
-                http_response_code(401);
-                echo json_encode([
-                    'success' => false, 
-                    'message' => 'Session expired or unauthorized access. Please login again.',
-                    'code' => 'SESSION_EXPIRED'
-                ]);
-                exit;
-            }
-            header('Location: ' . APP_URL . '/index.php?gate=login&expired=1');
-            exit;
-        }
+        requireAuth();
     }
 
     /**
      * Require specific role
      * For dashboard pages - redirects to login on session expired
+     * G-06: Uses consolidated requireAuth helper function
      */
     public function requireRole(string $role): void {
-        $this->requireAuth();
+        requireAuth();
 
         if (!$this->hasRole($role)) {
-            if ($this->isAjaxRequest()) {
+            if (isAjaxRequest()) {
                 http_response_code(403);
                 echo json_encode(['success' => false, 'message' => 'Forbidden']);
                 exit;
@@ -281,35 +240,17 @@ class Controller {
 
     /**
      * Generate CSRF token
+     * G-07: Consolidated to use helper function to avoid duplication
      */
     public function generateCSRFToken(): string {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        if (!isset($_SESSION[CSRF_TOKEN_NAME])) {
-            $_SESSION[CSRF_TOKEN_NAME] = bin2hex(random_bytes(32));
-        }
-
-        return $_SESSION[CSRF_TOKEN_NAME];
+        return generateCSRFToken();
     }
 
     /**
      * Verify CSRF token
+     * G-07: Consolidated to use helper function to avoid duplication
      */
     public function verifyCSRFToken(string $token): bool {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        return isset($_SESSION[CSRF_TOKEN_NAME]) && hash_equals($_SESSION[CSRF_TOKEN_NAME], $token);
-    }
-
-    /**
-     * Check if request is AJAX
-     */
-    private function isAjaxRequest(): bool {
-        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
-               strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+        return verifyCSRFToken($token);
     }
 }

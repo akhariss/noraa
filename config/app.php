@@ -76,7 +76,7 @@ define('UTILS_PATH', APP_PATH . '/Core/Utils');
 
 // ── Database ──────────────────────────────────────────────────
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'norasblmupdate2');
+define('DB_NAME', 'norasblmupdate3');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');

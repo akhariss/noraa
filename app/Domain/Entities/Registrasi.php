@@ -14,6 +14,11 @@ use App\Adapters\Logger;
 class Registrasi
 {
     /**
+     * Cache for column existence check
+     */
+    private static ?array $columnCache = null;
+
+    /**
      * Get PDO connection (for services that need raw queries).
      */
     public function getConnection(): \PDO
@@ -21,24 +26,71 @@ class Registrasi
         return Database::getInstance();
     }
 
+    /**
+     * Check if a column exists in registrasi table
+     * Used for backward compatibility during migration
+     */
+    private function columnExists(string $columnName): bool
+    {
+        // Cache column existence to avoid repeated queries
+        if (self::$columnCache === null) {
+            self::$columnCache = [];
+            try {
+                $columns = Database::select(
+                    "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
+                     WHERE TABLE_NAME = 'registrasi' AND TABLE_SCHEMA = DATABASE()"
+                );
+                foreach ($columns as $col) {
+                    self::$columnCache[$col['COLUMN_NAME']] = true;
+                }
+            } catch (\Exception $e) {
+                Logger::error('Column check failed', ['error' => $e->getMessage()]);
+                return false;
+            }
+        }
+        return isset(self::$columnCache[$columnName]);
+    }
+
     public function findById(int $id): ?array
     {
-        return Database::selectOne(
-            "SELECT p.id, p.klien_id, p.layanan_id, p.nomor_registrasi,
+        // Build SELECT clause dynamically to handle missing columns during migration
+        $selectCols = "SELECT p.id, p.klien_id, p.layanan_id, p.nomor_registrasi,
                     p.current_step_id, p.step_started_at, p.target_completion_at,
                     p.selesai_batal_at, p.diserahkan_at, p.ditutup_at,
-                    p.keterangan, p.catatan_internal, p.tracking_token, p.verification_code,
-                    p.created_at, p.updated_at,
+                    p.keterangan, p.catatan_internal, p.tracking_token, p.verification_code,";
+        
+        // Add locked and batal_flag only if they exist (post-migration)
+        if ($this->columnExists('locked')) {
+            $selectCols .= " p.locked,";
+        } else {
+            $selectCols .= " 0 AS locked,"; // Fallback to default value
+        }
+        
+        if ($this->columnExists('batal_flag')) {
+            $selectCols .= " p.batal_flag,";
+        } else {
+            $selectCols .= " 0 AS batal_flag,"; // Fallback to default value
+        }
+        
+        $selectCols .= " p.created_at, p.updated_at,
                     k.nama AS klien_nama, k.hp AS klien_hp, k.email AS klien_email,
                     l.nama_layanan, l.deskripsi AS layanan_deskripsi,
-                    w.step_key AS status, w.label AS status_label, w.behavior_role, w.sort_order AS workflow_order
-             FROM registrasi p
-             LEFT JOIN klien k ON p.klien_id = k.id
-             LEFT JOIN layanan l ON p.layanan_id = l.id
-             LEFT JOIN workflow_steps w ON p.current_step_id = w.id
-             WHERE p.id = :id LIMIT 1",
-            ['id' => $id]
-        );
+                    w.step_key AS status, w.label AS status_label, w.behavior_role, w.sort_order AS workflow_order";
+
+        try {
+            return Database::selectOne(
+                "$selectCols
+                 FROM registrasi p
+                 LEFT JOIN klien k ON p.klien_id = k.id
+                 LEFT JOIN layanan l ON p.layanan_id = l.id
+                 LEFT JOIN workflow_steps w ON p.current_step_id = w.id
+                 WHERE p.id = :id LIMIT 1",
+                ['id' => $id]
+            );
+        } catch (\Exception $e) {
+            Logger::error('findById failed', ['registrasi_id' => $id, 'error' => $e->getMessage()]);
+            return null;
+        }
     }
 
     public function findByNomorRegistrasi(string $nomor): ?array
@@ -270,13 +322,18 @@ class Registrasi
         $allowed = [
             'layanan_id', 'nomor_registrasi', 'current_step_id', 'step_started_at', 
             'catatan_internal', 'tracking_token', 'verification_code', 'keterangan', 'target_completion_at',
-            'selesai_batal_at', 'diserahkan_at', 'ditutup_at'
+            'selesai_batal_at', 'diserahkan_at', 'ditutup_at', 'locked', 'batal_flag'
         ];
         $fields = [];
         $params = ['id' => $id];
 
         foreach ($allowed as $field) {
             if (isset($data[$field])) {
+                // SAFETY: Skip new columns if they don't exist yet in database (during migration)
+                if (in_array($field, ['locked', 'batal_flag']) && !$this->columnExists($field)) {
+                    Logger::warning("Column {$field} does not exist yet. Skipping. Run migration to activate.");
+                    continue;
+                }
                 $fields[] = "{$field} = :{$field}";
                 $params[$field] = $data[$field];
             }
@@ -302,6 +359,104 @@ class Registrasi
             return true;
         } catch (\PDOException $e) {
             Logger::error('Registrasi delete failed', ['error' => $e->getMessage()]);
+            return false;
+        }
+    }
+
+    /**
+     * G-20: Check if registrasi is locked
+     */
+    public function isLocked(int $id): bool
+    {
+        $row = Database::selectOne(
+            "SELECT locked FROM registrasi WHERE id = :id",
+            ['id' => $id]
+        );
+        return (bool)($row['locked'] ?? false);
+    }
+
+    /**
+     * G-20: Lock a registrasi to prevent concurrent edits
+     */
+    public function lock(int $id): bool
+    {
+        try {
+            Database::execute(
+                "UPDATE registrasi SET locked = 1 WHERE id = :id",
+                ['id' => $id]
+            );
+            return true;
+        } catch (\PDOException $e) {
+            Logger::error('Registrasi lock failed', ['error' => $e->getMessage()]);
+            return false;
+        }
+    }
+
+    /**
+     * G-20: Unlock a registrasi
+     */
+    public function unlock(int $id): bool
+    {
+        try {
+            Database::execute(
+                "UPDATE registrasi SET locked = 0 WHERE id = :id",
+                ['id' => $id]
+            );
+            return true;
+        } catch (\PDOException $e) {
+            Logger::error('Registrasi unlock failed', ['error' => $e->getMessage()]);
+            return false;
+        }
+    }
+
+    /**
+     * G-21: Set batal_flag for cancellation tracking
+     */
+    public function setBatalFlag(int $id, bool $isBatal): bool
+    {
+        try {
+            Database::execute(
+                "UPDATE registrasi SET batal_flag = ? WHERE id = :id",
+                [':id' => $id],
+                [$isBatal ? 1 : 0]
+            );
+            return true;
+        } catch (\PDOException $e) {
+            Logger::error('Registrasi setBatalFlag failed', ['error' => $e->getMessage()]);
+            return false;
+        }
+    }
+
+    /**
+     * G-21: Get batal_flag status
+     */
+    public function getBatalFlag(int $id): bool
+    {
+        $row = Database::selectOne(
+            "SELECT batal_flag FROM registrasi WHERE id = :id",
+            ['id' => $id]
+        );
+        return (bool)($row['batal_flag'] ?? false);
+    }
+
+    /**
+     * G-08: Reset all milestone timestamps (for re-open/repair operations)
+     * Consolidates duplicate logic from WorkflowService and FinalisasiService
+     */
+    public function resetMilestones(int $id): bool
+    {
+        try {
+            Database::execute(
+                "UPDATE registrasi SET 
+                 ditutup_at = NULL,
+                 diserahkan_at = NULL,
+                 selesai_batal_at = NULL
+                 WHERE id = :id",
+                ['id' => $id]
+            );
+            return true;
+        } catch (\PDOException $e) {
+            Logger::error('Reset milestones failed', ['error' => $e->getMessage()]);
             return false;
         }
     }

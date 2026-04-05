@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2026 at 05:13 AM
+-- Generation Time: Apr 05, 2026 at 10:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,37 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `norasblmupdate`
+-- Database: `norasblmupdate2`
 --
-
-DELIMITER $$
---
--- Procedures
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `migrate_to_nora_v2_v3_final` ()   BEGIN
-    -- ═══════════════════════════════════════════════════════════════
-    -- PHASE 1: SCHEMA UPDATE (COLUMN NAME)
-    -- ═══════════════════════════════════════════════════════════════
-    IF NOT EXISTS (SELECT * FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'name' AND table_schema = DATABASE()) THEN
-        ALTER TABLE users ADD COLUMN name VARCHAR(101) AFTER username;
-        UPDATE users SET name = username WHERE name IS NULL OR name = '';
-    END IF;
-
-    -- ═══════════════════════════════════════════════════════════════
-    -- PHASE 2: ROLE RESCUE (Fixing Empty/Legacy Roles)
-    -- ═══════════════════════════════════════════════════════════════
-
-    -- Pastikan notaris dan admin punya role dulu
-    UPDATE users SET role = 'administrator' WHERE username = 'notaris';
-    UPDATE users SET role = 'staff' WHERE username = 'admin' OR username = 'tes 123456';
-
-    -- Mass fix yang masih kosong atau legacy
-    UPDATE users SET role = 'administrator' WHERE role IN ('role_owner', 'role_trusted', 'notaris', 'trusted') OR role IS NULL OR role = '';
-    UPDATE users SET role = 'staff' WHERE role IN ('role_staff', 'admin') AND (username != 'notaris');
-
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -64,375 +35,6 @@ CREATE TABLE `audit_log` (
   `new_value` text DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `audit_log`
---
-
-INSERT INTO `audit_log` (`id`, `user_id`, `role`, `action`, `new_value`, `timestamp`) VALUES
-(1, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-02-24 12:15:40'),
-(2, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 12:23:01'),
-(3, 1, 'admin', 'logout', NULL, '2026-02-24 12:44:05'),
-(4, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 12:44:16'),
-(5, 2, 'notaris', 'logout', NULL, '2026-02-24 12:44:41'),
-(6, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 12:47:15'),
-(7, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 12:47:55'),
-(8, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 12:50:21'),
-(9, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 12:56:52'),
-(10, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 12:57:31'),
-(11, 2, 'notaris', 'logout', NULL, '2026-02-24 13:03:59'),
-(12, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-02-24 13:04:56'),
-(14, 1, 'admin', 'logout', NULL, '2026-02-24 14:06:01'),
-(15, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 14:06:03'),
-(17, 2, 'notaris', 'logout', NULL, '2026-02-24 15:19:47'),
-(18, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 15:19:51'),
-(22, 2, 'notaris', 'logout', NULL, '2026-02-24 16:33:06'),
-(23, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-24 16:33:09'),
-(24, 2, 'notaris', 'logout', NULL, '2026-02-25 02:52:22'),
-(25, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 02:52:27'),
-(26, 2, 'notaris', 'logout', NULL, '2026-02-25 05:24:00'),
-(27, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 05:24:30'),
-(28, 2, 'notaris', 'logout', NULL, '2026-02-25 05:24:36'),
-(29, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 05:24:43'),
-(30, 2, 'notaris', 'logout', NULL, '2026-02-25 05:24:47'),
-(31, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-02-25 13:00:47'),
-(32, 1, 'admin', 'logout', NULL, '2026-02-25 14:06:13'),
-(33, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 14:06:15'),
-(34, 2, 'notaris', 'logout', NULL, '2026-02-25 15:08:31'),
-(35, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 15:08:34'),
-(36, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 15:30:49'),
-(37, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 15:40:12'),
-(45, 2, 'notaris', 'logout', NULL, '2026-02-25 16:40:18'),
-(46, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 16:40:21'),
-(47, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 16:51:31'),
-(48, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 17:21:58'),
-(49, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-25 17:34:59'),
-(54, 2, 'notaris', 'logout', NULL, '2026-02-26 03:35:33'),
-(55, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 03:35:58'),
-(56, 2, 'notaris', 'logout', NULL, '2026-02-26 08:05:48'),
-(57, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 08:11:39'),
-(58, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 13:06:16'),
-(66, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 14:07:36'),
-(75, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 15:01:14'),
-(76, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 15:11:27'),
-(77, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 15:22:58'),
-(78, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 15:32:34'),
-(79, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-26 15:39:02'),
-(80, 2, 'notaris', 'logout', NULL, '2026-02-27 00:41:19'),
-(81, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-02-27 00:41:55'),
-(82, 1, 'admin', 'create', '{\"klien_id\":3,\"layanan_id\":\"5\",\"nomor_perkara\":\"NP-20260227-7190\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-02-27 01:12:55'),
-(83, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-27 01:26:38'),
-(84, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-27 01:59:41'),
-(85, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"4\",\"nomor_perkara\":\"NP-20260227-4316\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-02-27 02:00:28'),
-(86, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-02-27 02:08:45'),
-(87, 2, 'notaris', 'logout', NULL, '2026-03-01 15:18:23'),
-(88, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-01 15:18:26'),
-(89, 2, 'notaris', 'logout', NULL, '2026-03-01 16:18:57'),
-(90, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-01 16:18:59'),
-(91, 2, 'notaris', 'create', '{\"user_created\":\"jkknm\",\"role\":\"admin\"}', '2026-03-01 16:42:44'),
-(92, 2, 'notaris', 'delete', NULL, '2026-03-01 16:46:42'),
-(93, 2, 'notaris', 'create', '{\"user_created\":\"notarisk,\",\"role\":\"admin\"}', '2026-03-01 16:54:27'),
-(94, 2, 'notaris', 'create', '{\"user_created\":\"notarislik;l\\/;,\",\"role\":\"notaris\"}', '2026-03-01 17:00:33'),
-(95, 2, 'notaris', 'create', '{\"user_created\":\"tes123456\",\"role\":\"notaris\"}', '2026-03-01 17:01:51'),
-(96, 6, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-01 17:02:21'),
-(97, 2, 'notaris', 'delete', NULL, '2026-03-01 17:05:49'),
-(98, 2, 'notaris', 'logout', NULL, '2026-03-01 17:23:07'),
-(99, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-01 17:23:10'),
-(100, 2, 'notaris', 'update', '{\"username\":\"tes123456\",\"role\":\"admin\"}', '2026-03-01 17:30:56'),
-(101, 2, 'notaris', 'update', '{\"username\":\"tes123456\",\"role\":\"notaris\"}', '2026-03-01 17:31:18'),
-(102, 6, 'notaris', 'update', '{\"username\":\"notaris\",\"role\":\"admin\"}', '2026-03-01 17:31:31'),
-(103, 6, 'notaris', 'update', '{\"username\":\"notaris\",\"role\":\"notaris\"}', '2026-03-01 17:32:30'),
-(104, 2, 'notaris', 'update', '{\"username\":\"tes123456\",\"role\":\"admin\"}', '2026-03-01 17:32:49'),
-(105, 6, 'admin', 'backup_delete', '{\"filename\":\"backup_2026-03-01_170305.sql\"}', '2026-03-01 17:38:49'),
-(106, 6, 'notaris', 'logout', NULL, '2026-03-01 18:08:37'),
-(107, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-01 18:08:41'),
-(108, 2, 'notaris', 'logout', NULL, '2026-03-01 18:09:01'),
-(109, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-01 18:09:20'),
-(110, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 02:33:27'),
-(111, 2, 'notaris', 'backup_delete', '{\"filename\":\"backup_2026-03-02_042735.sql\"}', '2026-03-02 03:28:08'),
-(112, 2, 'notaris', 'backup_delete', '{\"filename\":\"backup_2026-03-02_041059.sql\"}', '2026-03-02 03:28:13'),
-(113, 2, 'notaris', 'logout', NULL, '2026-03-02 03:33:47'),
-(114, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 03:33:49'),
-(115, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"3\",\"nomor_perkara\":\"NP-20260302-1925\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 04:33:49'),
-(116, 2, 'notaris', 'logout', NULL, '2026-03-02 04:33:50'),
-(117, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 04:33:53'),
-(118, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260302-5491\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 04:34:19'),
-(119, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260302-9541\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 04:46:35'),
-(120, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260302-8286\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 04:51:55'),
-(121, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260302-4508\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 04:51:58'),
-(122, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260302-3825\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 04:52:01'),
-(123, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"6\",\"nomor_perkara\":\"NP-20260302-9979\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:00:11'),
-(124, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"6\",\"nomor_perkara\":\"NP-20260302-6054\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:18:17'),
-(125, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260302-8398\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:28:10'),
-(126, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260302-3144\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:28:35'),
-(127, 2, 'notaris', 'logout', NULL, '2026-03-02 05:36:16'),
-(128, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 05:36:18'),
-(129, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260302-3549\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:36:34'),
-(130, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260302-8619\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:37:36'),
-(131, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260302-0388\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:38:05'),
-(132, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260302-5069\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:40:02'),
-(133, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"5\",\"nomor_perkara\":\"NP-20260302-3483\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:43:47'),
-(134, 2, 'notaris', 'create', '{\"klien_id\":4,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260302-0782\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-02 05:44:43'),
-(135, 2, 'notaris', 'logout', NULL, '2026-03-02 06:36:52'),
-(136, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 06:36:54'),
-(137, 2, 'notaris', 'logout', NULL, '2026-03-02 07:16:00'),
-(138, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 07:16:03'),
-(139, 2, 'notaris', 'logout', NULL, '2026-03-02 07:48:33'),
-(140, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 07:48:35'),
-(141, 2, 'notaris', 'logout', NULL, '2026-03-02 09:19:07'),
-(142, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 09:19:10'),
-(143, 2, 'notaris', 'logout', NULL, '2026-03-02 14:02:27'),
-(144, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-02 14:02:48'),
-(145, 2, 'notaris', 'logout', NULL, '2026-03-02 14:07:49'),
-(146, 1, 'notaris', 'logout', NULL, '2026-03-03 07:36:14'),
-(147, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-03 07:36:30'),
-(148, 1, 'admin', 'logout', NULL, '2026-03-03 07:36:41'),
-(149, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-03 07:36:50'),
-(150, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-04 07:16:30'),
-(151, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-04 07:16:31'),
-(152, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260304-4996\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-04 07:22:17'),
-(153, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260304-9295\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-04 07:30:32'),
-(154, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260304-8855\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-04 07:43:12'),
-(155, 2, 'notaris', 'logout', NULL, '2026-03-04 07:46:47'),
-(156, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-04 07:46:50'),
-(157, 2, 'notaris', 'logout', NULL, '2026-03-04 07:53:42'),
-(158, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-04 07:53:53'),
-(159, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-05 05:43:41'),
-(160, 1, 'admin', 'logout', NULL, '2026-03-05 05:52:15'),
-(161, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-05 05:52:18'),
-(162, 1, 'admin', 'logout', NULL, '2026-03-05 05:53:24'),
-(163, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-05 05:56:20'),
-(164, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-06 17:24:21'),
-(165, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-06 17:40:29'),
-(166, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-06 18:00:53'),
-(167, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-06 18:00:54'),
-(168, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":1,\"nomor_perkara\":\"NP-20260306-4773\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-06 18:03:45'),
-(169, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-07 02:21:13'),
-(170, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-07 02:41:17'),
-(171, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-07 02:57:55'),
-(172, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-07 03:09:37'),
-(173, 1, 'admin', 'logout', NULL, '2026-03-07 15:42:43'),
-(174, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-07 15:42:54'),
-(175, 1, 'admin', 'create', '{\"klien_id\":3,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260307-3068\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-07 15:45:25'),
-(176, 1, 'admin', 'logout', NULL, '2026-03-07 15:46:16'),
-(177, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-07 15:46:22'),
-(178, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-07 16:17:03'),
-(179, 2, 'notaris', 'login', '{\"ip\":\"192.168.100.178\"}', '2026-03-07 16:22:22'),
-(180, 2, 'notaris', 'login', '{\"ip\":\"127.0.0.1\"}', '2026-03-07 16:38:24'),
-(181, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-07 16:56:34'),
-(182, 2, 'notaris', 'logout', NULL, '2026-03-08 02:33:02'),
-(183, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 02:38:59'),
-(184, 2, 'notaris', 'logout', NULL, '2026-03-08 02:39:33'),
-(185, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 03:02:49'),
-(186, 2, 'notaris', 'logout', NULL, '2026-03-08 03:02:53'),
-(187, 2, 'notaris', 'login', '{\"ip\":\"127.0.0.1\"}', '2026-03-08 03:03:35'),
-(188, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 03:26:05'),
-(189, 2, 'notaris', 'logout', NULL, '2026-03-08 03:38:01'),
-(190, 2, 'notaris', 'login', '{\"ip\":\"127.0.0.1\"}', '2026-03-08 03:38:03'),
-(191, 2, 'notaris', 'logout', NULL, '2026-03-08 05:43:17'),
-(192, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 05:43:20'),
-(193, 2, 'notaris', 'logout', NULL, '2026-03-08 06:33:51'),
-(194, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 06:33:54'),
-(195, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 06:48:53'),
-(196, 2, 'notaris', 'logout', NULL, '2026-03-08 07:39:23'),
-(197, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 07:39:25'),
-(198, 2, 'notaris', 'logout', NULL, '2026-03-08 09:44:01'),
-(199, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 09:44:03'),
-(200, 2, 'notaris', 'logout', NULL, '2026-03-08 16:38:20'),
-(201, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-08 16:38:28'),
-(202, 1, 'admin', 'logout', NULL, '2026-03-08 16:42:02'),
-(203, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 16:42:05'),
-(204, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 17:12:08'),
-(205, 2, 'notaris', 'logout', NULL, '2026-03-08 18:50:56'),
-(206, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 18:51:02'),
-(207, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-08 21:25:50'),
-(208, 2, 'notaris', 'logout', NULL, '2026-03-08 22:59:01'),
-(209, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-09 16:18:08'),
-(210, 2, 'notaris', 'logout', NULL, '2026-03-09 17:19:44'),
-(211, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-09 17:19:48'),
-(212, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-10 05:37:21'),
-(213, 2, 'notaris', 'logout', NULL, '2026-03-10 06:23:34'),
-(214, 2, 'notaris', 'login', '{\"ip\":\"172.16.109.130\"}', '2026-03-10 06:32:29'),
-(215, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-10 06:33:02'),
-(216, 2, 'notaris', 'logout', NULL, '2026-03-10 06:58:24'),
-(217, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-10 06:58:27'),
-(218, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-10 21:56:14'),
-(219, 2, 'notaris', 'logout', NULL, '2026-03-10 22:40:30'),
-(220, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-10 22:40:33'),
-(221, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 13:05:17'),
-(222, 2, 'notaris', 'logout', NULL, '2026-03-11 13:43:44'),
-(223, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 13:43:45'),
-(224, 2, 'notaris', 'logout', NULL, '2026-03-11 14:22:44'),
-(225, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 14:22:46'),
-(226, 2, 'notaris', 'logout', NULL, '2026-03-11 14:53:03'),
-(227, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 14:53:05'),
-(228, 2, 'notaris', 'logout', NULL, '2026-03-11 14:58:43'),
-(229, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 14:58:45'),
-(230, 2, 'notaris', 'logout', NULL, '2026-03-11 15:49:29'),
-(231, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 15:49:32'),
-(232, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 16:10:45'),
-(233, 2, 'notaris', 'logout', NULL, '2026-03-11 16:18:38'),
-(234, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 16:18:45'),
-(235, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 16:20:37'),
-(236, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 16:26:15'),
-(237, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 16:28:57'),
-(238, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 16:29:58'),
-(239, 6, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-11 16:34:14'),
-(240, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 16:37:52'),
-(241, 2, 'notaris', 'logout', NULL, '2026-03-11 17:28:22'),
-(242, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 17:28:24'),
-(243, 2, 'notaris', 'create', '{\"klien_id\":5,\"layanan_id\":\"8\",\"nomor_perkara\":\"NP-20260311-6326\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan.\"}', '2026-03-11 17:55:28'),
-(244, 2, 'notaris', 'logout', NULL, '2026-03-11 17:58:54'),
-(245, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-11 17:58:56'),
-(246, 2, 'notaris', 'login', '{\"ip\":\"127.0.0.1\"}', '2026-03-12 03:33:27'),
-(247, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 04:53:36'),
-(248, 2, 'notaris', 'logout', NULL, '2026-03-12 05:11:21'),
-(249, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-12 05:11:23'),
-(250, 1, 'admin', 'logout', NULL, '2026-03-12 05:11:33'),
-(251, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 05:11:37'),
-(252, 2, 'notaris', 'logout', NULL, '2026-03-12 05:11:42'),
-(253, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 05:11:48'),
-(254, 2, 'notaris', 'logout', NULL, '2026-03-12 05:26:50'),
-(255, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 05:27:15'),
-(256, 2, 'notaris', 'logout', NULL, '2026-03-12 05:42:17'),
-(257, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 05:42:19'),
-(258, 2, 'notaris', 'logout', NULL, '2026-03-12 06:42:20'),
-(259, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 06:42:22'),
-(260, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 13:43:21'),
-(261, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 13:48:28'),
-(262, 2, 'notaris', 'logout', NULL, '2026-03-12 14:24:35'),
-(263, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 14:24:37'),
-(264, 2, 'notaris', 'logout', NULL, '2026-03-12 14:25:44'),
-(265, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 14:25:47'),
-(266, 2, 'notaris', 'logout', NULL, '2026-03-12 14:33:13'),
-(267, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 14:33:14'),
-(268, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 16:41:24'),
-(269, 2, 'notaris', 'logout', NULL, '2026-03-12 16:49:05'),
-(270, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 16:49:07'),
-(271, 2, 'notaris', 'logout', NULL, '2026-03-12 17:19:56'),
-(272, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 17:19:58'),
-(273, 2, 'notaris', 'logout', NULL, '2026-03-12 17:54:55'),
-(274, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 17:54:58'),
-(275, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 20:47:14'),
-(276, 2, 'notaris', 'logout', NULL, '2026-03-12 21:17:56'),
-(277, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 21:17:58'),
-(278, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:06:58'),
-(279, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:07:12'),
-(280, 2, 'notaris', 'logout', NULL, '2026-03-12 22:07:16'),
-(281, 2, 'notaris', 'logout', NULL, '2026-03-12 22:07:48'),
-(282, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:10:29'),
-(283, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:18:14'),
-(284, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:22:11'),
-(285, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:22:28'),
-(286, 2, 'notaris', 'logout', NULL, '2026-03-12 22:25:17'),
-(287, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:25:19'),
-(288, 2, 'notaris', 'logout', NULL, '2026-03-12 22:25:23'),
-(289, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:25:27'),
-(290, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:26:17'),
-(291, 2, 'notaris', 'logout', NULL, '2026-03-12 22:28:59'),
-(292, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:29:01'),
-(293, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:29:31'),
-(294, 2, 'notaris', 'logout', NULL, '2026-03-12 22:36:36'),
-(295, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:36:38'),
-(296, 2, 'notaris', 'logout', NULL, '2026-03-12 22:45:07'),
-(297, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:45:09'),
-(298, 2, 'notaris', 'logout', NULL, '2026-03-12 22:57:48'),
-(299, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-12 22:57:50'),
-(300, 2, 'notaris', 'logout', NULL, '2026-03-13 00:15:12'),
-(301, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-13 00:15:23'),
-(302, 2, 'notaris', 'logout', NULL, '2026-03-13 00:20:33'),
-(303, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-13 00:21:25'),
-(304, 2, 'notaris', 'logout', NULL, '2026-03-13 00:30:08'),
-(305, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-13 00:30:10'),
-(306, 2, 'notaris', 'logout', NULL, '2026-03-13 00:43:22'),
-(307, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-13 00:43:27'),
-(308, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-13 02:31:20'),
-(309, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-13 13:48:05'),
-(310, 2, 'notaris', 'logout', NULL, '2026-03-13 13:49:01'),
-(311, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-13 13:49:07'),
-(312, 2, 'notaris', 'logout', NULL, '2026-03-13 13:49:32'),
-(313, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-13 13:49:59'),
-(314, 2, 'notaris', 'login', '{\"ip\":\"2404:c0:ab01:d9e4:a4ec:960d:6e07:4152\"}', '2026-03-14 10:27:20'),
-(315, 2, 'notaris', 'login', '{\"ip\":\"2404:c0:ab01:d9e4:3021:f600:d4d8:68cd\"}', '2026-03-15 02:52:30'),
-(316, 2, 'notaris', 'login', '{\"ip\":\"2404:c0:ab01:7780:54c3:5007:37da:9e59\"}', '2026-03-24 07:39:05'),
-(317, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 04:23:08'),
-(318, 2, 'notaris', 'logout', NULL, '2026-03-25 04:48:17'),
-(319, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 05:30:13'),
-(320, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 05:34:00'),
-(321, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 05:34:15'),
-(322, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 05:35:23'),
-(323, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_registrasi\":\"NP-20260325-7528\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-25 05:36:14'),
-(324, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 11:49:06'),
-(325, 2, 'notaris', 'logout', NULL, '2026-03-25 12:50:50'),
-(326, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 12:50:53'),
-(327, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 12:51:46'),
-(328, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 12:52:59'),
-(329, 2, 'notaris', 'logout', NULL, '2026-03-25 12:53:03'),
-(330, 2, 'notaris', 'logout', NULL, '2026-03-25 12:58:54'),
-(331, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-25 13:30:11'),
-(332, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-26 01:36:18'),
-(333, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"4\",\"nomor_registrasi\":\"NP-20260326-2592\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-26 03:15:25'),
-(334, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":\"1\",\"nomor_registrasi\":\"NP-20260326-0027\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-26 03:26:28'),
-(335, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260326-5214\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-26 03:32:08'),
-(336, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260326-0241\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-26 03:33:32'),
-(337, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260326-2710\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-26 03:35:33'),
-(338, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":4,\"nomor_registrasi\":\"NP-20260326-8484\",\"status\":\"pembayaran_admin\",\"catatan_internal\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '2026-03-26 03:36:55'),
-(339, 2, 'notaris', 'create', '{\"klien_id\":3,\"layanan_id\":2,\"nomor_registrasi\":\"NP-20260326-9947\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-26 03:37:34'),
-(340, 2, 'notaris', 'create', '{\"klien_id\":11,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260326-2298\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-26 03:43:24'),
-(341, 2, 'notaris', 'create', '{\"klien_id\":12,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260326-0779\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-26 03:52:06'),
-(342, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-27 02:34:22'),
-(343, 2, 'notaris', 'create', '{\"klien_id\":13,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260327-9581\",\"status\":\"draft\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-27 02:34:54'),
-(344, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-27 06:50:56'),
-(345, 2, 'notaris', 'delete', NULL, '2026-03-27 07:03:02'),
-(346, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-27 07:21:16'),
-(347, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-27 07:51:33'),
-(348, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-28 13:46:54'),
-(349, 2, 'notaris', 'create', '{\"klien_id\":14,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260328-6744\",\"status\":\"draft\",\"current_step_id\":1,\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-28 14:33:50'),
-(350, 2, 'notaris', 'create', '{\"klien_id\":15,\"layanan_id\":3,\"nomor_registrasi\":\"NP-20260328-0541\",\"status\":\"draft\",\"current_step_id\":1,\"catatan_internal\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-03-28 14:34:12'),
-(351, 2, 'notaris', 'create', '{\"klien_id\":16,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260328-7870\",\"status\":\"draft\",\"current_step_id\":1,\"catatan_internal\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-03-28 14:34:33'),
-(352, 2, 'notaris', 'create', '{\"klien_id\":17,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260328-0141\",\"status\":\"pencecekan_sertifikat\",\"current_step_id\":4,\"catatan_internal\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-03-28 14:38:52'),
-(353, 2, 'notaris', 'logout', NULL, '2026-03-28 14:59:35'),
-(354, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-28 14:59:37'),
-(355, 2, 'notaris', 'create', '{\"klien_id\":18,\"layanan_id\":2,\"nomor_registrasi\":\"NP-20260328-7720\",\"status\":\"draft\",\"current_step_id\":1,\"target_completion_at\":\"2026-06-02 23:59:59\",\"keterangan\":\"sAa\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-28 16:30:58'),
-(356, 2, 'notaris', 'create', '{\"klien_id\":19,\"layanan_id\":6,\"nomor_registrasi\":\"NP-20260328-9644\",\"status\":\"draft\",\"current_step_id\":1,\"target_completion_at\":\"2026-06-02 23:59:59\",\"keterangan\":\"asasasaxa\",\"catatan_internal\":\"Perkara Anda notaris telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-28 16:53:40'),
-(357, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-29 05:24:28'),
-(358, 2, 'notaris', 'create', '{\"klien_id\":20,\"layanan_id\":14,\"nomor_registrasi\":\"NP-20260329-5251\",\"status\":\"pembayaran_admin\",\"current_step_id\":2,\"target_completion_at\":\"2026-05-30 23:59:59\",\"keterangan\":\"asasa\",\"catatan_internal\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '2026-03-29 08:31:44'),
-(359, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-29 10:30:24'),
-(360, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-29 10:30:33'),
-(361, 1, 'admin', 'login', '{\"ip\":\"::1\"}', '2026-03-29 10:33:01'),
-(362, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-29 10:36:09'),
-(363, 2, 'notaris', 'login', '{\"ip\":\"::1\"}', '2026-03-29 10:39:03'),
-(364, 2, '', 'logout', NULL, '2026-03-29 11:10:16'),
-(365, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 11:21:12'),
-(366, 2, '', 'logout', NULL, '2026-03-29 11:30:42'),
-(367, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 11:30:45'),
-(368, 2, '', 'logout', NULL, '2026-03-29 11:30:48'),
-(369, 1, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 11:30:55'),
-(370, 1, '', 'logout', NULL, '2026-03-29 11:31:11'),
-(371, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 11:32:47'),
-(372, 2, '', 'logout', NULL, '2026-03-29 12:24:25'),
-(373, 1, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 12:24:33'),
-(374, 1, '', 'logout', NULL, '2026-03-29 12:31:12'),
-(375, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 12:31:19'),
-(376, 2, '', 'logout', NULL, '2026-03-29 12:42:31'),
-(377, 1, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 12:42:39'),
-(378, 1, '', 'logout', NULL, '2026-03-29 12:43:22'),
-(379, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 12:57:01'),
-(380, 2, '', 'logout', NULL, '2026-03-29 13:48:59'),
-(381, 1, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 13:49:13'),
-(382, 1, '', 'create', '{\"klien_id\":21,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260329-8481\",\"status\":\"draft\",\"current_step_id\":1,\"target_completion_at\":\"2026-03-31 23:59:59\",\"keterangan\":\"lkaa\",\"catatan_internal\":\"Perkara Anda admin telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-29 13:49:40'),
-(383, 1, '', 'create', '{\"klien_id\":22,\"layanan_id\":1,\"nomor_registrasi\":\"NP-20260329-2474\",\"status\":\"draft\",\"current_step_id\":1,\"target_completion_at\":\"2026-05-29 23:59:59\",\"keterangan\":\"k;\",\"catatan_internal\":\"Perkara Anda admin telah terdaftar dan saat ini sedang dalam tahap pengumpulan serta pemeriksaan awal persyaratan. untuk didaftarkan sama saya dong\"}', '2026-03-29 14:28:21'),
-(384, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-29 16:02:03'),
-(385, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-30 03:38:44'),
-(386, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-30 04:47:38'),
-(387, 2, '', 'create', '{\"klien_id\":27,\"layanan_id\":2,\"nomor_registrasi\":\"NP-20260330-5448\",\"status\":\"draft\",\"current_step_id\":1,\"target_completion_at\":\"2026-05-30 23:59:59\",\"keterangan\":\"jlkm\\/,.\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap awal. [catatan]\"}', '2026-03-30 07:20:16'),
-(388, 2, '', 'create', '{\"klien_id\":28,\"layanan_id\":5,\"nomor_registrasi\":\"NP-20260330-5373\",\"status\":\"draft\",\"current_step_id\":1,\"target_completion_at\":\"2026-02-28 23:59:59\",\"keterangan\":\"apaaja\",\"catatan_internal\":\"Perkara Anda telah terdaftar dan saat ini sedang dalam tahap awal. [catatan]\"}', '2026-03-30 15:22:23'),
-(389, 2, '', 'logout', NULL, '2026-03-30 17:14:59'),
-(390, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-30 17:15:02'),
-(391, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-31 02:26:35'),
-(392, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-03-31 02:27:02'),
-(393, 2, '', 'login', '{\"ip\":\"127.0.0.1\"}', '2026-03-31 11:51:54'),
-(394, 2, '', 'login', '{\"ip\":\"::1\"}', '2026-04-01 01:12:46');
 
 -- --------------------------------------------------------
 
@@ -451,199 +53,6 @@ CREATE TABLE `audit_log_backup_20260226` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `audit_log_backup_20260226`
---
-
-INSERT INTO `audit_log_backup_20260226` (`id`, `perkara_id`, `user_id`, `role`, `action`, `old_value`, `new_value`, `timestamp`) VALUES
-(13, 1, 1, 'admin', 'create', NULL, '{\"klien_id\":1,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260224-0620\",\"status\":\"draft\",\"catatan_internal\":\"fhgjk.\\/\"}', '2026-02-24 13:07:24'),
-(16, 2, 2, 'notaris', 'create', NULL, '{\"klien_id\":2,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-7260\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-24 14:59:45'),
-(19, 3, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-8112\",\"status\":\"draft\",\"catatan_internal\":\"gjhkl\"}', '2026-02-24 15:20:37'),
-(20, 4, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-3298\",\"status\":\"draft\",\"catatan_internal\":\"catatan\"}', '2026-02-24 15:27:32'),
-(21, 5, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"6\",\"nomor_perkara\":\"NP-20260224-2588\",\"status\":\"draft\",\"catatan_internal\":\"aka\"}', '2026-02-24 15:28:03'),
-(38, 5, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"aka\"}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '2026-02-25 15:40:50'),
-(39, 5, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '2026-02-25 15:41:28'),
-(40, 5, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 15:41:57'),
-(41, 4, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"catatan\"}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-02-25 16:13:48'),
-(42, 5, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"selesai\",\"catatan\":\"Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.\"}', '2026-02-25 16:36:34'),
-(43, 4, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 16:37:33'),
-(44, 4, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\"}', '2026-02-25 16:37:43'),
-(50, 2, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:19'),
-(51, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:20'),
-(52, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '2026-02-25 17:40:44'),
-(53, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '2026-02-25 17:47:35'),
-(59, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:07:45'),
-(60, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:08:13'),
-(61, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:13'),
-(62, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:18:30'),
-(63, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:57'),
-(64, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:19:17'),
-(65, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:19:30'),
-(67, 6, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-5134\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(68, 7, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-6563\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(69, 6, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(70, 6, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(71, 3, 2, 'notaris', 'update', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(72, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(73, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(74, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(13, 1, 1, 'admin', 'create', NULL, '{\"klien_id\":1,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260224-0620\",\"status\":\"draft\",\"catatan_internal\":\"fhgjk.\\/\"}', '2026-02-24 13:07:24'),
-(16, 2, 2, 'notaris', 'create', NULL, '{\"klien_id\":2,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-7260\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-24 14:59:45'),
-(19, 3, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-8112\",\"status\":\"draft\",\"catatan_internal\":\"gjhkl\"}', '2026-02-24 15:20:37'),
-(20, 4, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-3298\",\"status\":\"draft\",\"catatan_internal\":\"catatan\"}', '2026-02-24 15:27:32'),
-(21, 5, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"6\",\"nomor_perkara\":\"NP-20260224-2588\",\"status\":\"draft\",\"catatan_internal\":\"aka\"}', '2026-02-24 15:28:03'),
-(38, 5, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"aka\"}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '2026-02-25 15:40:50'),
-(39, 5, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '2026-02-25 15:41:28'),
-(40, 5, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 15:41:57'),
-(41, 4, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"catatan\"}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-02-25 16:13:48'),
-(42, 5, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"selesai\",\"catatan\":\"Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.\"}', '2026-02-25 16:36:34'),
-(43, 4, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 16:37:33'),
-(44, 4, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\"}', '2026-02-25 16:37:43'),
-(50, 2, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:19'),
-(51, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:20'),
-(52, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '2026-02-25 17:40:44'),
-(53, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '2026-02-25 17:47:35'),
-(59, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:07:45'),
-(60, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:08:13'),
-(61, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:13'),
-(62, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:18:30'),
-(63, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:57'),
-(64, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:19:17'),
-(65, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:19:30'),
-(67, 6, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-5134\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(68, 7, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-6563\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(69, 6, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(70, 6, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(71, 3, 2, 'notaris', 'update', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(72, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(73, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(74, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(13, 1, 1, 'admin', 'create', NULL, '{\"klien_id\":1,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260224-0620\",\"status\":\"draft\",\"catatan_internal\":\"fhgjk.\\/\"}', '2026-02-24 13:07:24'),
-(16, 2, 2, 'notaris', 'create', NULL, '{\"klien_id\":2,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-7260\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-24 14:59:45'),
-(19, 3, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-8112\",\"status\":\"draft\",\"catatan_internal\":\"gjhkl\"}', '2026-02-24 15:20:37'),
-(20, 4, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-3298\",\"status\":\"draft\",\"catatan_internal\":\"catatan\"}', '2026-02-24 15:27:32'),
-(21, 5, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"6\",\"nomor_perkara\":\"NP-20260224-2588\",\"status\":\"draft\",\"catatan_internal\":\"aka\"}', '2026-02-24 15:28:03'),
-(38, 5, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"aka\"}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '2026-02-25 15:40:50'),
-(39, 5, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '2026-02-25 15:41:28'),
-(40, 5, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 15:41:57'),
-(41, 4, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"catatan\"}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-02-25 16:13:48'),
-(42, 5, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"selesai\",\"catatan\":\"Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.\"}', '2026-02-25 16:36:34'),
-(43, 4, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 16:37:33'),
-(44, 4, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\"}', '2026-02-25 16:37:43'),
-(50, 2, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:19'),
-(51, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:20'),
-(52, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '2026-02-25 17:40:44'),
-(53, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '2026-02-25 17:47:35'),
-(59, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:07:45'),
-(60, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:08:13'),
-(61, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:13'),
-(62, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:18:30'),
-(63, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:57'),
-(64, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:19:17'),
-(65, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:19:30'),
-(67, 6, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-5134\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(68, 7, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-6563\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(69, 6, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(70, 6, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(71, 3, 2, 'notaris', 'update', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(72, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(73, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(74, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(13, 1, 1, 'admin', 'create', NULL, '{\"klien_id\":1,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260224-0620\",\"status\":\"draft\",\"catatan_internal\":\"fhgjk.\\/\"}', '2026-02-24 13:07:24'),
-(16, 2, 2, 'notaris', 'create', NULL, '{\"klien_id\":2,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-7260\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-24 14:59:45'),
-(19, 3, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-8112\",\"status\":\"draft\",\"catatan_internal\":\"gjhkl\"}', '2026-02-24 15:20:37'),
-(20, 4, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-3298\",\"status\":\"draft\",\"catatan_internal\":\"catatan\"}', '2026-02-24 15:27:32'),
-(21, 5, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"6\",\"nomor_perkara\":\"NP-20260224-2588\",\"status\":\"draft\",\"catatan_internal\":\"aka\"}', '2026-02-24 15:28:03'),
-(38, 5, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"aka\"}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '2026-02-25 15:40:50'),
-(39, 5, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '2026-02-25 15:41:28'),
-(40, 5, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 15:41:57'),
-(41, 4, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"catatan\"}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-02-25 16:13:48'),
-(42, 5, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"selesai\",\"catatan\":\"Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.\"}', '2026-02-25 16:36:34'),
-(43, 4, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 16:37:33'),
-(44, 4, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\"}', '2026-02-25 16:37:43'),
-(50, 2, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:19'),
-(51, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:20'),
-(52, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '2026-02-25 17:40:44'),
-(53, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '2026-02-25 17:47:35'),
-(59, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:07:45'),
-(60, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:08:13'),
-(61, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:13'),
-(62, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:18:30'),
-(63, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:57'),
-(64, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:19:17'),
-(65, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:19:30'),
-(67, 6, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-5134\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(68, 7, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-6563\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(69, 6, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(70, 6, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(71, 3, 2, 'notaris', 'update', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(72, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(73, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(74, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(13, 1, 1, 'admin', 'create', NULL, '{\"klien_id\":1,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260224-0620\",\"status\":\"draft\",\"catatan_internal\":\"fhgjk.\\/\"}', '2026-02-24 13:07:24'),
-(16, 2, 2, 'notaris', 'create', NULL, '{\"klien_id\":2,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-7260\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-24 14:59:45'),
-(19, 3, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-8112\",\"status\":\"draft\",\"catatan_internal\":\"gjhkl\"}', '2026-02-24 15:20:37'),
-(20, 4, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-3298\",\"status\":\"draft\",\"catatan_internal\":\"catatan\"}', '2026-02-24 15:27:32'),
-(21, 5, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"6\",\"nomor_perkara\":\"NP-20260224-2588\",\"status\":\"draft\",\"catatan_internal\":\"aka\"}', '2026-02-24 15:28:03'),
-(38, 5, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"aka\"}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '2026-02-25 15:40:50'),
-(39, 5, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '2026-02-25 15:41:28'),
-(40, 5, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 15:41:57'),
-(41, 4, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"catatan\"}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-02-25 16:13:48'),
-(42, 5, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"selesai\",\"catatan\":\"Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.\"}', '2026-02-25 16:36:34'),
-(43, 4, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 16:37:33'),
-(44, 4, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\"}', '2026-02-25 16:37:43'),
-(50, 2, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:19'),
-(51, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:20'),
-(52, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '2026-02-25 17:40:44'),
-(53, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '2026-02-25 17:47:35'),
-(59, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:07:45'),
-(60, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:08:13'),
-(61, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:13'),
-(62, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:18:30'),
-(63, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:57'),
-(64, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:19:17'),
-(65, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:19:30'),
-(67, 6, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-5134\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(68, 7, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-6563\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(69, 6, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(70, 6, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(71, 3, 2, 'notaris', 'update', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(72, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(73, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12');
-INSERT INTO `audit_log_backup_20260226` (`id`, `perkara_id`, `user_id`, `role`, `action`, `old_value`, `new_value`, `timestamp`) VALUES
-(74, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(13, 1, 1, 'admin', 'create', NULL, '{\"klien_id\":1,\"layanan_id\":\"1\",\"nomor_perkara\":\"NP-20260224-0620\",\"status\":\"draft\",\"catatan_internal\":\"fhgjk.\\/\"}', '2026-02-24 13:07:24'),
-(16, 2, 2, 'notaris', 'create', NULL, '{\"klien_id\":2,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-7260\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-24 14:59:45'),
-(19, 3, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-8112\",\"status\":\"draft\",\"catatan_internal\":\"gjhkl\"}', '2026-02-24 15:20:37'),
-(20, 4, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"2\",\"nomor_perkara\":\"NP-20260224-3298\",\"status\":\"draft\",\"catatan_internal\":\"catatan\"}', '2026-02-24 15:27:32'),
-(21, 5, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"6\",\"nomor_perkara\":\"NP-20260224-2588\",\"status\":\"draft\",\"catatan_internal\":\"aka\"}', '2026-02-24 15:28:03'),
-(38, 5, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"aka\"}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '2026-02-25 15:40:50'),
-(39, 5, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\"}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '2026-02-25 15:41:28'),
-(40, 5, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 15:41:57'),
-(41, 4, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"catatan\"}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '2026-02-25 16:13:48'),
-(42, 5, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"selesai\",\"catatan\":\"Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir.\"}', '2026-02-25 16:36:34'),
-(43, 4, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\"}', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '2026-02-25 16:37:33'),
-(44, 4, 2, 'notaris', 'update', '{\"status\":\"perbaikan\",\"catatan\":\"Terdapat penyesuaian atau perbaikan administrasi yang sedang diselesaikan.\"}', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\"}', '2026-02-25 16:37:43'),
-(50, 2, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:19'),
-(51, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '2026-02-25 17:35:20'),
-(52, 2, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '2026-02-25 17:40:44'),
-(53, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '2026-02-25 17:47:35'),
-(59, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:07:45'),
-(60, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:08:13'),
-(61, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:13'),
-(62, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:18:30'),
-(63, 2, 2, 'notaris', 'update', '{\"status\":\"validasi_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:18:57'),
-(64, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '2026-02-26 13:19:17'),
-(65, 2, 2, 'notaris', 'update', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":true}', '{\"status\":\"pencecekan_sertifikat\",\"catatan\":\"Dilakukan pengecekan lanjutan untuk memastikan sertifikat tidak memiliki kendala administrasi.\",\"flag_kendala\":false}', '2026-02-26 13:19:30'),
-(67, 6, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-5134\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(68, 7, 2, 'notaris', 'create', NULL, '{\"klien_id\":3,\"layanan_id\":\"7\",\"nomor_perkara\":\"NP-20260226-6563\",\"status\":\"draft\",\"catatan_internal\":\"\"}', '2026-02-26 14:09:29'),
-(69, 6, 2, 'notaris', 'update', '{\"status\":\"draft\",\"catatan\":\"\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(70, 6, 2, 'notaris', 'update', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '{\"status\":\"pembayaran_admin\",\"catatan\":\"Proses pembayaran jasa notaris sedang dilakukan sebagai bagian dari tahapan awal penanganan perkara.\",\"flag_kendala\":false}', '2026-02-26 14:15:04'),
-(71, 3, 2, 'notaris', 'update', '{\"status\":\"pembayaran_pajak\",\"catatan\":\"Proses pembayaran pajak yang berkaitan dengan perkara sedang dilaksanakan sesuai ketentuan.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(72, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '2026-02-26 14:18:20'),
-(73, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":false}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12'),
-(74, 3, 2, 'notaris', 'update', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '{\"status\":\"penomoran_akta\",\"catatan\":\"Akta sedang dalam proses penomoran sebagai bagian dari penyelesaian dokumen.\",\"flag_kendala\":true}', '2026-02-26 14:19:12');
-
 -- --------------------------------------------------------
 
 --
@@ -657,13 +66,6 @@ CREATE TABLE `cleanup_log` (
   `cleanup_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `cleanup_log`
---
-
-INSERT INTO `cleanup_log` (`id`, `table_name`, `rows_affected`, `cleanup_date`, `notes`) VALUES
-(1, 'audit_log', 31, '2026-02-26 14:56:34', 'Removed business events (now in perkara_history)');
 
 -- --------------------------------------------------------
 
@@ -763,7 +165,7 @@ INSERT INTO `cms_section_content` (`id`, `section_id`, `content_key`, `content_v
 (25, 8, 'work_days_sat', 'Sabtu', 'text', 0),
 (26, 8, 'work_hours_sat', '09:00 - 12:00', 'text', 0),
 (28, 1, 'badge', 'Notaris & PPAT Cirebon – Tengah Tani dan Sekitarnya aja', 'text', 0),
-(29, 1, 'title', 'Layanan Notaris &amp; PPAT untuk Akta, Tanah, dan Usaha', 'text', 0),
+(29, 1, 'title', 'Layanan Notaris & PPAT untuk Akta, Tanah, dan Usaha', 'text', 0),
 (30, 1, 'subtitle', 'Melayani kebutuhan notaris dan PPAT di Cirebon, Kedawung, Tengah Tani, dan sekitarnya.', 'text', 0),
 (31, 1, 'wa_number', '6285747898811', 'text', 0),
 (32, 1, 'wa_text', 'Konsultasi via WhatsApp', 'text', 0),
@@ -924,7 +326,7 @@ INSERT INTO `kendala` (`id`, `registrasi_id`, `workflow_step_id`, `flag_active`,
 (65, 65, 10, 0, '2026-03-30 12:46:10', '2026-03-30 14:07:13'),
 (66, 63, 8, 1, '2026-03-30 14:59:05', '2026-03-30 14:59:05'),
 (67, 70, 1, 0, '2026-03-30 15:22:34', '2026-03-30 15:22:39'),
-(68, 1, 1, 1, '2026-04-01 02:08:34', '2026-04-01 02:08:34');
+(68, 1, 1, 0, '2026-04-01 02:08:34', '2026-04-03 13:04:29');
 
 -- --------------------------------------------------------
 
@@ -973,7 +375,10 @@ INSERT INTO `klien` (`id`, `nama`, `hp`, `email`, `created_at`, `updated_at`) VA
 (25, 'mencobaa', '087748778885', NULL, '2026-03-30 06:21:33', '2026-03-30 06:21:33'),
 (26, 'mencobaa lagi', '087748778885', NULL, '2026-03-30 06:21:42', '2026-03-30 06:21:42'),
 (27, 'mencobaa update', '087748778885', NULL, '2026-03-30 07:20:16', '2026-03-30 07:20:16'),
-(28, 'mencobaa update kesekian', '087748778885', NULL, '2026-03-30 15:22:23', '2026-03-30 15:22:23');
+(28, 'mencobaa update kesekian', '087748778885', NULL, '2026-03-30 15:22:23', '2026-03-30 15:22:23'),
+(29, 'ini oengecekan ', 'k', NULL, '2026-04-04 09:37:59', '2026-04-04 09:37:59'),
+(30, 'ini oengecekan ti', 'k', NULL, '2026-04-04 11:39:19', '2026-04-04 11:39:19'),
+(31, 'ini oengecekan ti', 'k', NULL, '2026-04-05 07:58:45', '2026-04-05 07:58:45');
 
 -- --------------------------------------------------------
 
@@ -1082,6 +487,8 @@ CREATE TABLE `registrasi` (
   `verification_code` varchar(10) DEFAULT NULL,
   `tracking_token` varchar(255) DEFAULT NULL,
   `catatan_internal` text DEFAULT NULL,
+  `locked` tinyint(1) DEFAULT 0 COMMENT 'Lock mechanism to prevent concurrent edits',
+  `batal_flag` tinyint(1) DEFAULT 0 COMMENT 'Flag to indicate cancellation status',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1091,7 +498,7 @@ CREATE TABLE `registrasi` (
 --
 
 INSERT INTO `registrasi` (`id`, `klien_id`, `layanan_id`, `nomor_registrasi`, `current_step_id`, `step_started_at`, `target_completion_at`, `selesai_batal_at`, `diserahkan_at`, `ditutup_at`, `keterangan`, `verification_code`, `tracking_token`, `catatan_internal`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'NP-20260224-0620', 3, '2026-04-01 04:43:48', '2026-04-30 20:07:24', '2026-03-21 00:24:27', NULL, '2026-03-31 14:22:47', 'alaka', '5432', 'eyJpZCI6MSwiY29kZSI6IjU0MzIiLCJ0aW1lIjoxNzcxOTUxMDk1fQ==.65b91df87eb35e13bc2dccd9cdbbc83ccb709ca799833e4b06e7d4a06ab2d62d', 'Sertifikat sedang diperiksa untuk memastikan data yang tercatat sesuai dengan catatan resmi. [catatan]', '2026-02-24 13:07:24', '2026-04-01 02:43:48'),
+(1, 1, 1, 'NP-20260224-0620', 4, '2026-04-03 15:04:29', '2026-04-30 20:07:24', '2026-03-21 00:24:27', NULL, '2026-03-31 14:22:47', 'alaka', '5432', 'eyJpZCI6MSwiY29kZSI6IjU0MzIiLCJ0aW1lIjoxNzcxOTUxMDk1fQ==.65b91df87eb35e13bc2dccd9cdbbc83ccb709ca799833e4b06e7d4a06ab2d62d', 'Dilakukan pengecekan lanjutan untuk memastikan sertifikat bebas dari kendala hukum atau administrasi. [catatan]', '2026-02-24 13:07:24', '2026-04-03 13:04:29'),
 (2, 2, 2, 'NP-20260224-7260', 15, '2026-03-28 21:59:23', '2026-04-30 21:59:45', NULL, NULL, NULL, NULL, '2e12', 'tk_8f8e53a1d5933cc264af3aea046a2fe2', 'Perkara ini dinyatakan batal dan tidak dilanjutkan ke tahap berikutnya.', '2026-02-24 14:59:45', '2026-03-28 16:15:27'),
 (3, 3, 2, 'NP-20260224-8112', 3, '2026-03-28 21:59:23', '2026-04-30 22:20:36', '2026-03-12 12:41:44', NULL, NULL, NULL, '8885', 'eyJpZCI6MywiY29kZSI6Ijg4ODUiLCJ0aW1lIjoxNzcyMTE2NDkxfQ==.47ae0f2815bda30ded8076e55d80302e05f5ff6a78716685468a92bf18657baa', 'Sertifikat sedang diperiksa untuk memastikan data dan informasi sesuai dengan ketentuan yang berlaku.', '2026-02-24 15:20:36', '2026-03-30 15:52:47'),
 (4, 3, 2, 'NP-20260224-3298', 11, '2026-04-01 04:44:08', '2026-04-30 22:27:32', NULL, '2026-03-31 00:18:35', '2026-03-04 14:47:07', NULL, '8885', 'eyJpZCI6NCwiY29kZSI6Ijg4ODUiLCJ0aW1lIjoxNzczMjk2MjM0fQ==.b62f6374d6ee6cf4a324e0c852ca456f785e9e32fc7803041f6a8e1439db3c30', 'Terdapat penyesuaian atau perbaikan administrasi yang sedang kami proses untuk kelancaran perkara. [catatan] ini dirubah', '2026-02-24 15:27:32', '2026-04-01 02:44:08'),
@@ -1160,7 +567,10 @@ INSERT INTO `registrasi` (`id`, `klien_id`, `layanan_id`, `nomor_registrasi`, `c
 (67, 25, 2, 'NP-20260330-9369', 12, '2026-03-30 14:03:28', '2026-05-30 23:59:59', NULL, NULL, NULL, 'akjls', NULL, NULL, 'Seluruh tahapan utama telah diselesaikan. Perkara Anda memasuki tahap akhir. [catatan]', '2026-03-30 06:21:33', '2026-03-30 12:03:28'),
 (68, 26, 2, 'NP-20260330-7856', 13, '2026-03-30 13:29:56', '2026-05-30 23:59:59', NULL, '2026-03-30 18:29:56', NULL, 'akjls', NULL, NULL, 'Berkas dengan nomor NP-20260330-7856 telah diterima oleh tes penerima pada tanggal Monday, 30 March 2026', '2026-03-30 06:21:42', '2026-03-30 15:52:47'),
 (69, 27, 2, 'NP-20260330-5448', 13, '2026-03-30 12:51:47', '2026-05-30 23:59:59', NULL, '2026-03-30 17:51:47', NULL, 'jlkm/,.', NULL, 'eyJpZCI6NjksImNvZGUiOiI4ODg1IiwidGltZSI6MTc3NDg1NTIxNn0=.dfa2048c4f2f922c1c012e32d9d41e4f64fee708d08a7ecb5e7d9f4062e12034', 'Berkas dengan nomor NP-20260330-5448 telah diterima oleh agus pada tanggal Monday, 30 March 2026', '2026-03-30 07:20:16', '2026-03-30 15:52:47'),
-(70, 28, 5, 'NP-20260330-5373', 13, '2026-03-30 17:38:29', '2026-02-28 23:59:59', NULL, '2026-03-30 22:38:29', NULL, 'apaaja', NULL, 'eyJpZCI6NzAsImNvZGUiOiI4ODg1IiwidGltZSI6MTc3NDg4NDE0M30=.0a5dbd9bef793629d74567eb06b3ad07bbe273c92fc98f68c5551726bedb2212', 'Berkas dengan nomor NP-20260330-5373 telah diterima oleh ujicioba pada tanggal Monday, 30 March 2026', '2026-03-30 15:22:23', '2026-03-30 15:52:47');
+(70, 28, 5, 'NP-20260330-5373', 13, '2026-03-30 17:38:29', '2026-02-28 23:59:59', NULL, '2026-03-30 22:38:29', NULL, 'apaaja', NULL, 'eyJpZCI6NzAsImNvZGUiOiI4ODg1IiwidGltZSI6MTc3NDg4NDE0M30=.0a5dbd9bef793629d74567eb06b3ad07bbe273c92fc98f68c5551726bedb2212', 'Berkas dengan nomor NP-20260330-5373 telah diterima oleh ujicioba pada tanggal Monday, 30 March 2026', '2026-03-30 15:22:23', '2026-03-30 15:52:47'),
+(71, 29, 2, 'NP-20260404-8541', 1, NULL, '2026-06-04 23:59:59', NULL, NULL, NULL, 'ascs', '', 'cc951463575defe0fd963fac8ec72824', 'Perkara Anda telah terdaftar dan saat ini sedang dalam tahap awal. [catatan]', '2026-04-04 09:37:59', '2026-04-04 09:37:59'),
+(72, 30, 1, 'NP-20260404-0706', 3, NULL, '2026-06-04 23:59:59', NULL, NULL, NULL, 'jhkl', '', '3612dc8dfaabd3bde4a4d90ecc50a9b8', 'Sertifikat sedang diperiksa untuk memastikan data yang tercatat sesuai dengan catatan resmi. [catatan]', '2026-04-04 11:39:19', '2026-04-04 13:06:32'),
+(73, 31, 1, 'NP-20260405-2917', 1, '2026-04-05 14:58:45', '2026-06-05 23:59:59', NULL, NULL, NULL, 'jlkl', NULL, 'eyJpZCI6NzMsImNvZGUiOiIiLCJ0aW1lIjoxNzc1Mzc1OTI1fQ==.f617584461e3be927863598be55813db821321216b6ae59f34b6217531395846', 'Perkara Anda telah terdaftar dan saat ini sedang dalam tahap awal. [catatan]', '2026-04-05 07:58:45', '2026-04-05 07:58:45');
 
 -- --------------------------------------------------------
 
@@ -1448,7 +858,12 @@ INSERT INTO `registrasi_history` (`id`, `registrasi_id`, `status_old_id`, `statu
 (255, 1, 11, 1, 'Update', '2026-04-30 20:07:24', '2026-04-30 20:07:24', 'alaka', 'Perkara Anda telah terdaftar dan saat ini sedang dalam tahap awal. [catatan]', 0, NULL, 2, '::1', '2026-04-01 02:08:27'),
 (256, 1, 1, 1, 'Update', '2026-04-30 20:07:24', '2026-04-30 20:07:24', 'alaka', 'Perkara Anda telah terdaftar dan saat ini sedang dalam tahap awal. [catatan]', 1, 'Draft / Pengumpulan Persyaratan', 2, '::1', '2026-04-01 02:08:34'),
 (257, 1, 1, 3, 'Update', '2026-04-30 20:07:24', '2026-04-30 20:07:24', 'alaka', 'Sertifikat sedang diperiksa untuk memastikan data yang tercatat sesuai dengan catatan resmi. [catatan]', 1, 'Validasi Sertifikat', 2, '::1', '2026-04-01 02:43:48'),
-(258, 4, 14, 11, 'Re-open', '2026-04-30 22:27:32', '2026-04-30 22:27:32', NULL, 'Terdapat penyesuaian atau perbaikan administrasi yang sedang kami proses untuk kelancaran perkara. [catatan] ini dirubah', 0, NULL, 2, '::1', '2026-04-01 02:44:08');
+(258, 4, 14, 11, 'Re-open', '2026-04-30 22:27:32', '2026-04-30 22:27:32', NULL, 'Terdapat penyesuaian atau perbaikan administrasi yang sedang kami proses untuk kelancaran perkara. [catatan] ini dirubah', 0, NULL, 2, '::1', '2026-04-01 02:44:08'),
+(259, 1, 3, 4, 'Update', '2026-04-30 20:07:24', '2026-04-30 20:07:24', 'alaka', 'Dilakukan pengecekan lanjutan untuk memastikan sertifikat bebas dari kendala hukum atau administrasi. [catatan]', 1, 'Pengecekan Sertifikat', 2, '::1', '2026-04-03 13:02:48'),
+(260, 1, 4, 4, 'Update', '2026-04-30 20:07:24', '2026-04-30 20:07:24', 'alaka', 'Dilakukan pengecekan lanjutan untuk memastikan sertifikat bebas dari kendala hukum atau administrasi. [catatan]', 0, NULL, 2, '::1', '2026-04-03 13:04:29'),
+(261, 71, NULL, 1, 'Update', NULL, NULL, NULL, 'Perkara Anda telah terdaftar dan saat ini sedang dalam tahap awal. [catatan]', 0, NULL, 2, '::1', '2026-04-04 09:37:59'),
+(262, 72, NULL, 1, 'Update', NULL, NULL, NULL, '', 0, NULL, 1, '::1', '2026-04-04 11:39:19'),
+(263, 73, NULL, 1, 'Update', NULL, NULL, NULL, 'Perkara Anda telah terdaftar dan saat ini sedang dalam tahap awal. [catatan]', 0, NULL, 2, '::1', '2026-04-05 07:58:45');
 
 -- --------------------------------------------------------
 
@@ -1646,13 +1061,13 @@ ALTER TABLE `workflow_steps`
 -- AUTO_INCREMENT for table `audit_log`
 --
 ALTER TABLE `audit_log`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=395;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cleanup_log`
 --
 ALTER TABLE `cleanup_log`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cms_pages`
@@ -1688,7 +1103,7 @@ ALTER TABLE `kendala`
 -- AUTO_INCREMENT for table `klien`
 --
 ALTER TABLE `klien`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `layanan`
@@ -1712,13 +1127,13 @@ ALTER TABLE `note_templates`
 -- AUTO_INCREMENT for table `registrasi`
 --
 ALTER TABLE `registrasi`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `registrasi_history`
 --
 ALTER TABLE `registrasi_history`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=259;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=264;
 
 --
 -- AUTO_INCREMENT for table `users`
