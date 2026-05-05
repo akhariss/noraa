@@ -1,0 +1,171 @@
+/**
+ * Responsive Styles - Mobile & Tablet Fixes
+ * company-profile/responsive.css
+ */
+
+@media (max-width: 950px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: flex !important;
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    #nav-menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 320px; /* Increased from 280px */
+        height: 100vh;
+        background: var(--white);
+        padding: 100px 40px 40px; /* Increased padding */
+        box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 100;
+        gap: 25px; /* Increased gap */
+    }
+    
+    #nav-menu.active {
+        right: 0;
+    }
+    
+    #nav-menu > a {
+        font-size: 16px;
+    }
+
+    .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .masalah-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .layanan-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tracking-wrapper {
+        padding: 0 15px;
+    }
+
+    .tracking-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .tracking-wrapper h2 {
+        font-size: 22px;
+    }
+
+    .tracking-wrapper p {
+        font-size: 14px;
+    }
+
+    .btn-track {
+        padding: 16px 36px;
+        font-size: 15px;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .alur-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .tentang-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    
+    .tentang-img {
+        position: relative;
+        margin: 0 auto;
+        overflow: visible;
+    }
+    
+    .tentang-img svg {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .tentang-badge {
+        position: absolute;
+        bottom: -15px;
+        right: -15px;
+        padding: 16px 20px;
+        border-radius: 12px;
+        z-index: 10;
+        text-align: center;
+        min-width: 100px;
+    }
+    
+    .tentang-photo {
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .testimoni-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 120px 0 60px;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .hero-subtitle {
+        font-size: 17px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .layanan-grid,
+    .alur-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-box {
+        padding: 40px 20px;
+    }
+
+    .tracking-input-group {
+        flex-direction: column;
+    }
+}

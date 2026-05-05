@@ -1,0 +1,63 @@
+:root {
+    /* 1. Core Colors - Natural Luxe Palette */
+    --primary: #1B3A4B;
+    --primary-dark: #0F1F28;
+    --primary-light: #2D5A6B;
+    
+    /* Accent - Gold Series */
+    --gold: #9C7C38;
+    --gold-light: #B8964F;
+    --gold-dark: #7A5F2E;
+    --gold-bright: #E6C875; /* Perfect for accessibility on dark backgrounds */
+    
+    /* Backgrounds */
+    --cream: #F7F4EF;
+    --white: #fcf7eb;
+    --bg-card: #ffffff;
+    
+    /* Text Hierarchy */
+    --text: #2D2D2D;
+    --text-light: #5A5A5A;
+    --text-muted: #757575;
+    
+    /* 2. Typography - Modern Elegant */
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'DM Sans', sans-serif;
+    
+    --font-size-xs: 0.75rem;   /* 12px */
+    --font-size-sm: 0.875rem;  /* 14px */
+    --font-size-base: 1rem;    /* 16px */
+    --font-size-lg: 1.125rem;  /* 18px */
+    --font-size-xl: 1.25rem;   /* 20px */
+    --font-size-2xl: 1.5rem;   /* 24px */
+    --font-size-3xl: 2.25rem;  /* 36px */
+    --font-size-hero: 3rem;    /* 48px */
+    
+    /* 3. Spacing & Radius */
+    --space-xs: 0.5rem;   /* 8px */
+    --space-sm: 1rem;     /* 16px */
+    --space-md: 1.5rem;   /* 24px */
+    --space-lg: 2rem;     /* 32px */
+    --space-xl: 3rem;     /* 48px */
+    --space-section: 60px; /* Uniform section padding */
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    
+    /* 4. Effects - Premium Feel */
+    --border: rgba(156, 124, 56, 0.2);
+    --shadow-sm: 0 4px 15px rgba(27, 58, 75, 0.05);
+    --shadow-md: 0 10px 30px rgba(27, 58, 75, 0.08);
+    --shadow-lg: 0 20px 50px rgba(27, 58, 75, 0.12);
+    --shadow-gold: 0 8px 24px rgba(156, 124, 56, 0.25);
+    
+    /* 5. Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    
+    /* 6. Breakpoints */
+    --bp-mobile: 600px;
+    --bp-tablet: 950px;
+}

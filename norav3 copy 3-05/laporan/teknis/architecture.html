@@ -1,0 +1,956 @@
+<!DOCTYPE html><html><head>
+<title>architecture.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*
+
+Arduino® Light Theme - Stefania Mellai <s.mellai@arduino.cc>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #FFFFFF;
+}
+
+.hljs,
+.hljs-subst {
+  color: #434f54;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-doctag,
+.hljs-name {
+  color: #00979D;
+}
+
+.hljs-built_in,
+.hljs-literal,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #D35400;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #00979D;
+}
+
+.hljs-type,
+.hljs-string,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #005C5F;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-comment {
+  color: rgba(149,165,166,.8);
+}
+
+.hljs-meta-keyword {
+  color: #728E00;
+}
+
+.hljs-meta {
+  color: #434f54;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-function {
+  color: #728E00;
+}
+
+.hljs-number {
+  color: #8A7B52;  
+}
+
+</style>
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family:   "HelveticaNeue-Light", sans-serif, "宋体","Segoe WPC", "Segoe UI", "SFUIText-Light","Droid Sans Fallback";
+	font-size: 18px;
+	padding: 0 12px;
+	line-height: 1.6;
+	word-wrap: break-word;
+	color: #333333;
+}
+
+.content-wrapper{
+	max-width: 860px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom: 1px solid #eee;
+}
+
+
+h2{
+	padding-bottom: .3em;
+    font-size: 2em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+h3{
+	font-size: 1.75em;
+    line-height: 1.225;
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+.table-of-contents li{
+	list-style-type: initial;
+}
+</style>
+
+<style>
+@font-face{font-family:KaTeX_AMS;font-style:normal;font-weight:400;src:url(fonts/KaTeX_AMS-Regular.woff2) format("woff2"),url(fonts/KaTeX_AMS-Regular.woff) format("woff"),url(fonts/KaTeX_AMS-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Caligraphic-Bold.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Bold.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Caligraphic;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Caligraphic-Regular.woff2) format("woff2"),url(fonts/KaTeX_Caligraphic-Regular.woff) format("woff"),url(fonts/KaTeX_Caligraphic-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Fraktur-Bold.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Bold.woff) format("woff"),url(fonts/KaTeX_Fraktur-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Fraktur;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Fraktur-Regular.woff2) format("woff2"),url(fonts/KaTeX_Fraktur-Regular.woff) format("woff"),url(fonts/KaTeX_Fraktur-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:700;src:url(fonts/KaTeX_Main-Bold.woff2) format("woff2"),url(fonts/KaTeX_Main-Bold.woff) format("woff"),url(fonts/KaTeX_Main-Bold.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Main-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Main-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Main-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Main-Italic.woff2) format("woff2"),url(fonts/KaTeX_Main-Italic.woff) format("woff"),url(fonts/KaTeX_Main-Italic.ttf) format("truetype")}@font-face{font-family:KaTeX_Main;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Main-Regular.woff2) format("woff2"),url(fonts/KaTeX_Main-Regular.woff) format("woff"),url(fonts/KaTeX_Main-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:700;src:url(fonts/KaTeX_Math-BoldItalic.woff2) format("woff2"),url(fonts/KaTeX_Math-BoldItalic.woff) format("woff"),url(fonts/KaTeX_Math-BoldItalic.ttf) format("truetype")}@font-face{font-family:KaTeX_Math;font-style:italic;font-weight:400;src:url(fonts/KaTeX_Math-Italic.woff2) format("woff2"),url(fonts/KaTeX_Math-Italic.woff) format("woff"),url(fonts/KaTeX_Math-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:700;src:url(fonts/KaTeX_SansSerif-Bold.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Bold.woff) format("woff"),url(fonts/KaTeX_SansSerif-Bold.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:italic;font-weight:400;src:url(fonts/KaTeX_SansSerif-Italic.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Italic.woff) format("woff"),url(fonts/KaTeX_SansSerif-Italic.ttf) format("truetype")}@font-face{font-family:"KaTeX_SansSerif";font-style:normal;font-weight:400;src:url(fonts/KaTeX_SansSerif-Regular.woff2) format("woff2"),url(fonts/KaTeX_SansSerif-Regular.woff) format("woff"),url(fonts/KaTeX_SansSerif-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Script;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Script-Regular.woff2) format("woff2"),url(fonts/KaTeX_Script-Regular.woff) format("woff"),url(fonts/KaTeX_Script-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size1;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size1-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size1-Regular.woff) format("woff"),url(fonts/KaTeX_Size1-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size2;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size2-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size2-Regular.woff) format("woff"),url(fonts/KaTeX_Size2-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size3;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size3-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size3-Regular.woff) format("woff"),url(fonts/KaTeX_Size3-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Size4;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Size4-Regular.woff2) format("woff2"),url(fonts/KaTeX_Size4-Regular.woff) format("woff"),url(fonts/KaTeX_Size4-Regular.ttf) format("truetype")}@font-face{font-family:KaTeX_Typewriter;font-style:normal;font-weight:400;src:url(fonts/KaTeX_Typewriter-Regular.woff2) format("woff2"),url(fonts/KaTeX_Typewriter-Regular.woff) format("woff"),url(fonts/KaTeX_Typewriter-Regular.ttf) format("truetype")}.katex{text-rendering:auto;font:normal 1.21em KaTeX_Main,Times New Roman,serif;line-height:1.2;text-indent:0}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-version:after{content:"0.16.2"}.katex .katex-mathml{clip:rect(1px,1px,1px,1px);border:0;height:1px;overflow:hidden;padding:0;position:absolute;width:1px}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:-webkit-min-content;width:-moz-min-content;width:min-content}.katex .base,.katex .strut{display:inline-block}.katex .textbf{font-weight:700}.katex .textit{font-style:italic}.katex .textrm{font-family:KaTeX_Main}.katex .textsf{font-family:KaTeX_SansSerif}.katex .texttt{font-family:KaTeX_Typewriter}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex .mathbf{font-family:KaTeX_Main;font-weight:700}.katex .boldsymbol{font-family:KaTeX_Math;font-style:italic;font-weight:700}.katex .amsrm,.katex .mathbb,.katex .textbb{font-family:KaTeX_AMS}.katex .mathcal{font-family:KaTeX_Caligraphic}.katex .mathfrak,.katex .textfrak{font-family:KaTeX_Fraktur}.katex .mathtt{font-family:KaTeX_Typewriter}.katex .mathscr,.katex .textscr{font-family:KaTeX_Script}.katex .mathsf,.katex .textsf{font-family:KaTeX_SansSerif}.katex .mathboldsf,.katex .textboldsf{font-family:KaTeX_SansSerif;font-weight:700}.katex .mathitsf,.katex .textitsf{font-family:KaTeX_SansSerif;font-style:italic}.katex .mainrm{font-family:KaTeX_Main;font-style:normal}.katex .vlist-t{border-collapse:collapse;display:inline-table;table-layout:fixed}.katex .vlist-r{display:table-row}.katex .vlist{display:table-cell;position:relative;vertical-align:bottom}.katex .vlist>span{display:block;height:0;position:relative}.katex .vlist>span>span{display:inline-block}.katex .vlist>span>.pstrut{overflow:hidden;width:0}.katex .vlist-t2{margin-right:-2px}.katex .vlist-s{display:table-cell;font-size:1px;min-width:2px;vertical-align:bottom;width:2px}.katex .vbox{align-items:baseline;display:inline-flex;flex-direction:column}.katex .hbox{width:100%}.katex .hbox,.katex .thinbox{display:inline-flex;flex-direction:row}.katex .thinbox{max-width:0;width:0}.katex .msupsub{text-align:left}.katex .mfrac>span>span{text-align:center}.katex .mfrac .frac-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline,.katex .hline,.katex .mfrac .frac-line,.katex .overline .overline-line,.katex .rule,.katex .underline .underline-line{min-height:1px}.katex .mspace{display:inline-block}.katex .clap,.katex .llap,.katex .rlap{position:relative;width:0}.katex .clap>.inner,.katex .llap>.inner,.katex .rlap>.inner{position:absolute}.katex .clap>.fix,.katex .llap>.fix,.katex .rlap>.fix{display:inline-block}.katex .llap>.inner{right:0}.katex .clap>.inner,.katex .rlap>.inner{left:0}.katex .clap>.inner>span{margin-left:-50%;margin-right:50%}.katex .rule{border:0 solid;display:inline-block;position:relative}.katex .hline,.katex .overline .overline-line,.katex .underline .underline-line{border-bottom-style:solid;display:inline-block;width:100%}.katex .hdashline{border-bottom-style:dashed;display:inline-block;width:100%}.katex .sqrt>.root{margin-left:.27777778em;margin-right:-.55555556em}.katex .fontsize-ensurer.reset-size1.size1,.katex .sizing.reset-size1.size1{font-size:1em}.katex .fontsize-ensurer.reset-size1.size2,.katex .sizing.reset-size1.size2{font-size:1.2em}.katex .fontsize-ensurer.reset-size1.size3,.katex .sizing.reset-size1.size3{font-size:1.4em}.katex .fontsize-ensurer.reset-size1.size4,.katex .sizing.reset-size1.size4{font-size:1.6em}.katex .fontsize-ensurer.reset-size1.size5,.katex .sizing.reset-size1.size5{font-size:1.8em}.katex .fontsize-ensurer.reset-size1.size6,.katex .sizing.reset-size1.size6{font-size:2em}.katex .fontsize-ensurer.reset-size1.size7,.katex .sizing.reset-size1.size7{font-size:2.4em}.katex .fontsize-ensurer.reset-size1.size8,.katex .sizing.reset-size1.size8{font-size:2.88em}.katex .fontsize-ensurer.reset-size1.size9,.katex .sizing.reset-size1.size9{font-size:3.456em}.katex .fontsize-ensurer.reset-size1.size10,.katex .sizing.reset-size1.size10{font-size:4.148em}.katex .fontsize-ensurer.reset-size1.size11,.katex .sizing.reset-size1.size11{font-size:4.976em}.katex .fontsize-ensurer.reset-size2.size1,.katex .sizing.reset-size2.size1{font-size:.83333333em}.katex .fontsize-ensurer.reset-size2.size2,.katex .sizing.reset-size2.size2{font-size:1em}.katex .fontsize-ensurer.reset-size2.size3,.katex .sizing.reset-size2.size3{font-size:1.16666667em}.katex .fontsize-ensurer.reset-size2.size4,.katex .sizing.reset-size2.size4{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size2.size5,.katex .sizing.reset-size2.size5{font-size:1.5em}.katex .fontsize-ensurer.reset-size2.size6,.katex .sizing.reset-size2.size6{font-size:1.66666667em}.katex .fontsize-ensurer.reset-size2.size7,.katex .sizing.reset-size2.size7{font-size:2em}.katex .fontsize-ensurer.reset-size2.size8,.katex .sizing.reset-size2.size8{font-size:2.4em}.katex .fontsize-ensurer.reset-size2.size9,.katex .sizing.reset-size2.size9{font-size:2.88em}.katex .fontsize-ensurer.reset-size2.size10,.katex .sizing.reset-size2.size10{font-size:3.45666667em}.katex .fontsize-ensurer.reset-size2.size11,.katex .sizing.reset-size2.size11{font-size:4.14666667em}.katex .fontsize-ensurer.reset-size3.size1,.katex .sizing.reset-size3.size1{font-size:.71428571em}.katex .fontsize-ensurer.reset-size3.size2,.katex .sizing.reset-size3.size2{font-size:.85714286em}.katex .fontsize-ensurer.reset-size3.size3,.katex .sizing.reset-size3.size3{font-size:1em}.katex .fontsize-ensurer.reset-size3.size4,.katex .sizing.reset-size3.size4{font-size:1.14285714em}.katex .fontsize-ensurer.reset-size3.size5,.katex .sizing.reset-size3.size5{font-size:1.28571429em}.katex .fontsize-ensurer.reset-size3.size6,.katex .sizing.reset-size3.size6{font-size:1.42857143em}.katex .fontsize-ensurer.reset-size3.size7,.katex .sizing.reset-size3.size7{font-size:1.71428571em}.katex .fontsize-ensurer.reset-size3.size8,.katex .sizing.reset-size3.size8{font-size:2.05714286em}.katex .fontsize-ensurer.reset-size3.size9,.katex .sizing.reset-size3.size9{font-size:2.46857143em}.katex .fontsize-ensurer.reset-size3.size10,.katex .sizing.reset-size3.size10{font-size:2.96285714em}.katex .fontsize-ensurer.reset-size3.size11,.katex .sizing.reset-size3.size11{font-size:3.55428571em}.katex .fontsize-ensurer.reset-size4.size1,.katex .sizing.reset-size4.size1{font-size:.625em}.katex .fontsize-ensurer.reset-size4.size2,.katex .sizing.reset-size4.size2{font-size:.75em}.katex .fontsize-ensurer.reset-size4.size3,.katex .sizing.reset-size4.size3{font-size:.875em}.katex .fontsize-ensurer.reset-size4.size4,.katex .sizing.reset-size4.size4{font-size:1em}.katex .fontsize-ensurer.reset-size4.size5,.katex .sizing.reset-size4.size5{font-size:1.125em}.katex .fontsize-ensurer.reset-size4.size6,.katex .sizing.reset-size4.size6{font-size:1.25em}.katex .fontsize-ensurer.reset-size4.size7,.katex .sizing.reset-size4.size7{font-size:1.5em}.katex .fontsize-ensurer.reset-size4.size8,.katex .sizing.reset-size4.size8{font-size:1.8em}.katex .fontsize-ensurer.reset-size4.size9,.katex .sizing.reset-size4.size9{font-size:2.16em}.katex .fontsize-ensurer.reset-size4.size10,.katex .sizing.reset-size4.size10{font-size:2.5925em}.katex .fontsize-ensurer.reset-size4.size11,.katex .sizing.reset-size4.size11{font-size:3.11em}.katex .fontsize-ensurer.reset-size5.size1,.katex .sizing.reset-size5.size1{font-size:.55555556em}.katex .fontsize-ensurer.reset-size5.size2,.katex .sizing.reset-size5.size2{font-size:.66666667em}.katex .fontsize-ensurer.reset-size5.size3,.katex .sizing.reset-size5.size3{font-size:.77777778em}.katex .fontsize-ensurer.reset-size5.size4,.katex .sizing.reset-size5.size4{font-size:.88888889em}.katex .fontsize-ensurer.reset-size5.size5,.katex .sizing.reset-size5.size5{font-size:1em}.katex .fontsize-ensurer.reset-size5.size6,.katex .sizing.reset-size5.size6{font-size:1.11111111em}.katex .fontsize-ensurer.reset-size5.size7,.katex .sizing.reset-size5.size7{font-size:1.33333333em}.katex .fontsize-ensurer.reset-size5.size8,.katex .sizing.reset-size5.size8{font-size:1.6em}.katex .fontsize-ensurer.reset-size5.size9,.katex .sizing.reset-size5.size9{font-size:1.92em}.katex .fontsize-ensurer.reset-size5.size10,.katex .sizing.reset-size5.size10{font-size:2.30444444em}.katex .fontsize-ensurer.reset-size5.size11,.katex .sizing.reset-size5.size11{font-size:2.76444444em}.katex .fontsize-ensurer.reset-size6.size1,.katex .sizing.reset-size6.size1{font-size:.5em}.katex .fontsize-ensurer.reset-size6.size2,.katex .sizing.reset-size6.size2{font-size:.6em}.katex .fontsize-ensurer.reset-size6.size3,.katex .sizing.reset-size6.size3{font-size:.7em}.katex .fontsize-ensurer.reset-size6.size4,.katex .sizing.reset-size6.size4{font-size:.8em}.katex .fontsize-ensurer.reset-size6.size5,.katex .sizing.reset-size6.size5{font-size:.9em}.katex .fontsize-ensurer.reset-size6.size6,.katex .sizing.reset-size6.size6{font-size:1em}.katex .fontsize-ensurer.reset-size6.size7,.katex .sizing.reset-size6.size7{font-size:1.2em}.katex .fontsize-ensurer.reset-size6.size8,.katex .sizing.reset-size6.size8{font-size:1.44em}.katex .fontsize-ensurer.reset-size6.size9,.katex .sizing.reset-size6.size9{font-size:1.728em}.katex .fontsize-ensurer.reset-size6.size10,.katex .sizing.reset-size6.size10{font-size:2.074em}.katex .fontsize-ensurer.reset-size6.size11,.katex .sizing.reset-size6.size11{font-size:2.488em}.katex .fontsize-ensurer.reset-size7.size1,.katex .sizing.reset-size7.size1{font-size:.41666667em}.katex .fontsize-ensurer.reset-size7.size2,.katex .sizing.reset-size7.size2{font-size:.5em}.katex .fontsize-ensurer.reset-size7.size3,.katex .sizing.reset-size7.size3{font-size:.58333333em}.katex .fontsize-ensurer.reset-size7.size4,.katex .sizing.reset-size7.size4{font-size:.66666667em}.katex .fontsize-ensurer.reset-size7.size5,.katex .sizing.reset-size7.size5{font-size:.75em}.katex .fontsize-ensurer.reset-size7.size6,.katex .sizing.reset-size7.size6{font-size:.83333333em}.katex .fontsize-ensurer.reset-size7.size7,.katex .sizing.reset-size7.size7{font-size:1em}.katex .fontsize-ensurer.reset-size7.size8,.katex .sizing.reset-size7.size8{font-size:1.2em}.katex .fontsize-ensurer.reset-size7.size9,.katex .sizing.reset-size7.size9{font-size:1.44em}.katex .fontsize-ensurer.reset-size7.size10,.katex .sizing.reset-size7.size10{font-size:1.72833333em}.katex .fontsize-ensurer.reset-size7.size11,.katex .sizing.reset-size7.size11{font-size:2.07333333em}.katex .fontsize-ensurer.reset-size8.size1,.katex .sizing.reset-size8.size1{font-size:.34722222em}.katex .fontsize-ensurer.reset-size8.size2,.katex .sizing.reset-size8.size2{font-size:.41666667em}.katex .fontsize-ensurer.reset-size8.size3,.katex .sizing.reset-size8.size3{font-size:.48611111em}.katex .fontsize-ensurer.reset-size8.size4,.katex .sizing.reset-size8.size4{font-size:.55555556em}.katex .fontsize-ensurer.reset-size8.size5,.katex .sizing.reset-size8.size5{font-size:.625em}.katex .fontsize-ensurer.reset-size8.size6,.katex .sizing.reset-size8.size6{font-size:.69444444em}.katex .fontsize-ensurer.reset-size8.size7,.katex .sizing.reset-size8.size7{font-size:.83333333em}.katex .fontsize-ensurer.reset-size8.size8,.katex .sizing.reset-size8.size8{font-size:1em}.katex .fontsize-ensurer.reset-size8.size9,.katex .sizing.reset-size8.size9{font-size:1.2em}.katex .fontsize-ensurer.reset-size8.size10,.katex .sizing.reset-size8.size10{font-size:1.44027778em}.katex .fontsize-ensurer.reset-size8.size11,.katex .sizing.reset-size8.size11{font-size:1.72777778em}.katex .fontsize-ensurer.reset-size9.size1,.katex .sizing.reset-size9.size1{font-size:.28935185em}.katex .fontsize-ensurer.reset-size9.size2,.katex .sizing.reset-size9.size2{font-size:.34722222em}.katex .fontsize-ensurer.reset-size9.size3,.katex .sizing.reset-size9.size3{font-size:.40509259em}.katex .fontsize-ensurer.reset-size9.size4,.katex .sizing.reset-size9.size4{font-size:.46296296em}.katex .fontsize-ensurer.reset-size9.size5,.katex .sizing.reset-size9.size5{font-size:.52083333em}.katex .fontsize-ensurer.reset-size9.size6,.katex .sizing.reset-size9.size6{font-size:.5787037em}.katex .fontsize-ensurer.reset-size9.size7,.katex .sizing.reset-size9.size7{font-size:.69444444em}.katex .fontsize-ensurer.reset-size9.size8,.katex .sizing.reset-size9.size8{font-size:.83333333em}.katex .fontsize-ensurer.reset-size9.size9,.katex .sizing.reset-size9.size9{font-size:1em}.katex .fontsize-ensurer.reset-size9.size10,.katex .sizing.reset-size9.size10{font-size:1.20023148em}.katex .fontsize-ensurer.reset-size9.size11,.katex .sizing.reset-size9.size11{font-size:1.43981481em}.katex .fontsize-ensurer.reset-size10.size1,.katex .sizing.reset-size10.size1{font-size:.24108004em}.katex .fontsize-ensurer.reset-size10.size2,.katex .sizing.reset-size10.size2{font-size:.28929605em}.katex .fontsize-ensurer.reset-size10.size3,.katex .sizing.reset-size10.size3{font-size:.33751205em}.katex .fontsize-ensurer.reset-size10.size4,.katex .sizing.reset-size10.size4{font-size:.38572806em}.katex .fontsize-ensurer.reset-size10.size5,.katex .sizing.reset-size10.size5{font-size:.43394407em}.katex .fontsize-ensurer.reset-size10.size6,.katex .sizing.reset-size10.size6{font-size:.48216008em}.katex .fontsize-ensurer.reset-size10.size7,.katex .sizing.reset-size10.size7{font-size:.57859209em}.katex .fontsize-ensurer.reset-size10.size8,.katex .sizing.reset-size10.size8{font-size:.69431051em}.katex .fontsize-ensurer.reset-size10.size9,.katex .sizing.reset-size10.size9{font-size:.83317261em}.katex .fontsize-ensurer.reset-size10.size10,.katex .sizing.reset-size10.size10{font-size:1em}.katex .fontsize-ensurer.reset-size10.size11,.katex .sizing.reset-size10.size11{font-size:1.19961427em}.katex .fontsize-ensurer.reset-size11.size1,.katex .sizing.reset-size11.size1{font-size:.20096463em}.katex .fontsize-ensurer.reset-size11.size2,.katex .sizing.reset-size11.size2{font-size:.24115756em}.katex .fontsize-ensurer.reset-size11.size3,.katex .sizing.reset-size11.size3{font-size:.28135048em}.katex .fontsize-ensurer.reset-size11.size4,.katex .sizing.reset-size11.size4{font-size:.32154341em}.katex .fontsize-ensurer.reset-size11.size5,.katex .sizing.reset-size11.size5{font-size:.36173633em}.katex .fontsize-ensurer.reset-size11.size6,.katex .sizing.reset-size11.size6{font-size:.40192926em}.katex .fontsize-ensurer.reset-size11.size7,.katex .sizing.reset-size11.size7{font-size:.48231511em}.katex .fontsize-ensurer.reset-size11.size8,.katex .sizing.reset-size11.size8{font-size:.57877814em}.katex .fontsize-ensurer.reset-size11.size9,.katex .sizing.reset-size11.size9{font-size:.69453376em}.katex .fontsize-ensurer.reset-size11.size10,.katex .sizing.reset-size11.size10{font-size:.83360129em}.katex .fontsize-ensurer.reset-size11.size11,.katex .sizing.reset-size11.size11{font-size:1em}.katex .delimsizing.size1{font-family:KaTeX_Size1}.katex .delimsizing.size2{font-family:KaTeX_Size2}.katex .delimsizing.size3{font-family:KaTeX_Size3}.katex .delimsizing.size4{font-family:KaTeX_Size4}.katex .delimsizing.mult .delim-size1>span{font-family:KaTeX_Size1}.katex .delimsizing.mult .delim-size4>span{font-family:KaTeX_Size4}.katex .nulldelimiter{display:inline-block;width:.12em}.katex .delimcenter,.katex .op-symbol{position:relative}.katex .op-symbol.small-op{font-family:KaTeX_Size1}.katex .op-symbol.large-op{font-family:KaTeX_Size2}.katex .accent>.vlist-t,.katex .op-limits>.vlist-t{text-align:center}.katex .accent .accent-body{position:relative}.katex .accent .accent-body:not(.accent-full){width:0}.katex .overlay{display:block}.katex .mtable .vertical-separator{display:inline-block;min-width:1px}.katex .mtable .arraycolsep{display:inline-block}.katex .mtable .col-align-c>.vlist-t{text-align:center}.katex .mtable .col-align-l>.vlist-t{text-align:left}.katex .mtable .col-align-r>.vlist-t{text-align:right}.katex .svg-align{text-align:left}.katex svg{fill:currentColor;stroke:currentColor;fill-rule:nonzero;fill-opacity:1;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;display:block;height:inherit;position:absolute;width:100%}.katex svg path{stroke:none}.katex img{border-style:none;max-height:none;max-width:none;min-height:0;min-width:0}.katex .stretchy{display:block;overflow:hidden;position:relative;width:100%}.katex .stretchy:after,.katex .stretchy:before{content:""}.katex .hide-tail{overflow:hidden;position:relative;width:100%}.katex .halfarrow-left{left:0;overflow:hidden;position:absolute;width:50.2%}.katex .halfarrow-right{overflow:hidden;position:absolute;right:0;width:50.2%}.katex .brace-left{left:0;overflow:hidden;position:absolute;width:25.1%}.katex .brace-center{left:25%;overflow:hidden;position:absolute;width:50%}.katex .brace-right{overflow:hidden;position:absolute;right:0;width:25.1%}.katex .x-arrow-pad{padding:0 .5em}.katex .cd-arrow-pad{padding:0 .55556em 0 .27778em}.katex .mover,.katex .munder,.katex .x-arrow{text-align:center}.katex .boxpad{padding:0 .3em}.katex .fbox,.katex .fcolorbox{border:.04em solid;box-sizing:border-box}.katex .cancel-pad{padding:0 .2em}.katex .cancel-lap{margin-left:-.2em;margin-right:-.2em}.katex .sout{border-bottom-style:solid;border-bottom-width:.08em}.katex .angl{border-right:.049em solid;border-top:.049em solid;box-sizing:border-box;margin-right:.03889em}.katex .anglpad{padding:0 .03889em}.katex .eqn-num:before{content:"(" counter(katexEqnNo) ")";counter-increment:katexEqnNo}.katex .mml-eqn-num:before{content:"(" counter(mmlEqnNo) ")";counter-increment:mmlEqnNo}.katex .mtr-glue{width:50%}.katex .cd-vert-arrow{display:inline-block;position:relative}.katex .cd-label-left{display:inline-block;position:absolute;right:calc(50% + .3em);text-align:left}.katex .cd-label-right{display:inline-block;left:calc(50% + .3em);position:absolute;text-align:right}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;text-align:center;white-space:nowrap}.katex-display>.katex>.katex-html{display:block;position:relative}.katex-display>.katex>.katex-html>.tag{position:absolute;right:0}.katex-display.leqno>.katex>.katex-html>.tag{left:0;right:auto}.katex-display.fleqn>.katex{padding-left:2em;text-align:left}body{counter-reset:katexEqnNo mmlEqnNo}
+
+</style>
+
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1 id="architecture---arsitektur-sistem-tracking-status-dokumen" tabindex="-1">Architecture - Arsitektur Sistem Tracking Status Dokumen</h1>
+<h2 id="1.-arsitektur-overview" tabindex="-1">1. Arsitektur Overview</h2>
+<h3 id="1.1-arsitektur-sistem" tabindex="-1">1.1 Arsitektur Sistem</h3>
+<p>Sistem menggunakan arsitektur <strong>Layered Architecture</strong> dengan prinsip <strong>Separation of Concerns</strong>, mengimplementasikan pola <strong>Model-View-Controller (MVC)</strong> yang dimodifikasi dengan <strong>Domain-Driven Design</strong> principles.</p>
+<pre>Parse error on line 1:
+flowchart TD    sub
+^
+Expecting 'NEWLINE', 'SPACE', 'GRAPH', got 'ALPHA'</pre><hr>
+<h2 id="2.-layer-architecture-detail" tabindex="-1">2. Layer Architecture Detail</h2>
+<h3 id="2.1-presentation-layer" tabindex="-1">2.1 Presentation Layer</h3>
+<p><strong>Tanggung Jawab:</strong> User interface dan interaksi</p>
+<p><strong>Komponen:</strong></p>
+<ul>
+<li><strong>Public Views</strong>: Halaman tracking untuk klien (tanpa login)</li>
+<li><strong>Dashboard Views</strong>: Admin interface untuk staff/notaris</li>
+<li><strong>API Responses</strong>: JSON responses untuk AJAX requests</li>
+</ul>
+<p><strong>Teknologi:</strong></p>
+<ul>
+<li>HTML5, CSS3, JavaScript vanilla</li>
+<li>PHP untuk server-side rendering</li>
+<li>CSS Grid/Flexbox untuk layout</li>
+</ul>
+<p><strong>Security:</strong></p>
+<ul>
+<li>XSS prevention via <code>htmlspecialchars()</code></li>
+<li>CSRF token pada semua form</li>
+<li>Input sanitization sebelum render</li>
+</ul>
+<h3 id="2.2-application-layer" tabindex="-1">2.2 Application Layer</h3>
+<p><strong>Tanggung Jawab:</strong> Request handling, routing, controller execution</p>
+<p><strong>Komponen:</strong></p>
+<ul>
+<li><strong>Front Controller</strong> (<code>public/index.php</code>): Single entry point</li>
+<li><strong>Router</strong> (<code>App\Core\Router</code>): Query-parameter routing</li>
+<li><strong>Controllers</strong> (<code>Modules\*</code>): Request handlers</li>
+</ul>
+<p><strong>Routing Pattern:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Query-parameter routing</span>
+URL: /index.php?gate=registrasi_detail&amp;id=<span class="hljs-number">123</span>
+Route: <span class="hljs-title class_">Router</span>::<span class="hljs-title function_ invoke__">dispatch</span>() → <span class="hljs-title class_">Dashboard\Controller</span>::<span class="hljs-title function_ invoke__">showRegistrasi</span>()
+</div></code></pre>
+<p><strong>Request Lifecycle:</strong></p>
+<pre>Parse error on line 1:
+flowchart LR    A[H
+^
+Expecting 'NEWLINE', 'SPACE', 'GRAPH', got 'ALPHA'</pre><h3 id="2.3-domain-layer" tabindex="-1">2.3 Domain Layer</h3>
+<p><strong>Tanggung Jawab:</strong> Business logic dan domain rules</p>
+<p><strong>Komponen:</strong></p>
+<ul>
+<li><strong>Services</strong>: Business use cases (WorkflowService, UserService)</li>
+<li><strong>Entities</strong>: Domain models dengan business logic</li>
+</ul>
+<p><strong>Domain-Driven Design:</strong></p>
+<pre class="hljs"><code><div>App/Domain/Entities/
+├── Registrasi.php         # Registration aggregate root
+├── Klien.php              # Client entity
+├── Layanan.php            # Service type entity
+├── RegistrasiHistory.php  # History ledger (immutable)
+└── Kendala.php            # Obstacle flag entity
+
+App/Services/
+├── WorkflowService.php    # Status transition logic
+├── UserService.php        # User management
+├── FinalisasiService.php  # Case finalization
+└── CMSEditorService.php   # CMS content management
+</div></code></pre>
+<p><strong>Business Rules Enforcement:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// WorkflowService::updateStatus()</span>
+<span class="hljs-comment">// Enforces:</span>
+<span class="hljs-comment">// 1. No backward transition (except perbaikan)</span>
+<span class="hljs-comment">// 2. No cancellation after pembayaran_pajak</span>
+<span class="hljs-comment">// 3. No update on locked registrasi</span>
+<span class="hljs-comment">// 4. No update on final status (selesai/ditutup/batal)</span>
+</div></code></pre>
+<h3 id="2.4-infrastructure-layer" tabindex="-1">2.4 Infrastructure Layer</h3>
+<p><strong>Tanggung Jawab:</strong> Technical concerns (database, logging, security)</p>
+<p><strong>Komponen:</strong></p>
+<ul>
+<li><strong>Adapters</strong>: Database connection, logging</li>
+<li><strong>Security</strong>: Authentication, authorization, CSRF, rate limiting</li>
+</ul>
+<p><strong>Singleton Pattern:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Database adapter (Singleton)</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Database</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">static</span> ?PDO <span class="hljs-variable">$instance</span> = <span class="hljs-literal">null</span>;
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getInstance</span>(<span class="hljs-params"></span>): <span class="hljs-title">PDO</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">self</span>::<span class="hljs-variable">$instance</span> === <span class="hljs-literal">null</span>) {
+            <span class="hljs-built_in">self</span>::<span class="hljs-variable">$instance</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(...);
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">self</span>::<span class="hljs-variable">$instance</span>;
+    }
+}
+</div></code></pre>
+<h3 id="2.5-data-layer" tabindex="-1">2.5 Data Layer</h3>
+<p><strong>Tanggung Jawab:</strong> Data persistence</p>
+<p><strong>Komponen:</strong></p>
+<ul>
+<li><strong>MySQL Database</strong>: Relational data storage</li>
+<li><strong>File System</strong>: Logs, cache, backups, uploaded files</li>
+</ul>
+<p><strong>Database Tables:</strong></p>
+<ul>
+<li>Core: <code>users</code>, <code>registrasi</code>, <code>klien</code>, <code>layanan</code></li>
+<li>Workflow: <code>registrasi_history</code>, <code>kendala</code></li>
+<li>Audit: <code>audit_log</code></li>
+<li>CMS: <code>cms_pages</code>, <code>cms_page_sections</code>, <code>cms_section_content</code>, <code>cms_section_items</code></li>
+<li>Templates: <code>message_templates</code>, <code>note_templates</code></li>
+</ul>
+<hr>
+<h2 id="3.-design-patterns" tabindex="-1">3. Design Patterns</h2>
+<h3 id="3.1-front-controller-pattern" tabindex="-1">3.1 Front Controller Pattern</h3>
+<p><strong>Implementation:</strong> <code>public/index.php</code></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// All requests go through this single entry point</span>
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">'BASE_PATH'</span>, <span class="hljs-title function_ invoke__">dirname</span>(<span class="hljs-keyword">__DIR__</span>));
+<span class="hljs-keyword">require_once</span> BASE_PATH . <span class="hljs-string">'/app/Core/Autoloader.php'</span>;
+<span class="hljs-keyword">require_once</span> BASE_PATH . <span class="hljs-string">'/config/app.php'</span>;
+<span class="hljs-keyword">require_once</span> BASE_PATH . <span class="hljs-string">'/config/routes.php'</span>;
+<span class="hljs-title class_">App\Core\Router</span>::<span class="hljs-title function_ invoke__">dispatch</span>();
+</div></code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Centralized security (headers, session, sanitization)</li>
+<li>Consistent request handling</li>
+<li>Easy routing management</li>
+</ul>
+<h3 id="3.2-singleton-pattern" tabindex="-1">3.2 Singleton Pattern</h3>
+<p><strong>Implementation:</strong> <code>App\Adapters\Database</code></p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Database</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">static</span> ?PDO <span class="hljs-variable">$instance</span> = <span class="hljs-literal">null</span>;
+    
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// Private constructor prevents direct instantiation</span>
+    }
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getInstance</span>(<span class="hljs-params"></span>): <span class="hljs-title">PDO</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">self</span>::<span class="hljs-variable">$instance</span> === <span class="hljs-literal">null</span>) {
+            <span class="hljs-built_in">self</span>::<span class="hljs-variable">$instance</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(
+                <span class="hljs-string">"mysql:host="</span> . DB_HOST . <span class="hljs-string">";dbname="</span> . DB_NAME,
+                DB_USER,
+                DB_PASS,
+                [PDO::<span class="hljs-variable constant_">ATTR_ERRMODE</span> =&gt; PDO::<span class="hljs-variable constant_">ERRMODE_EXCEPTION</span>]
+            );
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">self</span>::<span class="hljs-variable">$instance</span>;
+    }
+}
+</div></code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Single database connection per request</li>
+<li>Global access point</li>
+<li>Lazy loading</li>
+</ul>
+<h3 id="3.3-repository-pattern" tabindex="-1">3.3 Repository Pattern</h3>
+<p><strong>Implementation:</strong> Entity classes</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Registrasi</span> </span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findById</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-variable">$id</span></span>): ?<span class="hljs-title">array</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Database</span>::<span class="hljs-title function_ invoke__">selectOne</span>(
+            <span class="hljs-string">"SELECT * FROM registrasi WHERE id = :id"</span>,
+            [<span class="hljs-string">'id'</span> =&gt; <span class="hljs-variable">$id</span>]
+        );
+    }
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span>(<span class="hljs-params"><span class="hljs-keyword">array</span> <span class="hljs-variable">$data</span></span>): <span class="hljs-title">int</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Database</span>::<span class="hljs-title function_ invoke__">insert</span>(
+            <span class="hljs-string">"INSERT INTO registrasi (...) VALUES (...)"</span>,
+            <span class="hljs-variable">$data</span>
+        );
+    }
+}
+</div></code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Encapsulated data access</li>
+<li>Testable data layer</li>
+<li>Consistent query patterns</li>
+</ul>
+<h3 id="3.4-service-layer-pattern" tabindex="-1">3.4 Service Layer Pattern</h3>
+<p><strong>Implementation:</strong> Service classes</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WorkflowService</span> </span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateStatus</span>(<span class="hljs-params">
+        <span class="hljs-keyword">int</span> <span class="hljs-variable">$registrasiId</span>,
+        <span class="hljs-keyword">string</span> <span class="hljs-variable">$newStatus</span>,
+        <span class="hljs-keyword">int</span> <span class="hljs-variable">$userId</span>,
+        <span class="hljs-keyword">string</span> <span class="hljs-variable">$role</span>,
+        ?<span class="hljs-keyword">string</span> <span class="hljs-variable">$catatan</span> = <span class="hljs-literal">null</span>
+    </span>): <span class="hljs-title">array</span> </span>{
+        <span class="hljs-comment">// Business logic orchestration</span>
+        <span class="hljs-comment">// 1. Load registrasi</span>
+        <span class="hljs-comment">// 2. Validate transition</span>
+        <span class="hljs-comment">// 3. Update database</span>
+        <span class="hljs-comment">// 4. Save history</span>
+        <span class="hljs-comment">// 5. Log audit</span>
+    }
+}
+</div></code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Business logic isolation</li>
+<li>Transaction management</li>
+<li>Reusable use cases</li>
+</ul>
+<h3 id="3.5-role-based-access-control-(rbac)" tabindex="-1">3.5 Role-Based Access Control (RBAC)</h3>
+<p><strong>Implementation:</strong> <code>App\Security\RBAC</code></p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RBAC</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">static</span> <span class="hljs-keyword">array</span> <span class="hljs-variable">$permissions</span> = [
+        <span class="hljs-string">'notaris'</span> =&gt; [<span class="hljs-string">'*'</span>], <span class="hljs-comment">// Full access</span>
+        <span class="hljs-string">'admin'</span>   =&gt; [
+            <span class="hljs-string">'dashboard.view'</span>,
+            <span class="hljs-string">'registrasi.view'</span>, <span class="hljs-string">'registrasi.create'</span>, <span class="hljs-string">'registrasi.edit'</span>,
+            <span class="hljs-string">'status.update'</span>, <span class="hljs-string">'klien.update'</span>,
+        ],
+        <span class="hljs-string">'publik'</span>  =&gt; [
+            <span class="hljs-string">'home.view'</span>, <span class="hljs-string">'tracking.view'</span>, <span class="hljs-string">'detail.view'</span>,
+        ],
+    ];
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">can</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$role</span>, <span class="hljs-keyword">string</span> <span class="hljs-variable">$permission</span></span>): <span class="hljs-title">bool</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-string">'*'</span>, <span class="hljs-built_in">self</span>::<span class="hljs-variable">$permissions</span>[<span class="hljs-variable">$role</span>])) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$permission</span>, <span class="hljs-built_in">self</span>::<span class="hljs-variable">$permissions</span>[<span class="hljs-variable">$role</span>]);
+    }
+    
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">enforce</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> <span class="hljs-variable">$permission</span></span>): <span class="hljs-title">void</span> </span>{
+        <span class="hljs-variable">$role</span> = <span class="hljs-title class_">Auth</span>::<span class="hljs-title function_ invoke__">getSession</span>()[<span class="hljs-string">'role'</span>] ?? <span class="hljs-string">'guest'</span>;
+        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">self</span>::<span class="hljs-title function_ invoke__">can</span>(<span class="hljs-variable">$role</span>, <span class="hljs-variable">$permission</span>)) {
+            <span class="hljs-title function_ invoke__">http_response_code</span>(<span class="hljs-number">403</span>);
+            <span class="hljs-keyword">exit</span>(<span class="hljs-string">'Forbidden'</span>);
+        }
+    }
+}
+</div></code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Fine-grained access control</li>
+<li>Easy permission management</li>
+<li>Security by default</li>
+</ul>
+<hr>
+<h2 id="4.-security-architecture" tabindex="-1">4. Security Architecture</h2>
+<h3 id="4.1-seven-layer-security" tabindex="-1">4.1 Seven-Layer Security</h3>
+<pre>Parse error on line 1:
+flowchart LR    sub
+^
+Expecting 'NEWLINE', 'SPACE', 'GRAPH', got 'ALPHA'</pre><h3 id="4.2-layer-implementation" tabindex="-1">4.2 Layer Implementation</h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Class/Function</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input Sanitization</td>
+<td><code>InputSanitizer::sanitizeGlobal()</code></td>
+<td><code>app/Security/InputSanitizer.php</code></td>
+</tr>
+<tr>
+<td>CSRF Protection</td>
+<td><code>CSRF::token()</code>, <code>CSRF::validate()</code></td>
+<td><code>app/Security/CSRF.php</code></td>
+</tr>
+<tr>
+<td>Session Security</td>
+<td><code>Auth::startSecureSession()</code></td>
+<td><code>app/Security/Auth.php</code></td>
+</tr>
+<tr>
+<td>Rate Limiting</td>
+<td><code>RateLimiter::check()</code></td>
+<td><code>app/Security/RateLimiter.php</code></td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td><code>RBAC::enforce()</code></td>
+<td><code>app/Security/RBAC.php</code></td>
+</tr>
+<tr>
+<td>SQL Injection</td>
+<td><code>Database::prepare()</code>, <code>execute()</code></td>
+<td><code>app/Adapters/Database.php</code></td>
+</tr>
+<tr>
+<td>XSS Prevention</td>
+<td><code>htmlspecialchars()</code> in View</td>
+<td><code>app/Core/View.php</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="4.3-session-fingerprinting" tabindex="-1">4.3 Session Fingerprinting</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Auth::startSecureSession()</span>
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">startSecureSession</span>(<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">session_status</span>() === PHP_SESSION_NONE) {
+        <span class="hljs-title function_ invoke__">session_name</span>(SESSION_NAME);
+        <span class="hljs-title function_ invoke__">session_start</span>();
+        
+        <span class="hljs-comment">// Generate fingerprint</span>
+        <span class="hljs-variable">$fingerprint</span> = <span class="hljs-title function_ invoke__">hash</span>(<span class="hljs-string">'sha256'</span>, 
+            <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">'HTTP_USER_AGENT'</span>] . 
+            <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">'REMOTE_ADDR'</span>]
+        );
+        
+        <span class="hljs-comment">// Store or validate</span>
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">'user_fingerprint'</span>])) {
+            <span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">'user_fingerprint'</span>] = <span class="hljs-variable">$fingerprint</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">'user_fingerprint'</span>] !== <span class="hljs-variable">$fingerprint</span>) {
+                <span class="hljs-comment">// Session hijacking detected!</span>
+                <span class="hljs-title function_ invoke__">session_destroy</span>();
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SecurityException</span>(<span class="hljs-string">'Session hijacking detected'</span>);
+            }
+        }
+    }
+}
+</div></code></pre>
+<hr>
+<h2 id="5.-data-flow-architecture" tabindex="-1">5. Data Flow Architecture</h2>
+<h3 id="5.1-create-registrasi-flow" tabindex="-1">5.1 Create Registrasi Flow</h3>
+<div class="mermaid">sequenceDiagram
+    participant S as Staff
+    participant C as Controller
+    participant WS as WorkflowService
+    participant K as Klien Entity
+    participant R as Registrasi Entity
+    participant DB as Database
+    participant H as History
+    participant A as AuditLog
+
+    S-&gt;&gt;C: Submit create form
+    C-&gt;&gt;WS: createRegistrasi(data)
+    WS-&gt;&gt;K: getOrCreate(nama, hp)
+    K-&gt;&gt;DB: SELECT by hp
+    DB--&gt;&gt;K: Existing or null
+    K-&gt;&gt;DB: INSERT if new
+    K--&gt;&gt;WS: klien_id
+    WS-&gt;&gt;R: create(registrasi_data)
+    R-&gt;&gt;DB: INSERT registrasi
+    DB--&gt;&gt;R: registrasi_id
+    WS-&gt;&gt;H: create(initial_history)
+    H-&gt;&gt;DB: INSERT registrasi_history
+    WS-&gt;&gt;A: log('create')
+    A-&gt;&gt;DB: INSERT audit_log
+    WS--&gt;&gt;C: registrasi_id
+    C-&gt;&gt;S: Success response</div><h3 id="5.2-tracking-flow" tabindex="-1">5.2 Tracking Flow</h3>
+<div class="mermaid">sequenceDiagram
+    participant K as Klien
+    participant B as Browser
+    participant C as Main\Controller
+    participant R as Registrasi Entity
+    participant DB as Database
+    participant T as Token Service
+
+    K-&gt;&gt;B: Input nomor registrasi
+    B-&gt;&gt;C: POST search
+    C-&gt;&gt;R: findByNomorRegistrasi()
+    R-&gt;&gt;DB: SELECT WHERE nomor = ?
+    DB--&gt;&gt;R: Registrasi data
+    R--&gt;&gt;C: Registrasi or null
+    C-&gt;&gt;B: Require verification
+    
+    K-&gt;&gt;B: Input 4 digit HP
+    B-&gt;&gt;C: POST verify
+    C-&gt;&gt;DB: Verify phone code
+    C-&gt;&gt;T: generateTrackingToken()
+    T--&gt;&gt;C: Token string
+    C-&gt;&gt;DB: Save token
+    C-&gt;&gt;B: Redirect with token
+    
+    K-&gt;&gt;B: Access detail page
+    B-&gt;&gt;C: GET with token
+    C-&gt;&gt;T: verifyTrackingToken()
+    T--&gt;&gt;C: Token data
+    C-&gt;&gt;R: findById()
+    R-&gt;&gt;DB: SELECT registrasi
+    DB--&gt;&gt;R: Data
+    R--&gt;&gt;C: Registrasi
+    C-&gt;&gt;B: Render detail view</div><hr>
+<h2 id="6.-module-interaction" tabindex="-1">6. Module Interaction</h2>
+<h3 id="6.1-dependency-graph" tabindex="-1">6.1 Dependency Graph</h3>
+<pre>Parse error on line 1:
+flowchart TD    sub
+^
+Expecting 'NEWLINE', 'SPACE', 'GRAPH', got 'ALPHA'</pre><hr>
+<h2 id="7.-kesesuaian-dengan-sistem-notaris" tabindex="-1">7. Kesesuaian dengan Sistem Notaris</h2>
+<h3 id="7.1-domain-specific-design" tabindex="-1">7.1 Domain-Specific Design</h3>
+<p><strong>Workflow 14 Status:</strong></p>
+<ul>
+<li>Mencerminkan proses notaris sebenarnya</li>
+<li>Urutan status sesuai praktik BPN</li>
+<li>Business rules enforcement untuk validasi</li>
+</ul>
+<p><strong>Batas Pembatalan:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// After pembayaran_pajak, cannot cancel</span>
+<span class="hljs-comment">// Business reason: Tax paid to state, legal consequences</span>
+CANCELLABLE_STATUSES = [
+    <span class="hljs-string">'draft'</span>,
+    <span class="hljs-string">'pembayaran_admin'</span>,
+    <span class="hljs-string">'validasi_sertifikat'</span>,
+    <span class="hljs-string">'pencecekan_sertifikat'</span>,
+    <span class="hljs-string">'perbaikan'</span>
+];
+</div></code></pre>
+<p><strong>Perbaikan Loop:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Special case: perbaikan can go back to previous status</span>
+<span class="hljs-comment">// Business reason: BPN correction requires re-verification</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-variable">$oldStatus</span> === <span class="hljs-string">'perbaikan'</span> &amp;&amp; <span class="hljs-variable">$newOrder</span> &lt; <span class="hljs-variable">$currentOrder</span>) {
+    <span class="hljs-comment">// Allowed: loop back for correction</span>
+}
+</div></code></pre>
+<h3 id="7.2-audit-trail-requirements" tabindex="-1">7.2 Audit Trail Requirements</h3>
+<p><strong>Notaris Domain Requirements:</strong></p>
+<ul>
+<li>Semua perubahan status harus tercatat (legal compliance)</li>
+<li>User actions harus di-audit (accountability)</li>
+<li>History immutable (integrity)</li>
+</ul>
+<p><strong>Implementation:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Every status change creates:</span>
+<span class="hljs-comment">// 1. registrasi_history record (immutable ledger)</span>
+<span class="hljs-comment">// 2. audit_log record (security audit)</span>
+</div></code></pre>
+<hr>
+<h2 id="8.-scalability-considerations" tabindex="-1">8. Scalability Considerations</h2>
+<h3 id="8.1-current-architecture" tabindex="-1">8.1 Current Architecture</h3>
+<ul>
+<li><strong>Vertical Scaling</strong>: Single server with Apache + PHP + MySQL</li>
+<li><strong>Session Storage</strong>: File-based (default PHP)</li>
+<li><strong>Cache</strong>: File-based (storage/cache/)</li>
+<li><strong>Rate Limiting</strong>: File-based</li>
+</ul>
+<h3 id="8.2-future-improvements" tabindex="-1">8.2 Future Improvements</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Current</th>
+<th>Future</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session</td>
+<td>File-based</td>
+<td>Redis/Memcached</td>
+</tr>
+<tr>
+<td>Cache</td>
+<td>File-based</td>
+<td>Redis</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>Single MySQL</td>
+<td>Master-Slave replication</td>
+</tr>
+<tr>
+<td>Web Server</td>
+<td>Single Apache</td>
+<td>Load balancer + multiple servers</td>
+</tr>
+<tr>
+<td>File Storage</td>
+<td>Local</td>
+<td>Cloud storage (S3)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="9.-performance-optimization" tabindex="-1">9. Performance Optimization</h2>
+<h3 id="9.1-database-indexing" tabindex="-1">9.1 Database Indexing</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">-- Indexed columns for performance</span>
+<span class="hljs-keyword">CREATE</span> INDEX idx_registrasi_nomor <span class="hljs-keyword">ON</span> registrasi(nomor_registrasi);
+<span class="hljs-keyword">CREATE</span> INDEX idx_registrasi_status <span class="hljs-keyword">ON</span> registrasi(status);
+<span class="hljs-keyword">CREATE</span> INDEX idx_registrasi_token <span class="hljs-keyword">ON</span> registrasi(tracking_token);
+<span class="hljs-keyword">CREATE</span> INDEX idx_history_registrasi <span class="hljs-keyword">ON</span> registrasi_history(registrasi_id);
+<span class="hljs-keyword">CREATE</span> INDEX idx_history_created <span class="hljs-keyword">ON</span> registrasi_history(created_at);
+<span class="hljs-keyword">CREATE</span> INDEX idx_audit_user <span class="hljs-keyword">ON</span> audit_log(user_id);
+<span class="hljs-keyword">CREATE</span> INDEX idx_audit_timestamp <span class="hljs-keyword">ON</span> audit_log(<span class="hljs-type">timestamp</span>);
+</div></code></pre>
+<h3 id="9.2-caching-strategy" tabindex="-1">9.2 Caching Strategy</h3>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Cache TTL</th>
+<th>Storage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Homepage CMS</td>
+<td>1 hour</td>
+<td>Database/Memory</td>
+</tr>
+<tr>
+<td>Tracking search</td>
+<td>5 minutes</td>
+<td>Session</td>
+</tr>
+<tr>
+<td>User session</td>
+<td>2 hours</td>
+<td>PHP Session</td>
+</tr>
+<tr>
+<td>Rate limit</td>
+<td>1 minute</td>
+<td>File</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="10.-kesimpulan" tabindex="-1">10. Kesimpulan</h2>
+<p>Arsitektur sistem mengikuti best practices:</p>
+<ol>
+<li><strong>Layered Architecture</strong> - Clear separation of concerns</li>
+<li><strong>Design Patterns</strong> - Front Controller, Singleton, Repository, Service Layer, RBAC</li>
+<li><strong>Domain-Driven Design</strong> - Business logic in Entities and Services</li>
+<li><strong>Security by Design</strong> - 7-layer security architecture</li>
+<li><strong>Audit Trail</strong> - Complete logging untuk compliance</li>
+<li><strong>Scalability</strong> - Ready for future improvements</li>
+</ol>
+<p>Arsitektur ini production-ready untuk skala UMKU kantor notaris dengan kemungkinan scaling horizontal di masa depan.</p>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    </body></html>

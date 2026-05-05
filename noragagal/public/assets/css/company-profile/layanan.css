@@ -1,0 +1,248 @@
+/**
+ * Layanan & Masalah Sections
+ * company-profile/layanan.css
+ */
+
+.section {
+    padding: var(--space-section) 0;
+}
+
+.section-title-wrap {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-tag {
+    display: inline-block;
+    color: var(--gold-dark);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 38px;
+    color: var(--primary);
+}
+
+/* Masalah */
+.masalah {
+    background: var(--cream);
+}
+
+.masalah-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.masalah-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: var(--white);
+    border-radius: 12px;
+    border-left: 4px solid var(--gold);
+    transition: all 0.3s ease;
+}
+
+.masalah-card:hover {
+    transform: translateX(8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.masalah-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    flex-shrink: 0;
+}
+
+.masalah-card h4 {
+    font-size: 16px;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+
+.masalah-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    margin: 0;
+}
+
+.masalah-closing {
+    text-align: center;
+    max-width: 700px;
+    margin: 40px auto 0;
+    padding: 24px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: 12px;
+    color: var(--white);
+}
+
+.masalah-closing p {
+    font-size: 17px;
+    margin: 0;
+}
+
+/* Layanan */
+.layanan {
+    background: var(--white);
+    padding: 80px 0;
+}
+
+.layanan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.layanan-card {
+    background: linear-gradient(135deg, var(--cream), var(--white) 100%);
+    padding: 32px 30px;
+    border-radius: 18px;
+    border: 2px solid rgba(156, 124, 56, 0.2);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.layanan-card::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(156, 124, 56, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+    transition: all 0.6s ease;
+}
+
+.layanan-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-light) 0%, var(--gold) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.layanan-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 60px rgba(27, 58, 75, 0.15);
+    border-color: rgba(156, 124, 56, 0.4);
+}
+
+.layanan-card:hover::before {
+    transform: scale(1.4);
+    background: radial-gradient(circle, rgba(156, 124, 56, 0.15) 0%, transparent 70%);
+}
+
+.layanan-card:hover::after {
+    opacity: 1;
+}
+
+.layanan-card * {
+    position: relative;
+    z-index: 1;
+}
+
+.layanan-card h4 {
+    font-size: 21px;
+    color: var(--primary);
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.layanan-card > p {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-bottom: 0;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.layanan-benefit {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.layanan-benefit svg {
+    width: 16px;
+    height: 16px;
+    color: var(--gold);
+    flex-shrink: 0;
+}
+
+.layanan-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: var(--gold);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 18px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(156, 124, 88, 0.2);
+}
+
+.layanan-btn:hover {
+    background: var(--primary-dark);
+    transform: translateX(5px);
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Premium Cards */
+.layanan-card.premium {
+    background: linear-gradient(135deg, white 0%, #faf8f5 100%);
+    border: 1px solid rgba(156, 124, 56, 0.15);
+}
+
+.layanan-card.premium::before {
+    top: -80px;
+    right: -80px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(156, 124, 56, 0.06) 0%, transparent 70%);
+}
+
+.layanan-card.premium::after {
+    height: 4px;
+}
+
+.layanan-card.premium:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(27, 58, 75, 0.12);
+}
+
+.layanan-icon {
+    display: none;
+}
+
+/* Hide "Hubungi Kami" button - cleaner design */
+.layanan-btn-mini {
+    display: none;
+}

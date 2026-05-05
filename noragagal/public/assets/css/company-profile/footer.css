@@ -1,0 +1,103 @@
+/**
+ * Footer Styles
+ * company-profile/footer.css
+ */
+
+footer {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: var(--white);
+    padding: 60px 0 24px;
+    border-top: 1px solid rgba(156, 124, 56, 0.1);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+.footer-brand {
+    color: var(--white);
+}
+
+.footer-brand p {
+    color: var(--white);
+    font-size: 14px;
+    margin-top: 14px;
+    max-width: 270px;
+}
+
+.footer h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: var(--white);
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--gold-bright);
+    padding-left: 6px;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer-contact-item {
+    color: var(--cream);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(156, 124, 56, 0.15);
+    padding-top: 24px;
+    text-align: center;
+    color: var(--cream);
+    font-size: 14px;
+}
+
+.footer-col h4 {
+    color: var(--white);
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 35px;
+    height: 2px;
+    background: var(--gold);
+}
+
+.footer-hours li {
+    margin-bottom: 18px;
+    color: var(--white);
+    font-size: 14px;
+    line-height: 1.6;
+}

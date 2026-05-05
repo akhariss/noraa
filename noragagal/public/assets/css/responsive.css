@@ -1,0 +1,52 @@
+/**
+ * Nora 2.0 Global Responsive System
+ * (ZCP 2.1 Compliant - Elite Mobile Ready)
+ * 
+ * This file contains universal mobile overrides that apply across
+ * both public and admin areas.
+ */
+
+/* 
+ * COMPACT MOBILE OVERRIDES 
+ * These rules target bloated elements to ensure a high-density, 
+ * professional UI on small screens.
+ */
+@media (max-width: 768px) {
+    /* Auto-scale generic bloated paddings and gaps */
+    [style*="padding: 24px"], [style*="padding: 20px"] { padding: 16px !important; }
+    [style*="gap: 20px"], [style*="gap: 16px"] { gap: 12px !important; }
+    [style*="margin-bottom: 24px"], [style*="margin-bottom: 20px"] { margin-bottom: 16px !important; }
+    
+    /* Auto-scale gigantic typography */
+    [style*="font-size: 16px"] { font-size: 14px !important; }
+    [style*="font-size: 18px"] { font-size: 15px !important; }
+    
+    /* Shrink form inputs and labels */
+    .form-control {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+        height: 38px !important;
+    }
+    .form-group label {
+        font-size: 12px !important;
+        margin-bottom: 4px !important;
+    }
+    .form-group {
+        margin-bottom: 12px !important;
+    }
+    
+    /* Force inputs side-by-side to stack if they use large min-widths */
+    [style*="min-width: 250px"], [style*="min-width: 200px"] {
+        min-width: 100% !important;
+        flex: 100% !important;
+    }
+    
+    /* Global Card / Table shrinkage */
+    .card, .data-card {
+        padding: 12px !important;
+    }
+    .data-table th, .data-table td {
+        padding: 8px 6px !important;
+        font-size: 12px !important;
+    }
+}

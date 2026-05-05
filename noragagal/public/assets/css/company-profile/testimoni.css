@@ -1,0 +1,177 @@
+/**
+ * Testimoni & Alur Sections
+ * company-profile/testimoni.css
+ */
+
+/* Testimoni */
+.testimoni {
+    background: var(--white);
+    padding: 90px 0;
+}
+
+.testimoni-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.testimoni-card {
+    background: var(--cream);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.06);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.testimoni-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--gold);
+}
+
+.testimoni-stars {
+    color: var(--gold);
+    font-size: 18px;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+}
+
+.testimoni-text {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.testimoni-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.testimoni-avatar {
+    width: 45px;
+    height: 45px;
+    background: var(--gold);
+    color: var(--primary-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 5px 15px rgba(156, 124, 56, 0.3);
+}
+
+.testimoni-info {
+    flex: 1;
+}
+
+.testimoni-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--primary);
+}
+
+.testimoni-layanan {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.testimoni-cta {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: 14px;
+    color: var(--white);
+}
+
+.testimoni-cta p {
+    font-size: 16px;
+    margin-bottom: 18px;
+}
+
+.btn-testi-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--primary-dark);
+    padding: 14px 26px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-testi-wa:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(156, 124, 56, 0.4);
+}
+
+/* Alur */
+.alur {
+    background: var(--primary);
+    padding: 90px 0;
+}
+
+.alur .section-tag {
+    color: var(--gold-bright);
+}
+
+.alur .section-title {
+    color: var(--white);
+}
+
+.alur-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.alur-item {
+    text-align: center;
+    position: relative;
+}
+
+.alur-number {
+    width: 60px;
+    height: 60px;
+    background: var(--gold);
+    color: var(--primary-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 auto 16px;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.alur-item h4 {
+    font-size: 16px;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.alur-item p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.alur-arrow {
+    position: absolute;
+    top: 30px;
+    right: -18px;
+    color: var(--gold);
+}
+
+.alur-item:last-child .alur-arrow {
+    display: none;
+}

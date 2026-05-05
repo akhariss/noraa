@@ -1,0 +1,265 @@
+/**
+ * Dashboard UI Components
+ * dashboard/components.css
+ */
+
+/* Buttons */
+.btn-primary,
+.btn-secondary,
+.btn-link,
+.btn-sm,
+.btn-danger,
+.btn-warning,
+.btn-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--gold);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(27, 58, 75, 0.3);
+}
+
+.btn-secondary {
+    background: var(--cream);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: var(--border);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: var(--white);
+}
+
+.btn-warning {
+    background: var(--warning);
+    color: var(--primary-dark);
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.btn-link {
+    color: var(--gold);
+    background: none;
+    padding: 0;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-draft,
+.badge-pembayaran_admin { background: #e3f2fd; color: #1976d2; }
+.badge-validasi_sertifikat,
+.badge-pencecekan_sertifikat { background: #fff3e0; color: #f57c00; }
+.badge-pembayaran_pajak,
+.badge-validasi_pajak { background: #f3e5f5; color: #7b1fa2; }
+.badge-penomoran_akta,
+.badge-pendaftaran { background: #e8f5e9; color: #388e3c; }
+.badge-pembayaran_pnbp,
+.badge-pemeriksaan_bpn { background: #fff8e1; color: #fbc02d; }
+.badge-perbaikan { background: #ffebee; color: #d32f2f; }
+.badge-selesai { background: #e8f5e9; color: #2e7d32; }
+.badge-ditutup { background: #eceff1; color: #546e7a; }
+.badge-batal { background: #ffebee; color: #c62828; }
+.badge-locked { background: var(--danger); color: var(--white); }
+.badge-unlocked { background: var(--success); color: var(--white); }
+.badge-notaris { background: var(--gold); color: var(--primary-dark); }
+.badge-admin { background: var(--info); color: var(--white); }
+.badge-active { background: var(--danger); color: var(--white); }
+.badge-inactive { background: var(--text-muted); color: var(--white); }
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 29px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+}
+
+.timeline-item {
+    display: flex;
+    gap: 16px;
+    position: relative;
+    padding: 16px 0;
+}
+
+.timeline-marker {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 3px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    z-index: 1;
+}
+
+.timeline-item.completed .timeline-marker {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--primary-dark);
+}
+
+.timeline-item.current .timeline-marker {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--gold);
+}
+
+.timeline-marker svg {
+    width: 24px;
+    height: 24px;
+}
+
+.timeline-content {
+    flex: 1;
+    padding-top: 8px;
+}
+
+.timeline-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.timeline-estimasi {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Activity List */
+.activity-list {
+    list-style: none;
+}
+
+.activity-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.activity-time {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.activity-user {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.activity-action {
+    color: var(--text);
+}
+
+.activity-registrasi {
+    background: var(--cream);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-body {
+    color: var(--text);
+}
+
+.modal-body p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}

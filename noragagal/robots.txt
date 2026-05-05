@@ -1,0 +1,13 @@
+User-agent: *
+# Allow everything for SEO and AI indexers
+Allow: /
+# Block sensitive/admin paths
+Disallow: /office/
+Disallow: /config/
+Disallow: /app/
+Disallow: /modules/
+Disallow: /resources/
+Disallow: /storage/
+Disallow: /database/
+
+Sitemap: https://nora.konfigura.cloud/sitemap.xml

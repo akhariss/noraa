@@ -1,0 +1,118 @@
+[2026-03-26 04:27:02] [IP: ::1] [User: guest/guest] [Session: 7nccntrraptc7sptosqpvt7eaq] [LOGIN_FAILED] {"username":"notarisnotaris","ip":"::1"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+[2026-03-29 12:32:51] [IP: ::1] [User: guest/guest] [Session: l11ku0lv7uam185b5pa9iug2qf] [LOGIN_FAILED] {"username":"staff","ip":"::1"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0
+[2026-03-29 13:31:00] [SECURITY] [::1] UNAUTHORIZED_ACCESS_ATTEMPT {"gate":"users","user_id":1,"role":"staff","required":"administrator"}
+[2026-04-01 11:02:57] [IP: ::1] [User: 2/administrator] [Session: 3ct93elnihnnq3v13mn8l79rv3] [FAILED_VERIFICATION] {"registrasi_id":43,"attempted_code":"5432","correct_code":"8885","phone":"087748778885"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0
+[2026-04-01 12:19:21] [IP: ::1] [User: 2/administrator] [Session: prjkfbfmf3or14935vfcjq09gl] [FAILED_VERIFICATION] {"registrasi_id":43,"attempted_code":"5432","correct_code":"8885","phone":"087748778885"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0
+[2026-04-01 12:20:04] [IP: ::1] [User: 2/administrator] [Session: prjkfbfmf3or14935vfcjq09gl] [INVALID_TOKEN_ACCESS] {"token":"eyJpZCI6NDMsImNvZGUi..."} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0
+[2026-04-06 12:31:00] [IP: ::1] [User: guest/guest] [Session: l82j1vlgve0ce7m0q0u1gshhtm] [FAILED_VERIFICATION] {"registrasi_id":61,"attempted_code":"6009","correct_code":"8885","phone":"087748778885"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0
+[2026-04-06 12:31:23] [IP: ::1] [User: guest/guest] [Session: l82j1vlgve0ce7m0q0u1gshhtm] [INVALID_TOKEN_ACCESS] {"token":"eyJpZCI6NjEsImNvZGUi..."} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0
+[2026-04-11 17:29:58] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-11 17:40:22] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-12 14:03:00] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-12 14:05:02] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-13 11:20:14] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-13 11:20:14] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-13 11:20:14] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-13 11:20:17] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-13 11:20:19] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-13 11:20:22] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-13 11:20:29] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-13 11:20:35] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-17 09:58:35] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-17 09:58:51] [IP: ::1] [User: guest/guest] [Session: q82o8mjbuqf98hi5og7fr2o2o5] [CSRF_VALIDATION_FAILED] {"action":"login","username":"notaris"} Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1
+[2026-04-17 10:03:07] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-18 14:56:31] [IP: ::1] [User: guest/guest] [Session: mbf1o3q5ngk9njdc71af3s7q1f] [CSRF_VALIDATION_FAILED] {"action":"login","username":"notaris"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-18 17:50:00] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-18 17:54:47] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-18 23:18:40] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-18 23:20:32] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-20 22:40:02] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-20 23:22:17] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 05:21:53] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 05:22:12] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 09:13:59] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 09:43:18] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 10:42:04] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 10:49:35] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 11:06:08] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 11:11:11] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 15:09:22] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 15:16:19] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 18:39:48] [IP: ::1] [User: guest/guest] [Session: 4ll18pqp9o09rrhqpukhvtgn02] [CSRF_VALIDATION_FAILED] {"action":"login","username":"notaris"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-21 20:00:03] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 20:00:26] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 20:08:18] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 20:08:47] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 20:28:04] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 20:28:57] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-21 20:29:21] [IP: ::1] [User: 2/administrator] [Session: vcip6i5kunjb6fdlc7u8b10rkg] [CSRF_VALIDATION_FAILED] {"action":"login","username":"notaris"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-21 23:07:34] [IP: ::1] [User: 2/administrator] [Session: tt54g2a9bdrj1h3a48pu18ut4k] [INVALID_TOKEN_ACCESS] {"token":"eyJpZCI6MzUsImNvZGUi..."} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-21 23:08:49] [IP: ::1] [User: 2/administrator] [Session: tt54g2a9bdrj1h3a48pu18ut4k] [INVALID_TOKEN_ACCESS] {"token":"eyJpZCI6MzUsImNvZGUi..."} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-21 23:09:48] [IP: ::1] [User: 2/administrator] [Session: tt54g2a9bdrj1h3a48pu18ut4k] [INVALID_TOKEN_ACCESS] {"token":"eyJpZCI6MzUsImNvZGUi..."} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-21 23:13:10] [IP: ::1] [User: 2/administrator] [Session: tt54g2a9bdrj1h3a48pu18ut4k] [INVALID_TOKEN_ACCESS] {"token":"eyJpZCI6MzUsImN..."} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-21 23:13:27] [IP: ::1] [User: 2/administrator] [Session: tt54g2a9bdrj1h3a48pu18ut4k] [VCODE_GENERATED] {"registrasi_id":35} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-21 23:13:33] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:13:37] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:13:38] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:13:45] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:13:46] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:13:46] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:13:54] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:13:59] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:14:06] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:19] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:19] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:19] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:20] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:20] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:20] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:20] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:20] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:20] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:21] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:21] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:21] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:59] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:59] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:59] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:20:59] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:21:00] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:21:00] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:21:06] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:21:06] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:21:07] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-21 23:21:07] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_search"}
+[2026-04-22 13:17:04] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-22 13:38:31] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-22 14:18:23] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-22 14:55:04] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-22 14:55:37] [IP: ::1] [User: guest/guest] [Session: 1lt2fvgjpd4cqh5viok4ha9elv] [VCODE_GENERATED] {"registrasi_id":16} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-22 14:55:40] [IP: ::1] [User: guest/guest] [Session: 1lt2fvgjpd4cqh5viok4ha9elv] [VERIFICATION_CODE_MISMATCH] {"registrasi_id":16,"token_code":"c9d5f0c9eadcbc73","db_code":"c9d5f0c9ea","token_hint":"eyJpZCI6MT"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-22 14:55:43] [IP: ::1] [User: guest/guest] [Session: 1lt2fvgjpd4cqh5viok4ha9elv] [VERIFICATION_CODE_MISMATCH] {"registrasi_id":16,"token_code":"c9d5f0c9eadcbc73","db_code":"c9d5f0c9ea","token_hint":"eyJpZCI6MT"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-23 12:15:29] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-23 12:21:38] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-23 12:27:16] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-23 12:47:01] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-23 12:59:44] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-23 13:17:27] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-23 13:18:50] [IP: ::1] [User: guest/guest] [Session: iot7rnivivnnbg3ut6qgv4ssi5] [FAILED_VERIFICATION] {"registrasi_id":11,"attempted_code":"8885","correct_code":"1234","phone":"1234"} Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1
+[2026-04-23 13:18:51] [IP: ::1] [User: guest/guest] [Session: iot7rnivivnnbg3ut6qgv4ssi5] [FAILED_VERIFICATION] {"registrasi_id":11,"attempted_code":"8885","correct_code":"1234","phone":"1234"} Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1
+[2026-04-23 13:19:05] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_verify"}
+[2026-04-23 13:19:09] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_verify"}
+[2026-04-23 13:19:29] [IP: ::1] [User: guest/guest] [Session: iot7rnivivnnbg3ut6qgv4ssi5] [VCODE_GENERATED] {"registrasi_id":11} Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1
+[2026-04-23 13:36:59] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-24 08:55:33] [IP: ::1] [User: 2/administrator] [Session: ankvki33sar7lhk1843utathgm] [FAILED_VERIFICATION] {"registrasi_id":11,"attempted_code":"8885","correct_code":"1234","phone":"1234"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-24 09:13:58] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-24 09:25:35] [IP: ::1] [User: 2/administrator] [Session: 1bsmqh1dj6s7ns1se69dtoph65] [FAILED_VERIFICATION] {"registrasi_id":16,"attempted_code":"1234","correct_code":"8885","phone":"087748778885"} Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1
+[2026-04-24 09:25:36] [IP: ::1] [User: 2/administrator] [Session: 1bsmqh1dj6s7ns1se69dtoph65] [FAILED_VERIFICATION] {"registrasi_id":16,"attempted_code":"1234","correct_code":"8885","phone":"087748778885"} Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1
+[2026-04-24 09:25:44] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_verify"}
+[2026-04-24 09:25:47] [SECURITY] [::1] RATE_LIMIT_EXCEEDED {"ip":"::1","type":"tracking_verify"}
+[2026-04-24 15:18:45] [IP: ::1] [User: 2/administrator] [Session: g376fbf907eaf2u1opjk913iub] [FAILED_VERIFICATION] {"registrasi_id":16,"attempted_code":"8122","correct_code":"8885","phone":"087748778885"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-24 16:36:01] [IP: ::1] [User: 2/administrator] [Session: g376fbf907eaf2u1opjk913iub] [FAILED_VERIFICATION] {"registrasi_id":16,"attempted_code":"1234","correct_code":"8885","phone":"087748778885"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-24 16:36:08] [IP: ::1] [User: 2/administrator] [Session: g376fbf907eaf2u1opjk913iub] [FAILED_VERIFICATION] {"registrasi_id":16,"attempted_code":"1234","correct_code":"8885","phone":"087748778885"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-25 10:38:03] [SECURITY] [::1] SESSION_TIMEOUT_LOGOUT {"user_id":2,"username":"notaris"}
+[2026-04-27 21:58:01] [SECURITY] [::1] SESSION_TIMEOUT_LOGOUT {"user_id":2,"username":"notaris"}
+[2026-04-27 22:49:04] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-27 22:51:20] [IP: ::1] [User: guest/guest] [Session: 5simre2i9katt8ehik9031gr1q] [CSRF_VALIDATION_FAILED] {"action":"login","username":"notaris"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0
+[2026-04-28 00:22:32] [SECURITY] [::1] SESSION_FINGERPRINT_MISMATCH {"user_id":2}
+[2026-04-30 11:39:06] [IP: ::1] [User: 2/administrator] [Session: m9m924amqegapi3pfm36k75ska] [SESSION_TAMPERING_DETECTED] {"user_id":2,"expected_hash":"ee67b88ee6911b79ce5a5d616110c5edb9beca9665215531b6edcf0f4078c91d","actual_hash":"0a20a1791a4fd10e58ad6dd880ca727aa328d85b9be92775fc899feb4a510eed"} Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0

@@ -1,0 +1,6 @@
+[2026-04-21 20:41:51] POST: {"order":"[&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;17&quot;,&quot;10&quot;]","csrf_token":"384ed63191b817b8dcab261900e383794cfbd6b40afcb066d0b5d3e6e3a04006"}
+[2026-04-21 20:41:51] Raw: [&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;17&quot;,&quot;10&quot;] | Decoded: null
+[2026-04-21 20:43:00] POST: {"order":"[&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;17&quot;,&quot;10&quot;]","csrf_token":"384ed63191b817b8dcab261900e383794cfbd6b40afcb066d0b5d3e6e3a04006"}
+[2026-04-21 20:43:00] Raw: [&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;17&quot;,&quot;10&quot;] | Decoded: null
+[2026-04-21 20:43:53] POST: {"order":"[&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;17&quot;,&quot;10&quot;]","csrf_token":"384ed63191b817b8dcab261900e383794cfbd6b40afcb066d0b5d3e6e3a04006"}
+[2026-04-21 20:43:53] Raw: ["3","4","5","6","7","8","17","10"] | Decoded: ["3","4","5","6","7","8","17","10"]

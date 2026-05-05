@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # ── 1. Pass-through to public folder ──────────────────────────
+    # This keeps the root clean and handles subdirectories correctly
+    RewriteRule ^$ public/ [L]
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

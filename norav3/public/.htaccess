@@ -1,0 +1,62 @@
+# =============================================================================
+# SK-17: Hardened .htaccess — Web Root Security
+# =============================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # RewriteBase / (Commented out for XAMPP subfolder compatibility)
+
+    # ── Sitemap passthrough ──────────────────────────────────────
+    RewriteCond %{REQUEST_URI} ^/sitemap\.xml$ [NC]
+    RewriteRule ^ - [L]
+
+    # ── Static files passthrough ─────────────────────────────────
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # ── Front Controller Pattern ─────────────────────────────────
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+# ── Security Headers (SK-17) ────────────────────────────────────
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "DENY"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ── Prevent Directory Listing ───────────────────────────────────
+Options -Indexes
+
+# ── Block Sensitive Files (.env, .log, .sql, .json, .md) ───────
+<FilesMatch "\.(env|log|sql|json|md|yml|yaml)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ── Block Dot Files ─────────────────────────────────────────────
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ── Error Documents ─────────────────────────────────────────────
+# ErrorDocument 404 /index.php
+# ErrorDocument 403 /index.php
+
+# ── Image Upload Protection ─────────────────────────────────────
+<FilesMatch "\.(jpg|jpeg|png|webp)$">
+    Options -Indexes
+</FilesMatch>

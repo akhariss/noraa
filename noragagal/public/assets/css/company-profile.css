@@ -1,0 +1,25 @@
+/**
+ * Company Profile Styles (Router File)
+ * Notaris & PPAT Tracking System
+ * 
+ * This file serves as an entry point. 
+ * The actual styles are modularized in the /company-profile/ directory.
+ */
+
+/* 1. Base Reset & Animations */
+@import url("company-profile/base.css");
+
+/* 2. Layout Components */
+@import url("company-profile/navbar.css");
+@import url("company-profile/footer.css");
+
+/* 3. Page Sections */
+@import url("company-profile/hero.css");
+@import url("company-profile/layanan.css");
+@import url("company-profile/testimoni.css");
+@import url("company-profile/tentang.css");
+@import url("company-profile/cta.css");
+@import url("company-profile/tracking.css");
+
+/* 4. Responsive System (Always Last) */
+@import url("company-profile/responsive.css");

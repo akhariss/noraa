@@ -1,0 +1,173 @@
+/**
+ * Error Pages Styles
+ * Notaris & PPAT Tracking System
+ */
+
+:root {
+    --primary: #1B3A4B;
+    --primary-dark: #0F1F28;
+    --primary-light: #2D5A6B;
+    --gold: #9C7C38;
+    --gold-light: #B8964F;
+    --gold-dark: #7A5F2E;
+    --cream: #F7F4EF;
+    --white: #FFFFFF;
+    --text: #2D2D2D;
+    --text-light: #5A5A5A;
+    --text-muted: #8A8A8A;
+    --border: #E0E0E0;
+    --success: #28a745;
+    --danger: #dc3545;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.error-container {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.error-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 48px 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.error-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-icon svg {
+    width: 40px;
+    height: 40px;
+    color: var(--white);
+}
+
+.error-code {
+    font-size: 72px;
+    font-weight: 700;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.error-title {
+    font-size: 28px;
+    font-weight: 600;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--text);
+    margin-bottom: 16px;
+}
+
+.error-message {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(156, 124, 56, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.error-footer {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.error-footer p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .error-card {
+        padding: 32px 20px;
+    }
+
+    .error-code {
+        font-size: 56px;
+    }
+
+    .error-title {
+        font-size: 22px;
+    }
+
+    .error-message {
+        font-size: 14px;
+    }
+}

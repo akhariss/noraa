@@ -1,0 +1,115 @@
+/**
+ * Button System - Modular & Premium
+ * public/assets/css/buttons.css
+ */
+
+/* Base button reset */
+button, .btn, [class^="btn-"] {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    white-space: nowrap;
+    padding: 10px 20px;
+}
+
+/* Icon sizing */
+[class^="btn-"] svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* --- Variants --- */
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--gold);
+    box-shadow: 0 4px 15px rgba(27, 58, 75, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(27, 58, 75, 0.35);
+    color: var(--gold-bright);
+}
+
+.btn-secondary {
+    background: var(--cream);
+    color: var(--primary);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: var(--white);
+    border-color: var(--primary);
+}
+
+.btn-gold {
+    background: var(--gold);
+    color: var(--primary-dark);
+}
+
+.btn-gold:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(156, 124, 56, 0.3);
+}
+
+/* WhatsApp button */
+.btn-wa {
+    background: #25D366;
+    color: white;
+}
+
+.btn-wa:hover {
+    background: #128C7E;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+}
+
+/* Sizes */
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+.btn-lg { padding: 14px 28px; font-size: 16px; }
+
+/* Utility */
+.btn-block { width: 100%; }
+
+.btn-group {
+    display: inline-flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Loading state */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 600px) {
+    .btn-mobile-full { width: 100%; }
+}

@@ -1,0 +1,21 @@
+/**
+ * Dashboard Styles (Router File)
+ * Notaris & PPAT Tracking System - Office Area
+ * 
+ * This file serves as an entry point for the Admin Dashboard.
+ * The actual styles are modularized in the /dashboard/ directory.
+ */
+
+/* 1. Layout & Framework */
+@import url("dashboard/layout.css");
+
+/* 2. Core Dashboard Components */
+@import url("dashboard/stats.css");
+@import url("dashboard/components.css");
+
+/* 3. Data Management */
+@import url("dashboard/tables.css");
+@import url("dashboard/forms.css");
+
+/* 4. Responsive System (Always Last) */
+@import url("dashboard/responsive.css");
